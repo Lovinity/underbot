@@ -19,7 +19,7 @@ module.exports = {
   fn: async function (inputs) {
     sails.log.error(inputs.error);
 
-    // Send a message to the owner in DM
+    // Send a message to the owner in DM of high-level errors
     if (sails.config.custom.discord.clientOwner) {
       var owner = DiscordClient.users.resolve(sails.config.custom.discord.clientOwner);
       if (owner) {

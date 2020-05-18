@@ -33,21 +33,21 @@ module.exports = {
     var command;
     var commandParts;
 
-    // Is a command by a guild member who is not a bot
+    // Is a command by a guild member who is not a bot? If so, execute it under sails.helpers.commands.
     if (inputs.message.content.startsWith(prefix)) {
       if (inputs.message.member && inputs.message.author && !inputs.message.author.bot) {
-        commandParts = inputs.message.content.replace(prefix, '').split(" | ");
+        commandParts = inputs.message.content.replace(prefix, '').split(" | "); // Each command parameter should be separated by a " | " in the message.
         command = commandParts[ 0 ];
         sails.log.debug(`Discord: command executed: ${command}, by ${inputs.message.author.tag}`);
         if (typeof sails.helpers.commands !== 'undefined' && typeof sails.helpers.commands[ command ] !== 'undefined') {
-          commandParts[ 0 ] = inputs.message;
+          commandParts[ 0 ] = inputs.message; // The first parameter passed is always the message itself, followed by the user's specified parameters
           try {
             await sails.helpers.commands[ command ](...commandParts);
-          } catch (e) {
+          } catch (e) { // There was an error in the command
             await sails.helpers.events.error(e);
             inputs.message.reply(`:no_entry: ${e.message}`);
           }
-        } else {
+        } else { // Invalid command
           await sails.helpers.events.warn(`Discord: command ${command} does not exist.`);
           inputs.message.reply(':x: Sorry, but that command does not exist');
         }

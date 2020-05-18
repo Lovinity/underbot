@@ -28,7 +28,7 @@ class CacheManager {
     }
 
     set (model, record) {
-        // TODO: Temporary black hole for model lifecycles
+        // TODO: Temporary black hole for model lifecycles. Find a way to compare what is passed here with the cache and determine if the cache should be updated with this.
     }
 }
 
@@ -63,6 +63,7 @@ class CacheContainer {
         });
     }
 
+    // Get a cache record by its key/ID
     get (key) {
         if (this.cache.has(key)) {
             const value = this.cache.get(key);
@@ -94,7 +95,7 @@ class CacheContainer {
         if (record) {
             return record;
         } else {
-            return this.create(values, () => {
+            return this._create(values, () => {
                 return criteria;
             })
         }
@@ -107,12 +108,12 @@ class CacheContainer {
      * @param {function} criteria Function that returns a dictionary of key:value pairs either to use as a new record or to change an existing one.
      */
     set (values, criteria) {
-        // If the cache container was not yet intiialized, queue this for later when it is initialized.
+        // If the cache container was not yet initialized, queue this for later when it is initialized.
         if (!this.initialized) {
             this.queued.push([ values, criteria ]);
         } else {
 
-            // Record found? Update it.
+            // Record found? Update it. Otherwise, create it.
             var record = this.collection.find((record) => this.filterByUnique(record, values) && !isNaN(record.id));
             if (record) {
 
@@ -135,7 +136,7 @@ class CacheContainer {
                 // Update database in the background
                 sails.models[ this.model ].update({ id: record.id }, _.cloneDeep(orm)).fetch().exec(() => { });
             } else {
-                this.create(values, criteria);
+                this._create(values, criteria);
             }
         }
     }
@@ -153,12 +154,13 @@ class CacheContainer {
     }
 
     /**
-     * Create a new record in the cache and database
+     * Create a new record in the cache and database.
+     * NOTE: Not recommended to call this directly (you might end up with duplicate primary keys); use set or find instead.
      * 
      * @param {object} orm Already-resolved object of criteria
      */
-    create (values, criteria) {
-        // Create a temporary record in the cache, or update existing one
+    _create (values, criteria) {
+        // Cache first, database second. Update/create record in the cache.
         var updating = false;
         var orm = criteria();
         var key = this.generateKeyByFields(values);
@@ -166,6 +168,7 @@ class CacheContainer {
         orm.updatedAt = moment().valueOf();
 
         var tempRecord = this.collection.get(key);
+
         // Do not proceed if changes do not actually change anything
         if (tempRecord && _.isEqual(tempRecord, Object.assign(tempRecord, orm))) {
             return;
@@ -212,6 +215,13 @@ class CacheContainer {
         return this.collection.get(key);
     }
 
+    /**
+     * Filter function to filter records by the unique field values.
+     * 
+     * @param {object} record The database/cache record.
+     * @param {object} values The unique fields key:value to filter down to
+     * @returns {boolean} False if the record's values do not match the provided values, otherwise true.
+     */
     filterByUnique (record, values) {
         var match = true;
         this.uniqueFields.forEach((field, index) => {
@@ -222,6 +232,12 @@ class CacheContainer {
         return match;
     }
 
+    /**
+     * Generate a temporary key/ID for a cache entry before it gets added to the database.
+     * 
+     * @param {object} values key:value entries for the uniqueFields of the record.
+     * @returns {string} The temporary key based on the uniqueFields with an F_ prefix (to indicate it is temporary).
+     */
     generateKeyByFields (values) {
         var returnString = `F_`;
         this.uniqueFields.forEach((field, index) => {
@@ -232,6 +248,12 @@ class CacheContainer {
         return returnString;
     }
 
+    /**
+     * Generate a criteria dictionary based on unique field values.
+     * 
+     * @param {object} values key:value pairs of the fields.
+     * @returns {object} criteria
+     */
     generateCriteriaByFields (values) {
         var criteria = {};
         this.uniqueFields.forEach((field, index) => {
@@ -241,7 +263,13 @@ class CacheContainer {
     }
 }
 
-// Sync helper for developing and returning a default record when creating a new one in the database. 
+/**
+ * Construct a default new record for the cache before it gets added to the database.
+ * 
+ * @param {object} attributes Sails.js model.attributes template
+ * @param {object} defaults key:value pairs of default values to use
+ * @returns {object} The record to add to the cache
+ */
 function makeDefault (attributes, defaults = {}) {
     var temp = {};
     for (var key in attributes) {

@@ -15,7 +15,7 @@ module.exports = {
     sails.log.debug(`Discord is ready!`);
 
 
-    // Send a message to the owner in DM
+    // Send a message to the owner in DM telling them the bot was started.
     if (sails.config.custom.discord.clientOwner) {
       var owner = DiscordClient.users.resolve(sails.config.custom.discord.clientOwner);
       if (owner) {
@@ -23,7 +23,7 @@ module.exports = {
       }
     }
 
-    // Iterate through guild operations on bot startup
+    // Iterate through all cached guilds
     DiscordClient.guilds.cache.each(async (guild) => {
 
       // Kick self if the guild is black listed
@@ -40,7 +40,7 @@ module.exports = {
         if (channel.type === 'text')
           channel.messages.fetch();
       });
-      
+
     });
   }
 

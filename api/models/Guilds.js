@@ -5,6 +5,8 @@
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
+// API note: This model should be used with the CacheManager. Do not use sails.js create, find, update, or destroy. Use the cache instead.
+
 module.exports = {
 
   attributes: {
