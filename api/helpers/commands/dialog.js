@@ -81,9 +81,6 @@ module.exports = {
     }
     ctx.fillText(lines, 96, 20);
 
-    // Delete original message
-    await inputs.message.delete();
-
     // Return with attachment message
     return inputs.message.send(``, {files: [{attachment: canvas.toBuffer(), name: 'UndertaleDialog.png'}]});
   }
