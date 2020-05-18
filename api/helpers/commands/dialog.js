@@ -27,7 +27,7 @@ module.exports = {
       type: 'string',
       required: true,
       description: 'The text to put in the dialog.',
-      maxLength: 256
+      maxLength: 240
     }
   },
 
@@ -46,15 +46,15 @@ module.exports = {
     }
 
     // Register character font
-    registerFont(`./assets/fonts/${character.font}.otf`, { family: character.font });
+    registerFont(`./assets/fonts/${character.font}.ttf`, { family: character.font });
 
     // Create a new canvas
-    var canvas = createCanvas(400, 100);
+    var canvas = createCanvas(400, 128);
     var ctx = canvas.getContext('2d');
 
     // Load the dialog background image
     var imageBg = await loadImage(`./assets/images/Characters/base/dialog.png`);
-    ctx.drawImage(imageBg, 0, 0, 400, 100);
+    ctx.drawImage(imageBg, 0, 0, 400, 128);
 
     // Load the character sprite
     var imageSprite = await loadImage(`./assets/images/Characters/sprites/${sanitize(character.sprite)}`);
@@ -67,12 +67,18 @@ module.exports = {
       width = width * (75 / height);
       height = 75;
     }
-    ctx.drawImage(imageSprite, 12 + (width - 75), 12 + (height - 75), width, height);
+    ctx.drawImage(imageSprite, 12 + (width - 75 < 0 ? 0 : width - 75), 26 + (height - 75 < 0 ? 0 : height - 75), width, height);
 
     // Add text
-    var lines = wrapText(ctx, inputs.text, 296);
     ctx.font = `16px ${character.font}`;
     ctx.fillStyle = '#FFFFFF';
+    ctx.save();
+    var lines = wrapText(ctx, inputs.text, 296);
+    if (typeof lines.split === 'function' && lines.split("\n").length > 4) {
+      ctx.font = `12px ${character.font}`;
+      ctx.save();
+      lines = wrapText(ctx, inputs.text, 296);
+    }
     ctx.fillText(lines, 96, 20);
 
     // Return with attachment message
@@ -120,5 +126,5 @@ function wrapText (ctx, text, maxWidth) {
     }
   }
 
-  return lines;
+  return lines.join("\n");
 }

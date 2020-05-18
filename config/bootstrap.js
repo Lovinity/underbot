@@ -136,8 +136,4 @@ module.exports.bootstrap = async function () {
   // Start the Discord bot
   DiscordClient.login(sails.config.custom.discord.token);
 
-  Caches.get('characters').set([ '711701998508179568' ], () => {
-    return { uid: 'sans', guildID: '711701998508179568', name: 'sans', sprite: 'sans.png', font: 'determination' }
-  })
-
 };

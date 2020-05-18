@@ -29,7 +29,7 @@
     "lint": "./node_modules/eslint/bin/eslint.js . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
     "custom-tests": "echo \"(No other custom tests yet.)\" && echo"
   },
-  "main": "app.js",
+  "main": "underbot.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/anonymous node/sails user/underbot.git"
