@@ -135,5 +135,4 @@ module.exports.bootstrap = async function () {
 
   // Start the Discord bot
   DiscordClient.login(sails.config.custom.discord.token);
-
 };
