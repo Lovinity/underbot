@@ -31,8 +31,8 @@ module.exports = {
 
     sprite: {
       type: 'string',
-      required: true,
-      description: 'image name of the character sprite'
+      description: 'image name of the character sprite',
+      defaultsTo: 'default.png'
     },
 
     font: {

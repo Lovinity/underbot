@@ -58,7 +58,7 @@ class CacheContainer {
             });
             this.initialized = true;
             this.queued.forEach((queued) => {
-                this.query(queued[ 0 ], queued[ 1 ]);
+                this.set(queued[ 0 ], queued[ 1 ]);
             });
         });
     }

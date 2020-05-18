@@ -9,7 +9,7 @@
  * https://sailsjs.com/config/bootstrap
  */
 
- // Load discord
+// Load discord
 global[ 'Discord' ] = require('discord.js');
 
 // Load cache manager class
@@ -52,6 +52,54 @@ module.exports.bootstrap = async function () {
     return CoolGuild;
   });
 
+  // Messages
+  Discord.Structures.extend('Message', Message => {
+    class CoolMessage extends Message {
+      constructor(client, data, channel) {
+        super(client, data, channel);
+
+        this._responses = [];
+      }
+
+      // Taken from Klasa.js
+      get responses () {
+        return this._responses.filter(msg => !msg.deleted);
+      }
+
+      // Taken from Klasa.js
+      async send (content, options) {
+        const combinedOptions = Discord.APIMessage.transformOptions(content, options);
+
+        if ('files' in combinedOptions) return this.channel.send(combinedOptions);
+
+        const newMessages = new Discord.APIMessage(this.channel, combinedOptions).resolveData().split()
+          .map(mes => {
+            // Command editing should always remove embeds and content if none is provided
+            mes.data.embed = mes.data.embed || null;
+            mes.data.content = mes.data.content || null;
+            return mes;
+          });
+
+        const { responses } = this;
+        const promises = [];
+        const max = Math.max(newMessages.length, responses.length);
+
+        for (let i = 0; i < max; i++) {
+          if (i >= newMessages.length) responses[ i ].delete();
+          else if (responses.length > i) promises.push(responses[ i ].edit(newMessages[ i ]));
+          else promises.push(this.channel.send(newMessages[ i ]));
+        }
+
+        const newResponses = await Promise.all(promises);
+
+        return newResponses.length === 1 ? newResponses[ 0 ] : newResponses;
+      }
+
+    }
+
+    return CoolMessage;
+  });
+
 
 
   /*
@@ -87,5 +135,9 @@ module.exports.bootstrap = async function () {
 
   // Start the Discord bot
   DiscordClient.login(sails.config.custom.discord.token);
+
+  Caches.get('characters').set([ '711701998508179568' ], () => {
+    return { uid: 'sans', guildID: '711701998508179568', name: 'sans', sprite: 'sans.png', font: 'determination' }
+  })
 
 };
