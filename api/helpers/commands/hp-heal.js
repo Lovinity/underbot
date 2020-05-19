@@ -20,6 +20,7 @@ module.exports = {
     },
     HP: {
       type: 'number',
+      required: true,
       min: 0,
       description: 'Amount of HP damage to heal on the character.'
     }

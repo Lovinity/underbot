@@ -20,6 +20,7 @@ module.exports = {
     },
     HP: {
       type: 'number',
+      required: true,
       min: 0,
       description: 'HP value to set to the character.'
     }
