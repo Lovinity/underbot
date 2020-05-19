@@ -6,7 +6,7 @@ const sanitize = require("sanitize-filename");
 module.exports = {
 
 
-  friendlyName: 'commands.newCharacter',
+  friendlyName: 'commands.cNew',
 
 
   description: 'Create a new character in the system.',
