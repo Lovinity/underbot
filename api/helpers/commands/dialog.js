@@ -9,7 +9,7 @@ module.exports = {
   friendlyName: 'commands.dialog',
 
 
-  description: 'Undertale dialog generator.',
+  description: 'Generate an undertale-style dialog image.',
 
 
   inputs: {

@@ -9,14 +9,14 @@ module.exports = {
   friendlyName: 'commands.cNew',
 
 
-  description: 'Create a new character in the system.',
+  description: 'Add a new character into the database.',
 
 
   inputs: {
     message: {
       type: 'ref',
       required: true,
-      description: 'The message that triggered the command'
+      description: 'Starts a wizard to add a new character into the database.'
     },
   },
 
