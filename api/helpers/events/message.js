@@ -36,7 +36,9 @@ module.exports = {
     // Is a command by a guild member who is not a bot? If so, execute it under sails.helpers.commands.
     if (inputs.message.content.startsWith(prefix)) {
       if (inputs.message.member && inputs.message.author && !inputs.message.author.bot) {
-        commandParts = inputs.message.content.replace(prefix, '').split(" | "); // Each command parameter should be separated by a " | " in the message.
+        // Each command parameter should be separated by a " | " or a double/triple space in the message.
+        // Note: We use double or triple space separation because a Discord mention auto-adds a space at the end, so it's possible the user will add 2 more spaces.
+        commandParts = inputs.message.content.replace(prefix, '').split(/(\s{2,3})|(\s\|\s)+/g);
         command = commandParts[ 0 ];
         sails.log.debug(`Discord: command executed: ${command}, by ${inputs.message.author.tag}`);
         if (typeof sails.helpers.commands !== 'undefined' && typeof sails.helpers.commands[ command ] !== 'undefined') {
