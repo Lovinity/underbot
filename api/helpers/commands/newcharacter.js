@@ -95,7 +95,7 @@ module.exports = {
     try {
       await download.image({
         url: photourl,
-        dest: `./assets/images/characters/photos/${uid}${path.extname(photourl)}`,
+        dest: `./assets/images/Characters/photos/${uid}${path.extname(photourl)}`,
         extractFilename: false
       });
       await photo.delete();
@@ -117,7 +117,7 @@ module.exports = {
     try {
       await download.image({
         url: spriteurl,
-        dest: `./assets/images/characters/sprites/${uid}${path.extname(spriteurl)}`,
+        dest: `./assets/images/Characters/sprites/${uid}${path.extname(spriteurl)}`,
         extractFilename: false
       });
       await sprite.delete();
