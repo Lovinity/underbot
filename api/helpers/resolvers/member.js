@@ -23,7 +23,7 @@ module.exports = {
     const member = sails.config.custom.discord.regex.userOrMember.test(inputs.mention) ? await inputs.message.guild.members.fetch(sails.config.custom.discord.regex.userOrMember.exec(inputs.mention)[1]).catch(() => null) : null;
 		if (member) return member;
     
-    throw `Invalid member: ${inputs.mention}. Remember members must exist in the guild.`;
+    throw new Error(`Invalid member: ${inputs.mention}. Remember, members must exist in the guild.`);
   }
 
 

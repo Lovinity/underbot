@@ -23,7 +23,7 @@ module.exports = {
     const role = sails.config.custom.discord.regex.role.test(inputs.mention) ? await inputs.message.guild.roles.fetch(sails.config.custom.discord.regex.role.exec(inputs.mention)[1]) : null;
 		if (role) return role;
     
-    throw `Invalid role: ${inputs.mention}. Remember bot can only resolve roles from the same guild.`
+    throw new Error(`Invalid role: ${inputs.mention}. Remember, bot can only resolve roles from the same guild.`);
   }
 
 

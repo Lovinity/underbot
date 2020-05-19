@@ -24,7 +24,7 @@ module.exports = {
 		const user = sails.config.custom.discord.regex.userOrMember.test(inputs.mention) ? await DiscordClient.users.fetch(sails.config.custom.discord.regex.userOrMember.exec(inputs.mention)[1]).catch(() => null) : null;
     if (user) return user.createDM();
     
-		throw `Invalid channel: ${inputs.mention}`;
+    throw new Error(`Invalid channel: ${inputs.mention}`);
   }
 
 

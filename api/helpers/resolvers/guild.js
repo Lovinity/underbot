@@ -19,7 +19,7 @@ module.exports = {
     const guild = sails.config.custom.discord.regex.snowflake.test(inputs.snowflake) ? DiscordClient.guilds.resolve(inputs.snowflake) : null;
     if (guild) return guild;
     
-    throw `Invalid guild: ${inputs.snowflake}`;
+    throw new Error(`Invalid guild: ${inputs.snowflake}`);
   }
 
 

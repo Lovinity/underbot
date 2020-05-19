@@ -49,7 +49,7 @@ module.exports = {
 
     switch (querySearch.length) {
       case 0:
-        throw `:x: Sorry, I could not find any users matching the criteria provided for ${inputs.username}. Please make sure you provided a valid username, nickname, mention, or id.`;
+        throw new Error(`Sorry, I could not find any users matching the criteria provided for ${inputs.username}. Please make sure you provided a valid username, nickname, mention, or id.`);
       case 1:
         return querySearch[ 0 ];
       default:

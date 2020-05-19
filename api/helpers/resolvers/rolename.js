@@ -23,7 +23,7 @@ module.exports = {
     var regExpEsc = (str) => str.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 
     if (!inputs.message.guild)
-      throw `Invalid: rolename arguments cannot be used outside of a guild.`;
+      throw new Error(`Invalid: rolename arguments cannot be used outside of a guild.`);
     const resRole = resolveRole(inputs.roleName, inputs.message.guild);
     if (resRole)
       return resRole;
@@ -46,7 +46,7 @@ module.exports = {
 
     switch (querySearch.length) {
       case 0:
-        throw `${possible.name} Must be a valid name, id or role mention`;
+        throw new Error(`Sorry, I could not find any roles that matched ${possible.name}.`);
       case 1:
         return querySearch[ 0 ];
       default:
