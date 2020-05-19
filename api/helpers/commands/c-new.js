@@ -71,8 +71,8 @@ module.exports = {
     name = name.cleanContent.toLowerCase();
 
     // Check if the name already exists
-    if (inputs.message.guild.characters.find((char) => char.name === name)) {
-      new Error(`A character with the provided name already exists. If you are trying to edit a character, please use the editcharacter command.`)
+    if (inputs.message.guild.characters.find((char) => char.name.toLowerCase() === name)) {
+      throw new Error(`A character with the provided name already exists. If you are trying to edit a character, please use the editcharacter command.`)
     }
 
     // Prompt for nicknames
@@ -202,33 +202,39 @@ module.exports = {
     if (extraInfo.toLowerCase() === 'none')
       extraInfo = ''
 
+    var obj = {
+      uid: uid,
+      guildID: inputs.message.guild.id,
+      userID: owner.id,
+      name: name,
+      photo: photo,
+      sprite: sprite,
+      nicknames: nicknames,
+      pronouns: pronouns,
+      age: age,
+      height: height,
+      appearance, appearance,
+      personality: personality,
+      soulType: soulType,
+      HP: maxHP !== 0 ? maxHP : 20,
+      maxHP: maxHP,
+      EXP: EXP,
+      ATK: ATK,
+      DEF: DEF,
+      weapons: weapons,
+      armor: armor,
+      likes: likes,
+      dislikes: dislikes,
+      extraInfo: extraInfo
+    }
+
+    var maxHP = await sails.helpers.characters.calculateMaxHp(obj)
+    obj.HP = maxHP;
+    obj.maxHP = maxHP;
+
     // Create or update the database record
     Caches.get('characters').set([ uid ], () => {
-      return {
-        uid: uid,
-        guildID: inputs.message.guild.id,
-        userID: owner.id,
-        name: name,
-        photo: photo,
-        sprite: sprite,
-        nicknames: nicknames,
-        pronouns: pronouns,
-        age: age,
-        height: height,
-        appearance, appearance,
-        personality: personality,
-        soulType: soulType,
-        HP: maxHP !== 0 ? maxHP : 20, // TODO: generate based on EXP
-        maxHP: maxHP,
-        EXP: EXP,
-        ATK: ATK,
-        DEF: DEF,
-        weapons: weapons,
-        armor: armor,
-        likes: likes,
-        dislikes: dislikes,
-        extraInfo: extraInfo
-      }
+      return obj;
     });
 
     // Return a message
