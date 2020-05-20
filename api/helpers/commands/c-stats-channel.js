@@ -4,7 +4,7 @@ module.exports = {
   friendlyName: 'commands.cStatsChannel',
 
 
-  description: 'Execute this command in the text channel you want the bot to post and manage real-time stats for each character in the database.',
+  description: 'Execute this command in the text channel you want the bot to post and manage real-time stats for each character in the database. (staff-only command)',
 
 
   inputs: {

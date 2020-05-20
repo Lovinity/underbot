@@ -9,7 +9,7 @@ module.exports = {
   friendlyName: 'commands.cNew',
 
 
-  description: 'Add a new character into the database.',
+  description: 'Add a new character into the database. (Staff-only command)',
 
 
   inputs: {
@@ -72,7 +72,7 @@ module.exports = {
 
     // Check if the name already exists
     if (inputs.message.guild.characters.find((char) => char.name.toLowerCase() === name)) {
-      throw new Error(`A character with the provided name already exists. If you are trying to edit a character, please use the editcharacter command.`)
+      throw new Error(`A character with the provided name already exists. If you are trying to edit a character, please use the cEdit command.`)
     }
 
     // Prompt for nicknames
@@ -92,38 +92,45 @@ module.exports = {
     }
 
     // Download the image locally
-    try {
-      await download.image({
-        url: photourl,
-        dest: `./assets/images/Characters/photos/${uid}${path.extname(photourl)}`,
-        extractFilename: false
-      });
-      await photo.delete();
-      photo = `${uid}${path.extname(photourl)}`
-    } catch (e) {
-      throw new Error(`Unable to download the provided image`);
+    if (photourl.toLowerCase() === 'none') {
+      photo = 'default.png'
+    } else {
+      try {
+        await download.image({
+          url: photourl,
+          dest: `./assets/images/Characters/photos/${uid}${path.extname(photourl)}`,
+          extractFilename: false
+        });
+        await photo.delete();
+        photo = `${uid}${path.extname(photourl)}`
+      } catch (e) {
+        throw new Error(`Unable to download the provided image`);
+      }
     }
 
     // Prompt for a sprite
-    var sprite = await prompt(`Ooh, what a good looking character! Now, provide a sprite image to be used with the dialog command. The sprite should look 8-bit / pixelized, ideally back-and-white, look good against a black background, and have a transparent background (unless it's black), or it might not look good on the dialog. (timeout: 3 minutes)`, 180000, false, (message) => message.author.id === inputs.message.author.id && (message.attachments.size > 0 || /(https?:\/\/[^\s]+)/g.test(message.content || message.content.cleanContent.toLowerCase() === 'none')));
+    var sprite = await prompt(`Ooh, what a good looking character! Now, provide a sprite image as an attachment or a URL to be used with the dialog command. The sprite should look 8-bit / pixelized, ideally back-and-white, look good against a black background, and have a transparent background (unless it's black), or it might not look good on the dialog. (timeout: 3 minutes)`, 180000, false, (message) => message.author.id === inputs.message.author.id && (message.attachments.size > 0 || /(https?:\/\/[^\s]+)/g.test(message.content || message.content.cleanContent.toLowerCase() === 'none')));
     if (sprite.attachments.size > 0) {
       var spriteurl = sprite.attachments.first().url;
     } else {
-      await sails.helpers.events.error(e);
       var spriteurl = sprite.cleanContent;
     }
 
     // Download the image locally
-    try {
-      await download.image({
-        url: spriteurl,
-        dest: `./assets/images/Characters/sprites/${uid}${path.extname(spriteurl)}`,
-        extractFilename: false
-      });
-      await sprite.delete();
-      sprite = `${uid}${path.extname(spriteurl)}`
-    } catch (e) {
-      throw new Error(`Unable to download the provided image`);
+    if (spriteurl.toLowerCase() === 'none') {
+      sprite = 'default.png'
+    } else {
+      try {
+        await download.image({
+          url: spriteurl,
+          dest: `./assets/images/Characters/sprites/${uid}${path.extname(spriteurl)}`,
+          extractFilename: false
+        });
+        await sprite.delete();
+        sprite = `${uid}${path.extname(spriteurl)}`
+      } catch (e) {
+        throw new Error(`Unable to download the provided image`);
+      }
     }
 
     // Prompt for pronouns
@@ -184,6 +191,10 @@ module.exports = {
     var DEF = await prompt(`What is this character's DEF? You should also provide in parenthesis how much of an effect, in HP, the character's DEF has. For example: "10 (2)" (timeout: 2 minutes)`, 120000);
     DEF = DEF.cleanContent;
 
+    // Prompt for gold
+    var gold = await prompt(`How much G (gold) does this character have? (Must be a number, eg 20) (timeout: 2 minutes)`, 120000);
+    gold = gold.cleanContent;
+
     // Prompt for weapons
     var weapons = await prompt(`Describe the weapon(s) this character uses (or "none" for no weapons). You should put each weapon on a new line with a * or a -. You should also explain how each weapon works, and what effects they have in game play. (timeout: 10 minutes)`, 600000);
     weapons = weapons.cleanContent;
@@ -191,7 +202,7 @@ module.exports = {
       weapons = ''
 
     // Prompt for armor
-    var armor = await prompt(`Describe the armor this character uses (or "none" for no weapons). You should put each armor on a new line with a * or a -. You should also explain how each armor works, and what effects they have in game play. (timeout: 10 minutes)`, 600000);
+    var armor = await prompt(`Describe the armor this character uses (or "none" for no armor). You should put each armor on a new line with a * or a -. You should also explain how each armor works, and what effects they have in game play. (timeout: 10 minutes)`, 600000);
     armor = armor.cleanContent;
     if (armor.toLowerCase() === 'none')
       armor = ''
@@ -221,6 +232,7 @@ module.exports = {
       EXP: EXP,
       ATK: ATK,
       DEF: DEF,
+      gold: gold,
       weapons: weapons,
       armor: armor,
       likes: likes,
