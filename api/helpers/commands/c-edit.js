@@ -219,7 +219,7 @@ module.exports = {
         break;
       case 'def':
         var DEF = await prompt(`What is this character's new DEF? You should also provide in parenthesis how much of an effect, in HP, the character's DEF has. For example: "10 (2)" (timeout: 2 minutes)`, 120000);
-        DEF = DEF.cleanContent;
+        toUpdate.DEF = DEF.cleanContent;
         break;
       case 'gold':
         var gold = await prompt(`How much G (gold) does this character have? (Must be a number, eg 20) (timeout: 2 minutes)`, 120000);
