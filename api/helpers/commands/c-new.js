@@ -131,8 +131,8 @@ module.exports = {
     pronouns = pronouns.cleanContent;
 
     // Prompt for age
-    var age = await prompt(`Sweet! How old is this character, in years? (timeout: 2 minutes)`, 120000);
-    age = parseInt(age.cleanContent);
+    var age = await prompt(`Sweet! How old is this character? (timeout: 2 minutes)`, 120000);
+    age = age.cleanContent;
 
     // Prompt for height
     var height = await prompt(`They say age is your real-life level. How tall is this character? (timeout: 2 minutes)`, 120000);
@@ -169,11 +169,11 @@ module.exports = {
       soulType = ''
 
     // Prompt for max HP
-    var maxHP = await prompt(`oooh! If this character has a static max HP that does not change, provide it here. Or, type 0 if this character's static HP should depend on their LVL (standard human Undertale EXP system). (timeout: 2 minutes)`, 120000);
+    var maxHP = await prompt(`oooh! If this character has a static max HP that does not change, provide it here. Or, type 0 if this character's static HP should depend on their LVL (standard human Undertale EXP system). (Must be a number, eg 20) (timeout: 2 minutes)`, 120000);
     maxHP = parseInt(maxHP.cleanContent);
 
     // Prompt for EXP
-    var EXP = await prompt(`Specify this character's starting EXP. (timeout: 2 minutes)`, 120000);
+    var EXP = await prompt(`Specify this character's starting EXP. (Must be a number, eg 20) (timeout: 2 minutes)`, 120000);
     EXP = parseInt(EXP.cleanContent);
 
     // Prompt for ATK

@@ -24,6 +24,12 @@ module.exports = {
       description: 'Change the bot prefix on a per-guild bases by specifying a new prefix.'
     },
 
+    characterStatsChannel: {
+      type: 'string',
+      allowNull: true,
+      description: 'The channel ID containing character stats, auto updated by the bot as it changes'
+    }
+
   },
 
   // Websockets and cache standards

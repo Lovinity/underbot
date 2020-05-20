@@ -5,7 +5,7 @@
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
- // API note: This model should be used with the CacheManager. Do not use sails.js create, find, update, or destroy. Use the cache instead.
+// API note: This model should be used with the CacheManager. Do not use sails.js create, find, update, or destroy. Use the cache instead.
 
 module.exports = {
 
@@ -16,7 +16,7 @@ module.exports = {
       unique: true,
       required: true
     },
-    
+
     guildID: {
       type: 'string',
       required: true
@@ -65,9 +65,9 @@ module.exports = {
     },
 
     age: {
-      type: 'number',
-      defaultsTo: 0,
-      description: 'Character age, in years'
+      type: 'string',
+      defaultsTo: 'Unknown',
+      description: 'Character age'
     },
 
     height: {
@@ -123,6 +123,18 @@ module.exports = {
       description: 'The character defense.'
     },
 
+    gold: {
+      type: 'number',
+      defaultsTo: 0,
+      description: 'How much G (gold) the character currently has'
+    },
+
+    items: {
+      type: 'json',
+      defaultsTo: [],
+      description: 'An array of items the character has. {name, description}'
+    },
+
     weapons: {
       type: 'string',
       defaultsTo: '',
@@ -156,7 +168,7 @@ module.exports = {
     tallyMessage: {
       type: 'string',
       allowNull: true,
-      description: 'The channelID.messageID containing the character stats, which is updated by commands.'
+      description: 'The message ID containing the character stats, which is updated by commands, and is posted in the guild characterStatsChannel.'
     }
   },
 
@@ -166,6 +178,21 @@ module.exports = {
     sails.sockets.broadcast('characters', 'characters', data)
     Caches.set('characters', newlyCreatedRecord);
 
+    // New stats message if characterStatsChannel exists
+    var temp = (async (character) => {
+      var guild = await DiscordClient.guilds.resolve(character.guildID);
+      if (guild && guild.settings.characterStatsChannel) {
+        var channel = await DiscordClient.channels.resolve(guild.settings.characterStatsChannel);
+        if (channel) {
+          var embed = await sails.helpers.characters.generateStatsEmbed(character);
+          var message = await channel.send({ embed: embed });
+          Caches.get('characters').set([ character.uid ], () => {
+            return { tallyMessage: message.id }
+          });
+        }
+      }
+    })(newlyCreatedRecord)
+
     return proceed()
   },
 
@@ -174,6 +201,21 @@ module.exports = {
     sails.sockets.broadcast('characters', 'characters', data)
     Caches.set('characters', updatedRecord);
 
+    // Update stats message if it exists
+    var temp = (async (character) => {
+      var guild = await DiscordClient.guilds.resolve(character.guildID);
+      if (guild && guild.settings.characterStatsChannel) {
+        var channel = await DiscordClient.channels.resolve(guild.settings.characterStatsChannel);
+        if (channel && character.tallyMessage) {
+          var message = await channel.messages.fetch(character.tallyMessage);
+          if (message) {
+            var embed = await sails.helpers.characters.generateStatsEmbed(character);
+            await message.edit({ embed: embed });
+          }
+        }
+      }
+    })(updatedRecord)
+
     return proceed()
   },
 
@@ -181,6 +223,20 @@ module.exports = {
     var data = { remove: destroyedRecord.id }
     sails.sockets.broadcast('characters', 'characters', data)
     Caches.del('characters', destroyedRecord);
+
+    // delete stats message if it exists
+    var temp = (async (character) => {
+      var guild = await DiscordClient.guilds.resolve(character.guildID);
+      if (guild && guild.settings.characterStatsChannel) {
+        var channel = await DiscordClient.channels.resolve(guild.settings.characterStatsChannel);
+        if (channel && character.tallyMessage) {
+          var message = await channel.messages.fetch(character.tallyMessage);
+          if (message) {
+            await message.delete();
+          }
+        }
+      }
+    })(destroyedRecord)
 
     return proceed()
   }
