@@ -28,6 +28,12 @@ module.exports = {
       type: 'string',
       allowNull: true,
       description: 'The channel ID containing character stats, auto updated by the bot as it changes'
+    },
+
+    characterDeletionChannel: {
+      type: 'string',
+      allowNull: true,
+      description: 'The channel ID where the bot should post when a character has been deleted.'
     }
 
   },

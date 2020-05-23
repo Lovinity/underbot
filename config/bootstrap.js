@@ -16,6 +16,9 @@ global[ 'Discord' ] = require('discord.js');
 var CacheManager = require('../util/Cache');
 global[ 'Caches' ] = new CacheManager();
 
+// Schedules cache
+global[ 'Schedules' ] = {};
+
 // Load moment model for date/time manipulation and processing
 global[ 'moment' ] = require('moment');
 require('moment-duration-format');
@@ -135,4 +138,18 @@ module.exports.bootstrap = async function () {
 
   // Start the Discord bot
   DiscordClient.login(sails.config.custom.discord.token);
+
+
+
+  /*
+      INITIALIZE SCHEDULES
+  */
+
+  // Initialize cron schedules
+  await sails.models.schedules.findOrCreate({ uid: 'SYS-MINUTELY' }, { uid: 'SYS-MINUTELY', task: 'sysMinutely', cron: '* * * * *' });
+  var records = await sails.models.schedules.find();
+  records.forEach(async (record) => {
+    Schedules[ record.id ] = await sails.helpers.schedules.add(record);
+  });
+
 };

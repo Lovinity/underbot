@@ -71,17 +71,27 @@ module.exports = {
     name = name.cleanContent.toLowerCase();
 
     // Check if the name already exists
-    if (inputs.message.guild.characters.find((char) => char.name.toLowerCase() === name)) {
-      throw new Error(`A character with the provided name already exists. If you are trying to edit a character, please use the cEdit command.`)
+    var prevCharacter = inputs.message.guild.characters.find((char) => char.name.toLowerCase() === name);
+    if (prevCharacter) {
+      uid = prevCharacter.uid;
+      await prompt(`:warning: A character with that name already exists. If you proceed, you will be overwriting the character sheet. Type/send "cancel" to exit, or send anything else to proceed. (timeout: 2 minutes)`, 120000);
     }
 
     // Prompt for nicknames
     var nicknames = await prompt(`Killer name! What other (nick) names does this character get called? (timeout: 2 minutes)`, 120000);
     nicknames = nicknames.cleanContent;
 
+    // Prompt for OC status
+    var OC = await prompt(`Aww, those are cute! If this character is a canon Undertale character (can be re-claimed by someone else when/if the owner leaves the guild and does not come back for 24 hours), type "yes". Otherwise (character will be deleted if the owner leaves the guild and does not come back for 24 hours), type "no". (timeout: 2 minutes)`, 120000);
+    OC = OC.cleanContent.toLowerCase() === 'yes' || OC.cleanContent.toLowerCase() === 'y';
+
     // Prompt for the member who owns this character
-    var owner = await prompt(`Haha, those are cute! Now, Please provide the username, snowflake ID, or mention of the member who owns this character. (timeout: 2 minutes)`, 120000);
-    owner = await sails.helpers.resolvers.username(inputs.message, owner.content);
+    var owner = await prompt(`Alrighty! Now, Please provide the username, snowflake ID, or mention of the member who owns / has claim over this character. Or, type "none" if this character is not claimed yet. (timeout: 2 minutes)`, 120000);
+    if (owner.cleanContent.toLowerCase() === 'none') {
+      owner = null;
+    } else {
+      owner = await sails.helpers.resolvers.username(inputs.message, owner.content);
+    }
 
     // Prompt for a photo
     var photo = await prompt(`Awesome! Next, if there is a good photo of this character, please send a message with that photo attached or a URL to the photo. Or, send "none" to not specify a photo. (timeout: 3 minutes)`, 180000, false, (message) => message.author.id === inputs.message.author.id && (message.attachments.size > 0 || /(https?:\/\/[^\s]+)/g.test(message.content || message.content.cleanContent.toLowerCase() === 'none')));
@@ -217,6 +227,7 @@ module.exports = {
       uid: uid,
       guildID: inputs.message.guild.id,
       userID: owner.id,
+      OC: OC,
       name: name,
       photo: photo,
       sprite: sprite,

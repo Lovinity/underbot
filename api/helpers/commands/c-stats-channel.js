@@ -35,7 +35,11 @@ module.exports = {
       var channel = await inputs.message.guild.channels.resolve(inputs.message.guild.settings.characterStatsChannel);
       if (channel) {
         var maps = inputs.message.guild.characters.map(async (character) => {
+          try {
           var message = await channel.messages.fetch(character.tallyMessage);
+          } catch (e) {
+            // Absorb message fetch errors
+          }
           if (message) {
             await message.delete();
           }

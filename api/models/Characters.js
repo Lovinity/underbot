@@ -24,8 +24,14 @@ module.exports = {
 
     userID: {
       type: 'string',
-      required: true,
-      description: 'User who owns this character.'
+      allowNull: true,
+      description: 'User who owns this character. Null if the character is not claimed yet.'
+    },
+
+    OC: {
+      type: 'boolean',
+      defaultsTo: false,
+      description: 'Is this character an OC? If true, this character will be deleted 24 hours after the owner leaves the guild. If false, the character will simply have its userID erased.'
     },
 
     name: {
