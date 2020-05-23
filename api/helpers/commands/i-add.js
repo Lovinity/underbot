@@ -49,11 +49,11 @@ module.exports = {
     }
 
     // Add the item to the repository
-    var newInventory = character.items.push(inputs.item);
+    character.items.push(inputs.item);
 
     // Save to the database and cache
     Caches.get('characters').set([ character.uid ], () => {
-      return { items: newInventory }
+      return { items: character.items }
     })
 
     // Return message
