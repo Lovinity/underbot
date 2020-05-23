@@ -61,6 +61,7 @@ module.exports = {
     character.items = character.items.filter((i) => {
       if (i.name === inputs.name && !deleted) {
         deleted = true;
+        item = i;
         return false;
       }
       return true;
@@ -72,7 +73,7 @@ module.exports = {
     })
 
     // Return message
-    return inputs.message.send(`**${character.name} has consumed / lost / removed an item!**: ${inputs.name}: ${inputs.description}`);
+    return inputs.message.send(`**${character.name} has consumed / lost / removed an item!**: ${item.name}: ${item.description}`);
   }
 
 
