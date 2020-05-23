@@ -54,7 +54,7 @@ module.exports = {
     }
 
     // Add the item to the repository
-    character.items.push({ name: inputs.name, description: inputs.description });
+    character.items.push({ name: inputs.name.toLowerCase(), description: inputs.description });
 
     // Save to the database and cache
     Caches.get('characters').set([ character.uid ], () => {
@@ -62,7 +62,7 @@ module.exports = {
     })
 
     // Return message
-    return inputs.message.send(`**${character.name} has a [new] item!**: ${inputs.name}: ${inputs.description}`);
+    return inputs.message.send(`**${character.name} has a [new] item!**: ${inputs.name.toLowerCase()}: ${inputs.description}`);
   }
 
 

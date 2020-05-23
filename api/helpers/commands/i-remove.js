@@ -49,7 +49,7 @@ module.exports = {
     }
 
     // Find one instance of the item
-    var item = character.items.find((i) => i.name === inputs.name);
+    var item = character.items.find((i) => i.name.toLowerCase() === inputs.name.toLowerCase());
 
     // Exit if the item does not exist
     if (!item) {
@@ -59,7 +59,7 @@ module.exports = {
     // Remove only one of the items
     var deleted = false;
     character.items = character.items.filter((i) => {
-      if (i.name === inputs.name && !deleted) {
+      if (i.name.toLowerCase() === inputs.name.toLowerCase() && !deleted) {
         deleted = true;
         item = i;
         return false;
