@@ -1,10 +1,10 @@
 module.exports = {
 
 
-  friendlyName: 'I add',
+  friendlyName: 'commands.iRemove',
 
 
-  description: 'Add/equip an item to a character inventory',
+  description: 'Remove an item from a character',
 
 
   inputs: {
@@ -16,17 +16,12 @@ module.exports = {
     character: {
       type: 'string',
       required: true,
-      description: 'The name of the character in the database to add an item.'
+      description: 'The name of the character in the database to remove an item from.'
     },
     name: {
       type: 'string',
       required: true,
-      description: 'Name of the item. You can add multiple items with the same name (say, if the character has more than one of the same item)'
-    },
-    description: {
-      type: 'string',
-      required: true,
-      description: 'Description of the item, such as how it affects game play'
+      description: 'Name of the item to remove. If multiple items exist with the same name, only one of them will be removed.'
     },
   },
 
@@ -53,16 +48,31 @@ module.exports = {
       throw new Error(`That character was not found in the database.`)
     }
 
-    // Add the item to the repository
-    character.items.push({ name: inputs.name, description: inputs.description });
+    // Find one instance of the item
+    var item = character.items.find((i) => i.name === inputs.name);
 
-    // Save to the database and cache
+    // Exit if the item does not exist
+    if (!item) {
+      throw new Error(`That character does not have an item by the specified name.`)
+    }
+
+    // Remove only one of the items
+    var deleted = false;
+    character.items = character.items.filter((i) => {
+      if (i.name === inputs.name && !deleted) {
+        deleted = true;
+        return false;
+      }
+      return true;
+    })
+
+    // Save to cache / database
     Caches.get('characters').set([ character.uid ], () => {
       return { items: character.items }
     })
 
     // Return message
-    return inputs.message.send(`**${character.name} has a [new] item!**: ${inputs.name}: ${inputs.description}`);
+    return inputs.message.send(`**${character.name} has consumed / lost / removed an item!**: ${inputs.name}: ${inputs.description}`);
   }
 
 
