@@ -18,11 +18,16 @@ module.exports = {
       required: true,
       description: 'The name of the character in the database to add an item.'
     },
-    item: {
+    name: {
       type: 'string',
       required: true,
-      description: 'The item to add (may want to include any descriptions or game play info as well)'
-    }
+      description: 'Name of the item'
+    },
+    description: {
+      type: 'string',
+      required: true,
+      description: 'Description of the item'
+    },
   },
 
 
@@ -49,7 +54,7 @@ module.exports = {
     }
 
     // Add the item to the repository
-    character.items.push(inputs.item);
+    character.items.push({ name: inputs.name, description: inputs.description });
 
     // Save to the database and cache
     Caches.get('characters').set([ character.uid ], () => {
@@ -57,7 +62,7 @@ module.exports = {
     })
 
     // Return message
-    return inputs.message.send(`**${character.name} has a [new] item!**: ${inputs.item}`);
+    return inputs.message.send(`**${character.name} has a [new] item!**: ${inputs.name}: ${inputs.description}`);
   }
 
 
