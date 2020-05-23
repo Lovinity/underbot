@@ -50,7 +50,7 @@ module.exports = {
         { name: 'ATK (Attack)', value: inputs.character.ATK !== '' ? inputs.character.ATK : 'Unknown' },
         { name: 'DEF (Defense)', value: inputs.character.DEF !== '' ? inputs.character.DEF : 'Unknown' },
         { name: 'G (gold)', value: `${inputs.character.gold}G` },
-        { name: 'Items', value: inputs.character.items.length > 0 ? inputs.character.items.map((item) => `* ${item.name}: ${item.description}`).join("\n") : `None` }
+        { name: 'Items', value: inputs.character.items.length > 0 ? inputs.character.items.map((item) => `* ${item.name}`).join("\n") : `None` }
       );
 
     return embed;
