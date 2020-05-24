@@ -181,7 +181,7 @@ module.exports = {
   // Websockets and cache standards
   afterCreate: function (newlyCreatedRecord, proceed) {
     var data = { insert: newlyCreatedRecord }
-    sails.sockets.broadcast('characters', 'characters', data)
+    sails.sockets.broadcast(`characters-${newlyCreatedRecord.guildID}`, 'characters', data)
     Caches.set('characters', newlyCreatedRecord);
 
     // New stats message if characterStatsChannel exists
@@ -204,7 +204,7 @@ module.exports = {
 
   afterUpdate: function (updatedRecord, proceed) {
     var data = { update: updatedRecord }
-    sails.sockets.broadcast('characters', 'characters', data)
+    sails.sockets.broadcast(`characters-${updatedRecord.guildID}`, 'characters', data)
     Caches.set('characters', updatedRecord);
 
     // Update stats message if it exists
@@ -227,7 +227,7 @@ module.exports = {
 
   afterDestroy: function (destroyedRecord, proceed) {
     var data = { remove: destroyedRecord.id }
-    sails.sockets.broadcast('characters', 'characters', data)
+    sails.sockets.broadcast(`characters-${destroyedRecord.guildID}`, 'characters', data)
     Caches.del('characters', destroyedRecord);
 
     // delete stats message if it exists

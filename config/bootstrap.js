@@ -46,13 +46,38 @@ module.exports.bootstrap = async function () {
         return Caches.get('guilds').find([ this.id ]);
       }
 
-      // per-guild characters for dialog command
+      // per-guild characters
       get characters () {
         return Caches.get('characters').collection.filter((record) => record.guildID === this.id);
       }
     }
 
     return CoolGuild;
+  });
+
+  // GuildMember
+  Caches.new('members', [ 'userID', 'guildID' ]);
+  Discord.Structures.extend('GuildMember', GuildMember => {
+    class CoolGuildMember extends GuildMember {
+      constructor(client, data, guild) {
+        super(client, data, guild);
+
+        // Initialize the guild member in the cache
+        Caches.get('members').find([ this.id, this.guild.id ]);
+      }
+
+      // Per-member settings
+      get settings () {
+        return Caches.get('members').find([ this.id, this.guild.id ]);
+      }
+
+      // Per-member characters they own
+      get characters () {
+        return Caches.get('characters').collection.filter((record) => record.userID === this.id);
+      }
+    }
+
+    return CoolGuildMember;
   });
 
   // Messages
