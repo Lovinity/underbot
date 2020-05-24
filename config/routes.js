@@ -31,12 +31,12 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
- 'GET /': {
-  view: 'pages/home',
-  locals: {
-    layout: 'layouts/main',
-  }
-},
+  'GET /': {
+    view: 'pages/home',
+    locals: {
+      layout: 'layouts/main',
+    }
+  },
 
 
 };
