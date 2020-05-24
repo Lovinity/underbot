@@ -36,12 +36,12 @@ module.exports = {
       if (channel) {
         var maps = inputs.message.guild.characters.map(async (character) => {
           try {
-          var message = await channel.messages.fetch(character.tallyMessage);
+            var message = await channel.messages.fetch(character.tallyMessage);
+            if (message) {
+              await message.delete();
+            }
           } catch (e) {
             // Absorb message fetch errors
-          }
-          if (message) {
-            await message.delete();
           }
         });
         await Promise.all(maps);
