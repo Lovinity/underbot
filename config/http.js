@@ -29,16 +29,17 @@ module.exports.http = {
     *                                                                          *
     ***************************************************************************/
 
-    // order: [
-    //   'cookieParser',
-    //   'session',
-    //   'bodyParser',
-    //   'compress',
-    //   'poweredBy',
-    //   'router',
-    //   'www',
-    //   'favicon',
-    // ],
+     order: [
+       'cookieParser',
+       'session',
+       'requestLogger',
+       'bodyParser',
+       'compress',
+       'poweredBy',
+       'router',
+       'www',
+       'favicon',
+     ],
 
 
     /***************************************************************************
@@ -54,6 +55,11 @@ module.exports.http = {
     //   var middlewareFn = skipper({ strict: true });
     //   return middlewareFn;
     // })(),
+
+    requestLogger: function (req, res, next) {
+      sails.log.debug("Requested :: ", req.method, req.url);
+      return next();
+    },
 
   },
 
