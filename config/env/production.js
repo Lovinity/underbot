@@ -149,7 +149,7 @@ module.exports = {
     ***************************************************************************/
     cors: {
       allowOrigins: [
-        'https://discord.septem-regiones.fun',
+        'https://undertaleenhanced.club',
       ]
     },
 

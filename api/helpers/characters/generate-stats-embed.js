@@ -43,7 +43,7 @@ module.exports = {
     var embed = new Discord.MessageEmbed()
       .setTitle(`Stats for ${inputs.character.name}`)
       .setAuthor(member ? member.tag : `Unknown User`)
-      // .setThumbnail(`${sails.config.custom.baseURL}/images/Characters/photos/${character.photo}`) // TODO
+      .setThumbnail(`${sails.config.custom.baseURL}/images/Characters/photos/${character.photo}`)
       .addFields(
         { name: 'Current HP / Max HP', value: `${inputs.character.HP} HP / ${maxHP} HP` + "\n" + hpBar },
         { name: 'Current LVL (EXP)', value: `${lvl} (${inputs.character.EXP})` },
