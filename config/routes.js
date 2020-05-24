@@ -38,5 +38,12 @@ module.exports.routes = {
     }
   },
 
+  'GET /home': {
+    view: 'pages/home',
+    locals: {
+      layout: 'layouts/main',
+    }
+  },
+
 
 };
