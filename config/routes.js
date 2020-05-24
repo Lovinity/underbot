@@ -38,5 +38,13 @@ module.exports.routes = {
     }
   },
 
+  // NGINX sometimes adds index.html directive. We want this to also direct to the homepage.
+  'GET /index.html': {
+    view: 'pages/home',
+    locals: {
+      layout: 'layouts/main',
+    }
+  },
+
 
 };
