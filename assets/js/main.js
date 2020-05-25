@@ -504,7 +504,7 @@ function getGuildInformation () {
                           
                           <strong>Roles</strong>
                           <p>
-                            ${member.roles.map((role) => `<span class="badge badge-secondary text-${getContrastYIQ(role.hexColor)}" style="background-color: ${role.hexColor};">${role.name}</span>`).join("")}
+                            ${member.roles.map((role) => `<span class="badge badge-secondary" style="background-color: ${role.hexColor}; color: ${getContrastYIQ(role.hexColor)};">${role.name}</span>`).join("")}
                           </p>
                           <hr>
                           
@@ -550,12 +550,12 @@ function getGuildInformation () {
  * Determine if text should be black or light
  * 
  * @param {string} hexcolor The hex color of the background where the text will be placed
- * @returns {string} black or light
+ * @returns {string} hex the text should be
  */
 function getContrastYIQ (hexcolor) {
   var r = parseInt(hexcolor.substr(0, 2), 16);
   var g = parseInt(hexcolor.substr(2, 2), 16);
   var b = parseInt(hexcolor.substr(4, 2), 16);
   var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-  return (yiq >= 128) ? 'black' : 'light';
+  return (yiq >= 128) ? '#000000' : '$ffffff';
 }
