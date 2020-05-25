@@ -12,13 +12,14 @@ var guild;
 window.addEventListener('DOMContentLoaded', () => {
 
   // Set Navigation
-  navigation.addItem('#nav-home', '#section-home', 'Undertale Underground', '/', true, () => {
-    getGuildInformation();
-  })
+  navigation.addItem('#nav-home', '#section-home', 'Undertale Underground', '/', true);
   navigation.addItem('#nav-lore', '#section-lore', 'Lore - Undertale Underground', '/lore', false);
   navigation.addItem('#nav-members', '#section-members', 'Members - Undertale Underground', '/members', false);
   // navigation.addItem('#nav-events', '#section-events', 'Events - Undertale Underground', '/events', false);
   navigation.addItem('#nav-rules', '#section-rules', 'Rules - Undertale Underground', '/rules', false);
+
+  // Load guild information
+  getGuildInformation();
 
 });
 
