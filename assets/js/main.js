@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
         getGuildInformation();
     })
     navigation.addItem('#nav-lore', '#section-lore', 'Lore - Undertale Underground', '/lore', false);
-    // navigation.addItem('#nav-members', '#section-members', 'Members - Undertale Underground', '/members', false);
+    navigation.addItem('#nav-members', '#section-members', 'Members - Undertale Underground', '/members', false);
     // navigation.addItem('#nav-events', '#section-events', 'Events - Undertale Underground', '/events', false);
     navigation.addItem('#nav-rules', '#section-rules', 'Rules - Undertale Underground', '/rules', false);
 
@@ -121,7 +121,7 @@ function getGuildInformation () {
                     <h5 class="widget-user-desc">Claimed by ${character.owner}</h5>
                   </div>
                 </div>
-                <div class="widget-user-image" style="top: 206px;">
+                <div class="widget-user-image" style="top: 320px;">
                   <img class="img-circle" src="/images/Characters/sprites/${character.sprite}" alt="Sprite">
                 </div>
                 <div class="card-footer">
@@ -324,7 +324,7 @@ function getGuildInformation () {
                     <h5 class="widget-user-desc">Claimed by ${character.owner}</h5>
                   </div>
                 </div>
-                <div class="widget-user-image" style="top: 206px;">
+                <div class="widget-user-image" style="top: 320px;">
                   <img class="img-circle" src="/images/Characters/sprites/${character.sprite}" alt="Sprite">
                 </div>
                 <div class="card-footer">
