@@ -121,7 +121,7 @@ function getGuildInformation () {
                     <h5 class="widget-user-desc">Claimed by ${character.owner}</h5>
                   </div>
                 </div>
-                <div class="widget-user-image" style="top: 320px;">
+                <div class="widget-user-image" style="top: 0; left: 60px;">
                   <img class="img-circle" src="/images/Characters/sprites/${character.sprite}" alt="Sprite">
                 </div>
                 <div class="card-footer">
@@ -214,14 +214,6 @@ function getGuildInformation () {
                   
                   <strong>Dislikes</strong>
                   <p class="text-muted">${character.dislikes}</p>
-                  <hr>
-                  
-                  <strong>Height</strong>
-                  <p class="text-muted">${character.height}</p>
-                  <hr>
-                  
-                  <strong>Soul Type</strong>
-                  <p class="text-muted">${character.soulType}</p>
                   
                 </div>
                 <!-- /.card-body -->
@@ -235,6 +227,10 @@ function getGuildInformation () {
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                <strong>Height</strong>
+                <p class="text-muted">${character.height}</p>
+                <hr>
+
                   <strong>Appearance</strong>
                   <p class="text-muted">${character.appearance}</p>
                   <hr>
@@ -249,7 +245,6 @@ function getGuildInformation () {
                   
                   <strong>Items</strong>
                   <p class="text-muted">${character.items.map((item) => `<strong>${item.name}</strong>: ${item.description}`).join("<br />")}</p>
-                  <hr>
                   
                 </div>
                 <!-- /.card-body -->
@@ -257,7 +252,7 @@ function getGuildInformation () {
             </div>
             
             <div class="col-lg-6 col-12">
-              <div class="card card-danger">
+              <div class="card card-warning">
                 <div class="card-header">
                   <h3 class="card-title">Extra Information</h3>
                 </div>
@@ -293,7 +288,6 @@ function getGuildInformation () {
                             </p>
                         </a>
                     </li>`);
-                        // TODO
                         $('#sections-characters').append(`<sction id="section-character-${character.uid}">
                         <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -324,7 +318,7 @@ function getGuildInformation () {
                     <h5 class="widget-user-desc">Claimed by ${character.owner}</h5>
                   </div>
                 </div>
-                <div class="widget-user-image" style="top: 320px;">
+                <div class="widget-user-image" style="top: 0; left: 60px;">
                   <img class="img-circle" src="/images/Characters/sprites/${character.sprite}" alt="Sprite">
                 </div>
                 <div class="card-footer">
@@ -417,14 +411,6 @@ function getGuildInformation () {
                   
                   <strong>Dislikes</strong>
                   <p class="text-muted">${character.dislikes}</p>
-                  <hr>
-                  
-                  <strong>Height</strong>
-                  <p class="text-muted">${character.height}</p>
-                  <hr>
-                  
-                  <strong>Soul Type</strong>
-                  <p class="text-muted">${character.soulType}</p>
                   
                 </div>
                 <!-- /.card-body -->
@@ -438,6 +424,10 @@ function getGuildInformation () {
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                <strong>Height</strong>
+                <p class="text-muted">${character.height}</p>
+                <hr>
+
                   <strong>Appearance</strong>
                   <p class="text-muted">${character.appearance}</p>
                   <hr>
@@ -452,7 +442,6 @@ function getGuildInformation () {
                   
                   <strong>Items</strong>
                   <p class="text-muted">${character.items.map((item) => `<strong>${item.name}</strong>: ${item.description}`).join("<br />")}</p>
-                  <hr>
                   
                 </div>
                 <!-- /.card-body -->
@@ -460,7 +449,7 @@ function getGuildInformation () {
             </div>
             
             <div class="col-lg-6 col-12">
-              <div class="card card-danger">
+              <div class="card card-warning">
                 <div class="card-header">
                   <h3 class="card-title">Extra Information</h3>
                 </div>
