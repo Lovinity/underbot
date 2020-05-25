@@ -34,6 +34,8 @@ function getGuildInformation () {
                 $('.guild-logo').attr("src", guild.icon);
                 $('.guild-nummembers').html(guild.numMembers);
                 $('.guild-numbots').html(guild.numBots);
+                $('.guild-claimedcharacters').html(guild.claimedCharacters);
+                $('.guild-unclaimedcharacters').html(guild.unclaimedCharacters);
             } else {
                 $(document).Toasts('create', {
                     class: 'bg-danger',

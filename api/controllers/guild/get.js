@@ -53,6 +53,8 @@ module.exports = {
           settings: member.settings,
         };
       }),
+      claimedCharacters: guild.characters.filter((character) => character.userID !== null).length,
+      unclaimedCharacters: guild.characters.filter((character) => character.userID === null).length,
       characters: guild.characters.map((character) => {
         return {
           uid: character.uid,
