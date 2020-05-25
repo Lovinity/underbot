@@ -26,9 +26,23 @@ module.exports = {
 
   fn: async function (inputs) {
 
+    // Get guild
     var guild = DiscordClient.guilds.resolve(inputs.guild);
     if (!guild)
       throw 'notFound';
+
+    // Some properties of guild characters are async, so fetch them now with a promise.
+    var guildCharacters = guild.characters.map(async (character) => {
+      var maxHP = await sails.helpers.calculateMaxHp(character);
+      return Object.assign(character, {
+        LVL: await sails.helpers.calculateLevel(character),
+        maxHP: await sails.helpers.calculateMaxHp(character),
+        HPPercent: maxHP > 0 ? (character.HP / character.maxHP) * 100 : 0,
+        claimed: character.userID !== null,
+        owner: character.userID ? guild.members.resolve(character.userID).user.tag : 'Unclaimed'
+      });
+    });
+    await Promise.all(guildCharacters);
 
     return {
       id: guild.id,
@@ -55,15 +69,7 @@ module.exports = {
       }),
       claimedCharacters: guild.characters.filter((character) => character.userID !== null).size,
       unclaimedCharacters: guild.characters.filter((character) => character.userID === null).size,
-      characters: guild.characters.map((character) => {
-        return {
-          uid: character.uid,
-          name: character.name,
-          sprite: character.sprite,
-          claimed: character.userID !== null,
-          OC: character.OC
-        }
-      })
+      characters: guildCharacters
     };
 
   }
