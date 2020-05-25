@@ -58,6 +58,7 @@ module.exports = {
           joinedTimestamp: member.joinedTimestamp,
           joinedAt: moment(member.joinedAt).format("LLLL"),
           staff: staff,
+          bot: member.user.bot,
           roles: member.roles.cache.map((role) => {
             return {
               id: role.id,

@@ -11,41 +11,41 @@ var guild;
 // Do things when the DOM has fully loaded
 window.addEventListener('DOMContentLoaded', () => {
 
-    // Set Navigation
-    navigation.addItem('#nav-home', '#section-home', 'Undertale Underground', '/', true, () => {
-        getGuildInformation();
-    })
-    navigation.addItem('#nav-lore', '#section-lore', 'Lore - Undertale Underground', '/lore', false);
-    navigation.addItem('#nav-members', '#section-members', 'Members - Undertale Underground', '/members', false);
-    // navigation.addItem('#nav-events', '#section-events', 'Events - Undertale Underground', '/events', false);
-    navigation.addItem('#nav-rules', '#section-rules', 'Rules - Undertale Underground', '/rules', false);
+  // Set Navigation
+  navigation.addItem('#nav-home', '#section-home', 'Undertale Underground', '/', true, () => {
+    getGuildInformation();
+  })
+  navigation.addItem('#nav-lore', '#section-lore', 'Lore - Undertale Underground', '/lore', false);
+  navigation.addItem('#nav-members', '#section-members', 'Members - Undertale Underground', '/members', false);
+  // navigation.addItem('#nav-events', '#section-events', 'Events - Undertale Underground', '/events', false);
+  navigation.addItem('#nav-rules', '#section-rules', 'Rules - Undertale Underground', '/rules', false);
 
 });
 
 // Function for getting the current guild information from the API and putting some of it on the webpage
 function getGuildInformation () {
-    $.ajax('/guild/get', {
-        type: 'POST',  // http method
-        data: { guild: Guild },  // data to submit
-        success: function (response, status, xhr) {
-            if (response && typeof response.id !== 'undefined') {
-                guild = response;
-                $('.guild-name').html(guild.name);
-                $('.guild-logo').attr("src", guild.icon);
-                $('.guild-nummembers').html(guild.numMembers);
-                $('.guild-numbots').html(guild.numBots);
-                $('.guild-claimedcharacters').html(guild.claimedCharacters);
-                $('.guild-unclaimedcharacters').html(guild.unclaimedCharacters);
+  $.ajax('/guild/get', {
+    type: 'POST',  // http method
+    data: { guild: Guild },  // data to submit
+    success: function (response, status, xhr) {
+      if (response && typeof response.id !== 'undefined') {
+        guild = response;
+        $('.guild-name').html(guild.name);
+        $('.guild-logo').attr("src", guild.icon);
+        $('.guild-nummembers').html(guild.numMembers);
+        $('.guild-numbots').html(guild.numBots);
+        $('.guild-claimedcharacters').html(guild.claimedCharacters);
+        $('.guild-unclaimedcharacters').html(guild.unclaimedCharacters);
 
-                $('#sections-characters').html('');
-                $('#content-members').html('');
+        $('#sections-characters').html('');
+        $('#content-members').html('');
 
-                // Process unclaimed characters
-                $('#nav-og-unclaimed').html('');
-                guild.characters
-                    .filter((character) => !character.claimed)
-                    .map((character) => {
-                        $('#nav-og-unclaimed').append(`<li class="nav-item">
+        // Process unclaimed characters
+        $('#nav-og-unclaimed').html('');
+        guild.characters
+          .filter((character) => !character.claimed)
+          .map((character) => {
+            $('#nav-og-unclaimed').append(`<li class="nav-item">
                         <a href="#" class="nav-link" id="nav-character-${character.uid}" title="${character.name} character sheet">
                         <img src="/characters/sprite?uid=${character.uid}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8; max-width: 32px; max-height: 32px;">
                             <p>
@@ -53,8 +53,8 @@ function getGuildInformation () {
                             </p>
                         </a>
                     </li>`);
-                        // TODO
-                        $('#sections-characters').append(`<sction id="section-character-${character.uid}">
+            // TODO
+            $('#sections-characters').append(`<sction id="section-character-${character.uid}">
                         <div class="content-wrapper">
                         <!-- Content Header (Page header) -->
                         <div class="content-header">
@@ -75,15 +75,15 @@ function getGuildInformation () {
                         </div>
                         </div>
                         </section>`);
-                        navigation.addItem(`#nav-character-${character.uid}`, `#section-character-${character.uid}`, `${character.name} - Undertale Underground`, `/character/${character.uid}`, false);
-                    })
+            navigation.addItem(`#nav-character-${character.uid}`, `#section-character-${character.uid}`, `${character.name} - Undertale Underground`, `/character/${character.uid}`, false);
+          })
 
-                // Process claimed OG characters
-                $('#nav-og-claimed').html('');
-                guild.characters
-                    .filter((character) => character.claimed && !character.OC)
-                    .map((character) => {
-                        $('#nav-og-claimed').append(`<li class="nav-item">
+        // Process claimed OG characters
+        $('#nav-og-claimed').html('');
+        guild.characters
+          .filter((character) => character.claimed && !character.OC)
+          .map((character) => {
+            $('#nav-og-claimed').append(`<li class="nav-item">
                         <a href="#" class="nav-link" id="nav-character-${character.uid}" title="${character.name} character sheet">
                         <img src="/characters/sprite?uid=${character.uid}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8; max-width: 32px; max-height: 32px;">
                             <p>
@@ -91,7 +91,7 @@ function getGuildInformation () {
                             </p>
                         </a>
                     </li>`);
-                        $('#sections-characters').append(`<sction id="section-character-${character.uid}">
+            $('#sections-characters').append(`<sction id="section-character-${character.uid}">
                         <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -272,15 +272,15 @@ function getGuildInformation () {
     </div>
     <!-- /.content-wrapper -->
                         </section>`);
-                        navigation.addItem(`#nav-character-${character.uid}`, `#section-character-${character.uid}`, `${character.name} - Undertale Underground`, `/character/${character.uid}`, false);
-                    })
+            navigation.addItem(`#nav-character-${character.uid}`, `#section-character-${character.uid}`, `${character.name} - Undertale Underground`, `/character/${character.uid}`, false);
+          })
 
-                // Process OC characters
-                $('#nav-oc').html('');
-                guild.characters
-                    .filter((character) => character.claimed && character.OC)
-                    .map((character) => {
-                        $('#nav-oc').append(`<li class="nav-item">
+        // Process OC characters
+        $('#nav-oc').html('');
+        guild.characters
+          .filter((character) => character.claimed && character.OC)
+          .map((character) => {
+            $('#nav-oc').append(`<li class="nav-item">
                         <a href="#" class="nav-link" id="nav-character-${character.uid}" title="${character.name} character sheet">
                         <img src="/characters/sprite?uid=${character.uid}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8; max-width: 32px; max-height: 32px;">
                             <p>
@@ -288,7 +288,7 @@ function getGuildInformation () {
                             </p>
                         </a>
                     </li>`);
-                        $('#sections-characters').append(`<sction id="section-character-${character.uid}">
+            $('#sections-characters').append(`<sction id="section-character-${character.uid}">
                         <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -469,21 +469,29 @@ function getGuildInformation () {
     </div>
     <!-- /.content-wrapper -->
                         </section>`);
-                        navigation.addItem(`#nav-character-${character.uid}`, `#section-character-${character.uid}`, `${character.name} - Undertale Underground`, `/character/${character.uid}`, false);
-                    })
+            navigation.addItem(`#nav-character-${character.uid}`, `#section-character-${character.uid}`, `${character.name} - Undertale Underground`, `/character/${character.uid}`, false);
+          })
 
 
-                    // Process members
-                    guild.members
-                    .sort((a, b) => { // Sort by staff first, then joined timestamp (oldest to newest)
-                      if (a.staff && !b.staff) return -1;
-                      if (!a.staff && b.staff) return 1;
-                      return (a.joinedTimestamp || 0) - (b.joinedTimestamp - 0)
-                    })
-                    .map((member) => {
-                      $('#content-members').append(`<div class="col-md-4">
+        // Process members
+        guild.members
+          .sort((a, b) => { // Bots at bottom, staff at top, then sort by join date
+            if (a.bot && !b.bot) return 1;
+            if (!a.bot && b.bot) return -1;
+            if (a.staff && !b.staff) return -1;
+            if (!a.staff && b.staff) return 1;
+            return (a.joinedTimestamp || 0) - (b.joinedTimestamp - 0)
+          })
+          .map((member) => {
+            var cardClass = `primary`;
+            if (member.bot) {
+              cardClass = `secondary`
+            } else if (member.staff) {
+              cardClass = `danger`
+            }
+            $('#content-members').append(`<div class="col-md-4">
                       <!-- Profile Image -->
-                      <div class="card card-${member.staff ? `danger` : `primary`} card-outline">
+                      <div class="card card-${cardClass} card-outline">
                         <div class="card-body box-profile">
                           <div class="text-center">
                             <img class="profile-user-img img-fluid img-circle" src="${member.avatar}" alt="Member Avatar">
@@ -516,26 +524,26 @@ function getGuildInformation () {
                       </div>
                       <!-- /.card -->
                      </div>`)
-                    })
-            } else {
-                $(document).Toasts('create', {
-                    class: 'bg-danger',
-                    title: 'Error getting guild information',
-                    body: 'There was an error getting guild information. Please report this to the staff.',
-                    icon: 'fas fa-skull-crossbones fa-lg',
-                });
-            }
-        },
-        error: function (jqXhr, textStatus, errorMessage) {
-            $(document).Toasts('create', {
-                class: 'bg-danger',
-                title: 'Error getting guild information',
-                body: 'There was an error getting guild information. Please report this to the staff.',
-                icon: 'fas fa-skull-crossbones fa-lg',
-            });
-            console.error(errorMessage);
-        }
-    });
+          })
+      } else {
+        $(document).Toasts('create', {
+          class: 'bg-danger',
+          title: 'Error getting guild information',
+          body: 'There was an error getting guild information. Please report this to the staff.',
+          icon: 'fas fa-skull-crossbones fa-lg',
+        });
+      }
+    },
+    error: function (jqXhr, textStatus, errorMessage) {
+      $(document).Toasts('create', {
+        class: 'bg-danger',
+        title: 'Error getting guild information',
+        body: 'There was an error getting guild information. Please report this to the staff.',
+        icon: 'fas fa-skull-crossbones fa-lg',
+      });
+      console.error(errorMessage);
+    }
+  });
 }
 
 /**
@@ -544,10 +552,10 @@ function getGuildInformation () {
  * @param {string} hexcolor The hex color of the background where the text will be placed
  * @returns {string} black or light
  */
-function getContrastYIQ(hexcolor){
-	var r = parseInt(hexcolor.substr(0,2),16);
-	var g = parseInt(hexcolor.substr(2,2),16);
-	var b = parseInt(hexcolor.substr(4,2),16);
-	var yiq = ((r*299)+(g*587)+(b*114))/1000;
-	return (yiq >= 128) ? 'black' : 'light';
+function getContrastYIQ (hexcolor) {
+  var r = parseInt(hexcolor.substr(0, 2), 16);
+  var g = parseInt(hexcolor.substr(2, 2), 16);
+  var b = parseInt(hexcolor.substr(4, 2), 16);
+  var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+  return (yiq >= 128) ? 'black' : 'light';
 }
