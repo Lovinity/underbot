@@ -103,7 +103,7 @@ module.exports = {
           toUpdate.userID = null;
         } else {
           toUpdate.userID = await sails.helpers.resolvers.username(inputs.message, owner.content);
-          toUpdate.userID = toUpdate.userID.id
+          toUpdate.userID = toUpdate.userID.id;
         }
         break;
       case 'photo':

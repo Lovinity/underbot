@@ -91,6 +91,7 @@ module.exports = {
       owner = null;
     } else {
       owner = await sails.helpers.resolvers.username(inputs.message, owner.content);
+      owner = owner.id;
     }
 
     // Prompt for a photo
@@ -226,7 +227,7 @@ module.exports = {
     var obj = {
       uid: uid,
       guildID: inputs.message.guild.id,
-      userID: owner.id,
+      userID: owner,
       OC: OC,
       name: name,
       photo: photo,

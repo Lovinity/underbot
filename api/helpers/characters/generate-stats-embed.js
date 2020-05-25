@@ -42,10 +42,10 @@ module.exports = {
 
     var embed = new Discord.MessageEmbed()
       .setTitle(`Stats for ${inputs.character.name}`)
-      .setAuthor(member ? member.tag : `Unknown User`)
+      .setAuthor(member ? member.tag : `**Unclaimed Character**`)
       .setThumbnail(`${sails.config.custom.baseURL}/images/Characters/photos/${inputs.character.photo}`)
       .addFields(
-        { name: 'Current HP / Max HP', value: `${inputs.character.HP} HP / ${maxHP} HP` + "\n" + hpBar },
+        { name: 'Current HP / Max HP', value: `${inputs.character.HP} HP / ${maxHP} HP${inputs.character.HP <= 0 ? ` **DEAD**` : ``}` + "\n" + hpBar },
         { name: 'Current LVL (EXP)', value: `${lvl} (${inputs.character.EXP})` },
         { name: 'ATK (Attack)', value: inputs.character.ATK !== '' ? inputs.character.ATK : 'Unknown' },
         { name: 'DEF (Defense)', value: inputs.character.DEF !== '' ? inputs.character.DEF : 'Unknown' },
