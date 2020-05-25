@@ -49,12 +49,15 @@ module.exports = {
       numMembers: guild.members.cache.filter((member) => !member.user.bot).size,
       numBots: guild.members.cache.filter((member) => member.user.bot).size,
       members: guild.members.cache.map((member) => {
+        var staff = member.permissions.has('VIEW_AUDIT_LOG');
         return {
           id: member.id,
           tag: member.user.tag,
           nickname: member.nickname,
           avatar: member.user.displayAvatarURL(),
           joinedTimestamp: member.joinedTimestamp,
+          joinedAt: moment(member.joinedAt).format("LLLL"),
+          staff: staff,
           roles: member.roles.cache.map((role) => {
             return {
               id: role.id,
@@ -62,7 +65,7 @@ module.exports = {
               hexColor: role.hexColor
             };
           }),
-          settings: member.settings,
+          introduction: member.settings.introduction,
         };
       }),
       claimedCharacters: guild.characters.filter((character) => character.userID !== null).size,

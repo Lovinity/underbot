@@ -38,6 +38,7 @@ function getGuildInformation () {
                 $('.guild-unclaimedcharacters').html(guild.unclaimedCharacters);
 
                 $('#sections-characters').html('');
+                $('#content-members').html('');
 
                 // Process unclaimed characters
                 $('#nav-og-unclaimed').html('');
@@ -90,7 +91,6 @@ function getGuildInformation () {
                             </p>
                         </a>
                     </li>`);
-                        // TODO
                         $('#sections-characters').append(`<sction id="section-character-${character.uid}">
                         <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -471,6 +471,52 @@ function getGuildInformation () {
                         </section>`);
                         navigation.addItem(`#nav-character-${character.uid}`, `#section-character-${character.uid}`, `${character.name} - Undertale Underground`, `/character/${character.uid}`, false);
                     })
+
+
+                    // Process members
+                    guild.members
+                    .sort((a, b) => { // Sort by staff first, then joined timestamp (oldest to newest)
+                      if (a.staff && !b.staff) return -1;
+                      if (!a.staff && b.staff) return 1;
+                      return (a.joinedTimestamp || 0) - (b.joinedTimestamp - 0)
+                    })
+                    .map((member) => {
+                      $('#content-members').append(`<div class="col-md-4">
+                      <!-- Profile Image -->
+                      <div class="card card-${member.staff ? `danger` : `primary`} card-outline">
+                        <div class="card-body box-profile">
+                          <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle" src="${member.avatar}" alt="Member Avatar">
+                          </div>
+          
+                          <h3 class="profile-username text-center">${member.tag}</h3>
+          
+                          <p class="text-muted text-center">${member.nickname ? `AKA ${member.nickname}` : ``}</p>
+                          <hr>
+                          
+                          <strong>Roles</strong>
+                          <p>
+                            ${member.roles.map((role) => `<span class="badge badge-secondary text-${getContrastYIQ(role.hexColor)}" style="background-color: ${role.hexColor};">${role.name}</span>`).join("")}
+                          </p>
+                          <hr>
+                          
+                          <strong>Joined</strong>
+                          <p class="text-muted">
+                            ${member.joinedAt}
+                          </p>
+                          <hr>
+                          
+                          <strong>About</strong>
+                          <p class="text-muted">
+                            ${member.introduction}
+                          </p>
+          
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
+                      <!-- /.card -->
+                     </div>`)
+                    })
             } else {
                 $(document).Toasts('create', {
                     class: 'bg-danger',
@@ -490,4 +536,18 @@ function getGuildInformation () {
             console.error(errorMessage);
         }
     });
+}
+
+/**
+ * Determine if text should be black or light
+ * 
+ * @param {string} hexcolor The hex color of the background where the text will be placed
+ * @returns {string} black or light
+ */
+function getContrastYIQ(hexcolor){
+	var r = parseInt(hexcolor.substr(0,2),16);
+	var g = parseInt(hexcolor.substr(2,2),16);
+	var b = parseInt(hexcolor.substr(4,2),16);
+	var yiq = ((r*299)+(g*587)+(b*114))/1000;
+	return (yiq >= 128) ? 'black' : 'light';
 }
