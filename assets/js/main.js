@@ -46,7 +46,7 @@ function getGuildInformation () {
                     .map((character) => {
                         $('#nav-og-unclaimed').append(`<li class="nav-item">
                         <a href="#" class="nav-link" id="nav-character-${character.uid}" title="${character.name} character sheet">
-                        <img src="/images/Characters/sprites/${character.sprite}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8">
+                        <img src="/images/Characters/sprites/${character.sprite}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8; max-width: 32px; max-height: 32px;">
                             <p>
                                 ${character.name}
                             </p>
@@ -64,7 +64,7 @@ function getGuildInformation () {
                     .map((character) => {
                         $('#nav-og-claimed').append(`<li class="nav-item">
                         <a href="#" class="nav-link" id="nav-character-${character.uid}" title="${character.name} character sheet">
-                        <img src="/images/Characters/sprites/${character.sprite}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8">
+                        <img src="/images/Characters/sprites/${character.sprite}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8; max-width: 32px; max-height: 32px;">
                             <p>
                                 ${character.name}
                             </p>
@@ -82,7 +82,7 @@ function getGuildInformation () {
                     .map((character) => {
                         $('#nav-oc').append(`<li class="nav-item">
                         <a href="#" class="nav-link" id="nav-character-${character.uid}" title="${character.name} character sheet">
-                        <img src="/images/Characters/sprites/${character.sprite}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8">
+                        <img src="/images/Characters/sprites/${character.sprite}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8; max-width: 32px; max-height: 32px;">
                             <p>
                                 ${character.name}
                             </p>
