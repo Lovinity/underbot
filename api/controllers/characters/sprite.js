@@ -19,7 +19,7 @@ module.exports = async function welcomeUser (req, res) {
   }
 
   // Load the photo
-  var photo = fs.readFileSync(`../../../uploads/Characters/sprites/${character.sprite}`);
+  var photo = fs.readFileSync(`${process.cwd()}/uploads/Characters/sprites/${character.sprite}`);
 
   // Respond with the photo
   res.writeHead(200, { 'Content-type': `image/${path.extname(character.sprite).replace('.', '')}` })
