@@ -36,6 +36,62 @@ function getGuildInformation () {
                 $('.guild-numbots').html(guild.numBots);
                 $('.guild-claimedcharacters').html(guild.claimedCharacters);
                 $('.guild-unclaimedcharacters').html(guild.unclaimedCharacters);
+
+                $('#sections-characters').html('');
+
+                // Process unclaimed characters
+                $('#nav-og-unclaimed').html('');
+                guild.characters
+                    .filter((character) => !character.claimed)
+                    .map((character) => {
+                        $('#nav-og-unclaimed').append(`<li class="nav-item">
+                        <a href="#" class="nav-link" id="nav-character-${character.uid}" title="${character.name} character sheet">
+                        <img src="/images/Characters/sprites/${character.sprite}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8">
+                            <p>
+                                ${character.name}
+                            </p>
+                        </a>
+                    </li>`);
+                        // TODO
+                        $('#sections-characters').append(`<sction id="section-character-${character.uid}"></section>`);
+                        navigation.addItem(`#nav-character-${character.uid}`, `#section-character-${character.uid}`, `${character.name} - Undertale Underground`, `/character/${character.uid}`, false);
+                    })
+
+                // Process claimed OG characters
+                $('#nav-og-claimed').html('');
+                guild.characters
+                    .filter((character) => character.claimed && !character.OC)
+                    .map((character) => {
+                        $('#nav-og-claimed').append(`<li class="nav-item">
+                        <a href="#" class="nav-link" id="nav-character-${character.uid}" title="${character.name} character sheet">
+                        <img src="/images/Characters/sprites/${character.sprite}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8">
+                            <p>
+                                ${character.name}
+                            </p>
+                        </a>
+                    </li>`);
+                        // TODO
+                        $('#sections-characters').append(`<sction id="section-character-${character.uid}"></section>`);
+                        navigation.addItem(`#nav-character-${character.uid}`, `#section-character-${character.uid}`, `${character.name} - Undertale Underground`, `/character/${character.uid}`, false);
+                    })
+
+                // Process OC characters
+                $('#nav-oc').html('');
+                guild.characters
+                    .filter((character) => character.claimed && character.OC)
+                    .map((character) => {
+                        $('#nav-oc').append(`<li class="nav-item">
+                        <a href="#" class="nav-link" id="nav-character-${character.uid}" title="${character.name} character sheet">
+                        <img src="/images/Characters/sprites/${character.sprite}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8">
+                            <p>
+                                ${character.name}
+                            </p>
+                        </a>
+                    </li>`);
+                        // TODO
+                        $('#sections-characters').append(`<sction id="section-character-${character.uid}"></section>`);
+                        navigation.addItem(`#nav-character-${character.uid}`, `#section-character-${character.uid}`, `${character.name} - Undertale Underground`, `/character/${character.uid}`, false);
+                    })
             } else {
                 $(document).Toasts('create', {
                     class: 'bg-danger',
