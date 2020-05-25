@@ -23,6 +23,6 @@ module.exports = async function welcomeUser (req, res) {
 
   // Respond with the photo
   res.writeHead(200, { 'Content-type': `image/${path.extname(character.sprite).replace('.', '')}` })
-  return res.end(content);
+  return res.end(photo);
 
 }
