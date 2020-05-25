@@ -36,10 +36,12 @@ module.exports = {
       }
 
       // Cache the last (default #) messages in all channels
+      /*
       guild.channels.cache.each((channel) => {
         if (channel.type === 'text')
           channel.messages.fetch();
       });
+      */
 
     });
   }
