@@ -1,6 +1,6 @@
 // Constants
-var Guild = '711701998508179568' // DEV
-//var Guild = '710404448157040661' // PROD
+//var Guild = '711701998508179568' // DEV
+var Guild = '710404448157040661' // PROD
 
 // Classes
 var navigation = new LTENavigation();
