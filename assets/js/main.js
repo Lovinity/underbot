@@ -489,7 +489,7 @@ function getGuildInformation () {
             } else if (member.staff) {
               cardClass = `danger`
             }
-            $('#content-members').append(`<div class="col-md-4">
+            $('#content-members').append(`<div class="col-lg-4 col-md-6 col-12">
                       <!-- Profile Image -->
                       <div class="card card-${cardClass} card-outline">
                         <div class="card-body box-profile">
