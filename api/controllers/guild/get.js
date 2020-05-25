@@ -33,10 +33,10 @@ module.exports = {
 
     // Some properties of guild characters are async, so fetch them now with a promise.
     var guildCharacters = guild.characters.map(async (character) => {
-      var maxHP = await sails.helpers.calculateMaxHp(character);
+      var maxHP = await sails.helpers.characters.calculateMaxHp(character);
       return Object.assign(character, {
-        LVL: await sails.helpers.calculateLevel(character),
-        maxHP: await sails.helpers.calculateMaxHp(character),
+        LVL: await sails.helpers.characters.calculateLevel(character),
+        maxHP: maxHP,
         HPPercent: maxHP > 0 ? (character.HP / character.maxHP) * 100 : 0,
         claimed: character.userID !== null,
         owner: character.userID ? guild.members.resolve(character.userID).user.tag : 'Unclaimed'
