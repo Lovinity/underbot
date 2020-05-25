@@ -23,7 +23,10 @@ module.exports = {
 
   fn: async function (inputs) {
     // Get the owner
-    var member = await DiscordClient.users.fetch(inputs.character.userID);
+    var member;
+    if (inputs.character.userID) {
+      member = await DiscordClient.users.fetch(inputs.character.userID);
+    }
 
     // Get the HP
     var maxHP = await sails.helpers.characters.calculateMaxHp(inputs.character);
