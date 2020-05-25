@@ -159,7 +159,7 @@ function getGuildInformation () {
           <!-- /.row -->
           <div class="row">
             <div class="col">
-                <div class="progress" style="height: 30px;">
+                <div class="progress m-2" style="height: 30px;">
                   <div class="progress-bar bg-success" role="progressbar" style="width: ${character.HPPercent}%;" aria-valuenow="${character.HPPercent}" aria-valuemin="0" aria-valuemax="100">${character.HP} / ${character.maxHP} HP</div>
                 </div>
             </div>
@@ -362,7 +362,7 @@ function getGuildInformation () {
           <!-- /.row -->
           <div class="row">
             <div class="col">
-                <div class="progress" style="height: 30px;">
+                <div class="progress m-2" style="height: 30px;">
                   <div class="progress-bar bg-success" role="progressbar" style="width: ${character.HPPercent}%;" aria-valuenow="${character.HPPercent}" aria-valuemin="0" aria-valuemax="100">${character.HP} / ${character.maxHP} HP</div>
                 </div>
             </div>
