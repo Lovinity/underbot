@@ -52,6 +52,15 @@ module.exports = {
           }),
           settings: member.settings,
         };
+      }),
+      characters: guild.characters.map((character) => {
+        return {
+          uid: character.uid,
+          name: character.name,
+          sprite: character.sprite,
+          claimed: character.userID !== null,
+          OC: character.OC
+        }
       })
     };
 
