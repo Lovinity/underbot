@@ -68,10 +68,10 @@ module.exports = {
 
     // Prompt for the name
     var name = await prompt(`Let's get started with adding a new character into the database! First, what is the name of the character? You will use this name in character commands. (timeout: 2 minutes)`, 120000);
-    name = name.cleanContent.toLowerCase();
+    name = name.cleanContent;
 
     // Check if the name already exists
-    var prevCharacter = inputs.message.guild.characters.find((char) => char.name.toLowerCase() === name);
+    var prevCharacter = inputs.message.guild.characters.find((char) => char.name.toLowerCase() === name.toLowerCase());
     if (prevCharacter) {
       uid = prevCharacter.uid;
       await prompt(`:warning: A character with that name already exists. If you proceed, you will be overwriting the character sheet. Type/send "cancel" to exit, or send anything else to proceed. (timeout: 2 minutes)`, 120000);
@@ -82,7 +82,7 @@ module.exports = {
     nicknames = nicknames.cleanContent;
 
     // Prompt for OC status
-    var OC = await prompt(`Aww, those are cute! If this character is a canon Undertale character (can be re-claimed by someone else when/if the owner leaves the guild and does not come back for 24 hours), type "yes". Otherwise (character will be deleted if the owner leaves the guild and does not come back for 24 hours), type "no". (timeout: 2 minutes)`, 120000);
+    var OC = await prompt(`Aww, those are cute! If this character is a canon Undertale character (can be re-claimed by someone else when/if the owner leaves the guild and does not come back for 24 hours), type "yes". Otherwise, for OC characters (character will be deleted if the owner leaves the guild and does not come back for 24 hours), type "no". (timeout: 2 minutes)`, 120000);
     OC = OC.cleanContent.toLowerCase() === 'yes' || OC.cleanContent.toLowerCase() === 'y';
 
     // Prompt for the member who owns this character

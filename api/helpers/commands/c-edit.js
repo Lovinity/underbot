@@ -74,17 +74,17 @@ module.exports = {
     }
 
     // Prompt for which property to edit
-    var property = await prompt(`What do you want to edit for ${character.name}?: owner, name, photo, sprite, nicknames, pronouns, age, height, appearance, personality, soulType, HP, maxHP, EXP, ATK, DEF, gold, weapons, armor, likes, dislikes, extraInfo (items has their own commands). (timeout: 2 minutes)`, 120000);
+    var property = await prompt(`What do you want to edit for ${character.name}?: oc, owner, name, photo, sprite, nicknames, pronouns, age, height, appearance, personality, soulType, HP, maxHP, EXP, ATK, DEF, gold, weapons, armor, likes, dislikes, extraInfo (items has their own commands). (timeout: 2 minutes)`, 120000);
     property = property.cleanContent.toLowerCase();
 
     // Prompt based on what property we are editing
     switch (property) {
       case 'name':
         var name = await prompt(`What is the new name of the character? You will use this name in character commands. (timeout: 2 minutes)`, 120000);
-        toUpdate.name = name.cleanContent.toLowerCase();
+        toUpdate.name = name.cleanContent;
 
         // Check if the name already exists
-        if (inputs.message.guild.characters.find((char) => char.name.toLowerCase() === toUpdate.name)) {
+        if (inputs.message.guild.characters.find((char) => char.name.toLowerCase() === toUpdate.name.toLowerCase())) {
           throw new Error(`A character with the provided name already exists.`)
         }
         break;
@@ -92,9 +92,19 @@ module.exports = {
         var nicknames = await prompt(`What are the new nicknames this character is called? Current value: **${character.nicknames}** (timeout: 2 minutes)`, 120000);
         toUpdate.nicknames = nicknames.cleanContent;
         break;
+      case 'oc':
+        // Prompt for OC status
+        var OC = await prompt(`If this character is a canon Undertale character (can be re-claimed by someone else when/if the owner leaves the guild and does not come back for 24 hours), type "yes". Otherwise, for OC characters (character will be deleted if the owner leaves the guild and does not come back for 24 hours), type "no". (timeout: 2 minutes)`, 120000);
+        toUpdate.OC = OC.cleanContent.toLowerCase() === 'yes' || OC.cleanContent.toLowerCase() === 'y';
+        break;
       case 'owner':
-        var owner = await prompt(`Please provide the username, snowflake ID, or mention of the member who now owns this character. (timeout: 2 minutes)`, 120000);
-        toUpdate.userID = await sails.helpers.resolvers.username(inputs.message, owner.content);
+        var owner = await prompt(`Please provide the username, snowflake ID, or mention of the member who now owns this character. Or, type "none" to mark this character as unclaimed. (timeout: 2 minutes)`, 120000);
+        if (owner.cleanContent.toLowerCase() === 'none') {
+          toUpdate.userID = null;
+        } else {
+          toUpdate.userID = await sails.helpers.resolvers.username(inputs.message, owner.content);
+          toUpdate.userID = toUpdate.userID.id
+        }
         break;
       case 'photo':
         var photo = await prompt(`Please send a message with the new photo of the character attached or a URL to the photo. Or, send "none" to not specify a photo. (timeout: 3 minutes)`, 180000, false, (message) => message.author.id === inputs.message.author.id && (message.attachments.size > 0 || /(https?:\/\/[^\s]+)/g.test(message.content || message.content.cleanContent.toLowerCase() === 'none')));
