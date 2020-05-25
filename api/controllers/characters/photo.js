@@ -13,7 +13,7 @@ module.exports = async function welcomeUser (req, res) {
   }
 
   // Find character
-  var character = Caches.get('characters').find([ inputs.uid ], false);
+  var character = Caches.get('characters').find([ uid ], false);
   if (!character) {
     return res.badRequest(new Error('A character with the provided uid was not found!'));
   }
