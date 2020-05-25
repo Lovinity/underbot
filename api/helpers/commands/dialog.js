@@ -53,11 +53,11 @@ module.exports = {
     var ctx = canvas.getContext('2d');
 
     // Load the dialog background image
-    var imageBg = await loadImage(`./assets/images/Characters/base/dialog.png`);
+    var imageBg = await loadImage(`./uploads/Characters/base/dialog.png`);
     ctx.drawImage(imageBg, 0, 0, 400, 128);
 
     // Load the character sprite
-    var imageSprite = await loadImage(`./assets/images/Characters/sprites/${sanitize(character.sprite)}`);
+    var imageSprite = await loadImage(`./uploads/Characters/sprites/${sanitize(character.sprite)}`);
     var width = imageSprite.width;
     var height = imageSprite.height;
     if (width > height) {

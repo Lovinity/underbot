@@ -46,7 +46,7 @@ function getGuildInformation () {
                     .map((character) => {
                         $('#nav-og-unclaimed').append(`<li class="nav-item">
                         <a href="#" class="nav-link" id="nav-character-${character.uid}" title="${character.name} character sheet">
-                        <img src="/images/Characters/sprites/${character.sprite}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8; max-width: 32px; max-height: 32px;">
+                        <img src="/characters/sprite?uid=${character.uid}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8; max-width: 32px; max-height: 32px;">
                             <p>
                                 ${character.name}
                             </p>
@@ -84,7 +84,7 @@ function getGuildInformation () {
                     .map((character) => {
                         $('#nav-og-claimed').append(`<li class="nav-item">
                         <a href="#" class="nav-link" id="nav-character-${character.uid}" title="${character.name} character sheet">
-                        <img src="/images/Characters/sprites/${character.sprite}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8; max-width: 32px; max-height: 32px;">
+                        <img src="/characters/sprite?uid=${character.uid}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8; max-width: 32px; max-height: 32px;">
                             <p>
                                 ${character.name}
                             </p>
@@ -114,7 +114,7 @@ function getGuildInformation () {
               <div class="card card-widget widget-user">
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header text-white"
-                  style="background: url('/images/Characters/photos/${character.photo}') center center; background-size:cover; height: 384px;"
+                  style="background: url('/characters/photo?uid=${character.uid}') center center; background-size:cover; height: 384px;"
                   id="profile-background">
                   <div style="background-color: rgba(0, 0, 0, 0.7);">
                     <h3 class="widget-user-username">${character.name}</h3>
@@ -122,7 +122,7 @@ function getGuildInformation () {
                   </div>
                 </div>
                 <div class="widget-user-image" style="top: 0; left: 60px;">
-                  <img class="img-circle" src="/images/Characters/sprites/${character.sprite}" alt="Sprite">
+                  <img class="img-circle" src="/characters/sprite?uid=${character.uid}" alt="Sprite">
                 </div>
                 <div class="card-footer">
                   <div class="row">
@@ -282,7 +282,7 @@ function getGuildInformation () {
                     .map((character) => {
                         $('#nav-oc').append(`<li class="nav-item">
                         <a href="#" class="nav-link" id="nav-character-${character.uid}" title="${character.name} character sheet">
-                        <img src="/images/Characters/sprites/${character.sprite}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8; max-width: 32px; max-height: 32px;">
+                        <img src="/characters/sprite?uid=${character.uid}" class="brand-image img-circle bg-white elevation-3" style="opacity: .8; max-width: 32px; max-height: 32px;">
                             <p>
                                 ${character.name}
                             </p>
@@ -311,7 +311,7 @@ function getGuildInformation () {
               <div class="card card-widget widget-user">
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header text-white"
-                  style="background: url('/images/Characters/photos/${character.photo}') center center; background-size:cover; height: 384px;"
+                  style="background: url('/characters/photo?uid=${character.uid}') center center; background-size:cover; height: 384px;"
                   id="profile-background">
                   <div style="background-color: rgba(0, 0, 0, 0.7);">
                     <h3 class="widget-user-username">${character.name}</h3>
@@ -319,7 +319,7 @@ function getGuildInformation () {
                   </div>
                 </div>
                 <div class="widget-user-image" style="top: 0; left: 60px;">
-                  <img class="img-circle" src="/images/Characters/sprites/${character.sprite}" alt="Sprite">
+                  <img class="img-circle" src="/characters/sprite?uid=${character.uid}" alt="Sprite">
                 </div>
                 <div class="card-footer">
                   <div class="row">

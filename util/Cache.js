@@ -78,8 +78,10 @@ class CacheContainer {
      * Find a record matching the provided values, or create one if it does not exist.
      * 
      * @param {array} values Array of values corresponding to the uniqueFields array.
+     * @param {?boolean} create Whether or not to create a new record with default values if one was not found (default: true).
+     * @return {?object} The record, or null if it does not exist and create was false.
      */
-    find (values) {
+    find (values, create = true) {
         var criteria = {};
         var record = this.collection.find((rec) => {
             var found = true;
@@ -94,10 +96,12 @@ class CacheContainer {
 
         if (record) {
             return record;
-        } else {
+        } else if (create) {
             return this._create(values, () => {
                 return criteria;
             })
+        } else {
+            return null;
         }
     }
 
