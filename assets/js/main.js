@@ -185,10 +185,6 @@ function getGuildInformation () {
                   <p class="text-muted">${character.age}</p>
                   <hr>
                   
-                  <strong>Height</strong>
-                  <p class="text-muted">${character.height}</p>
-                  <hr>
-                  
                   <strong>Soul Type</strong>
                   <p class="text-muted">${character.soulType}</p>
                   
@@ -380,10 +376,6 @@ function getGuildInformation () {
                   
                   <strong>Age</strong>
                   <p class="text-muted">${character.age}</p>
-                  <hr>
-                  
-                  <strong>Height</strong>
-                  <p class="text-muted">${character.height}</p>
                   <hr>
                   
                   <strong>Soul Type</strong>

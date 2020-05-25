@@ -46,5 +46,38 @@ module.exports.routes = {
     }
   },
 
+  'GET /lore': {
+    view: 'pages/lore',
+    locals: {
+      layout: 'layouts/main',
+    }
+  },
+
+  'GET /members': {
+    view: 'pages/members',
+    locals: {
+      layout: 'layouts/main',
+    }
+  },
+
+  'GET /events': {
+    view: 'pages/events',
+    locals: {
+      layout: 'layouts/main',
+    }
+  },
+
+  'GET /rules': {
+    view: 'pages/rules',
+    locals: {
+      layout: 'layouts/main',
+    }
+  },
+
+  'GET /character/:character': function (req, res) {
+    var character = req.param('character');
+    return res.view('pages/character', { layout: 'layouts/main', character: character })
+  },
+
 
 };
