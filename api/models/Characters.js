@@ -85,13 +85,15 @@ module.exports = {
     appearance: {
       type: 'string',
       defaultsTo: '',
-      description: 'A description of the character appearance.'
+      description: 'A description of the character appearance.',
+      maxLength: 2000
     },
 
     personality: {
       type: 'string',
       defaultsTo: '',
-      description: 'A description of the character personality and how they behave.'
+      description: 'A description of the character personality and how they behave.',
+      maxLength: 2000
     },
 
     soulType: {
@@ -144,31 +146,36 @@ module.exports = {
     weapons: {
       type: 'string',
       defaultsTo: '',
-      description: 'A description of the weapon(s) the character uses and how it affects gameplay.'
+      description: 'A description of the weapon(s) the character uses and how it affects gameplay.',
+      maxLength: 2000
     },
 
     armor: {
       type: 'string',
       defaultsTo: '',
-      description: 'A description of the armor the character uses and how it affects gameplay.'
+      description: 'A description of the armor the character uses and how it affects gameplay.',
+      maxLength: 2000
     },
 
     likes: {
       type: 'string',
       defaultsTo: '',
-      description: 'A list of what the character enjoys'
+      description: 'A list of what the character enjoys',
+      maxLength: 2000
     },
 
     dislikes: {
       type: 'string',
       defaultsTo: '',
-      description: 'A list of what the character does not enjoy'
+      description: 'A list of what the character does not enjoy',
+      maxLength: 2000
     },
 
     extraInfo: {
       type: 'string',
       defaultsTo: '',
-      description: 'Any additional information about this character.'
+      description: 'Any additional information about this character.',
+      maxLength: 2000
     },
 
     tallyMessage: {

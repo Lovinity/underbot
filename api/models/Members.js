@@ -22,7 +22,8 @@ module.exports = {
     introduction: {
       type: 'string',
       defaultsTo: '',
-      description: 'The introduction / profile info for this member'
+      description: 'The introduction / profile info for this member',
+      maxLength: 2000
     }
 
   },
