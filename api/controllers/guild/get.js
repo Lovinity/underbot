@@ -34,8 +34,8 @@ module.exports = {
       id: guild.id,
       name: guild.name,
       icon: guild.iconURL(),
-      numMembers: guild.members.cache.filter((member) => !member.user.bot).length,
-      numBots: guild.members.cache.filter((member) => member.user.bot).length,
+      numMembers: guild.members.cache.filter((member) => !member.user.bot).size,
+      numBots: guild.members.cache.filter((member) => member.user.bot).size,
       members: guild.members.cache.map((member) => {
         return {
           id: member.id,
