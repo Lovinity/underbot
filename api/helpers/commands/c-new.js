@@ -82,7 +82,7 @@ module.exports = {
     nicknames = nicknames.cleanContent;
 
     // Prompt for OC status
-    var OC = await prompt(`Aww, those are cute! If this character is a canon Undertale character (can be re-claimed by someone else when/if the owner leaves the guild and does not come back for 24 hours), type "yes". Otherwise, for OC characters (character will be deleted if the owner leaves the guild and does not come back for 24 hours), type "no". (timeout: 2 minutes)`, 120000);
+    var OC = await prompt(`Aww, those are cute! If this character is a canon Undertale character (can be re-claimed by someone else when/if the owner leaves the guild and does not come back for 24 hours), type "no". Otherwise, for OC characters (character will be deleted if the owner leaves the guild and does not come back for 24 hours), type "yes". (timeout: 2 minutes)`, 120000);
     OC = OC.cleanContent.toLowerCase() === 'yes' || OC.cleanContent.toLowerCase() === 'y';
 
     // Prompt for the member who owns this character
