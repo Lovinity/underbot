@@ -28,7 +28,7 @@ function getGuildInformation () {
         type: 'POST',  // http method
         data: { guild: Guild },  // data to submit
         success: function (response, status, xhr) {
-            if (guild && typeof guild.id !== 'undefined') {
+            if (response && typeof response.id !== 'undefined') {
                 guild = response;
                 $('.guild-name').html(guild.name);
                 $('.guild-logo').attr("src", guild.icon);
