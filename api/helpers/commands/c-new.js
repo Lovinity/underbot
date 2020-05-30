@@ -115,6 +115,7 @@ module.exports = {
         await photo.delete();
         photo = `${uid}${path.extname(photourl)}`
       } catch (e) {
+        await sails.helpers.events.error(e);
         throw new Error(`Unable to download the provided image`);
       }
     }
@@ -140,6 +141,7 @@ module.exports = {
         await sprite.delete();
         sprite = `${uid}${path.extname(spriteurl)}`
       } catch (e) {
+        await sails.helpers.events.error(e);
         throw new Error(`Unable to download the provided image`);
       }
     }
