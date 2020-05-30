@@ -126,11 +126,11 @@ module.exports = {
           try {
             await download.image({
               url: photourl,
-              dest: `./uploads/Characters/photos/${uid}${path.extname(photourl)}`,
+              dest: `./uploads/Characters/photos/${character.uid}${path.extname(photourl)}`,
               extractFilename: false
             });
             await photo.delete();
-            toUpdate.photo = `${uid}${path.extname(photourl)}`
+            toUpdate.photo = `${character.uid}${path.extname(photourl)}`
           } catch (e) {
             await sails.helpers.events.error(e);
             throw new Error(`Unable to download the provided image`);
@@ -152,11 +152,11 @@ module.exports = {
           try {
             await download.image({
               url: spriteurl,
-              dest: `./uploads/Characters/sprites/${uid}${path.extname(spriteurl)}`,
+              dest: `./uploads/Characters/sprites/${character.uid}${path.extname(spriteurl)}`,
               extractFilename: false
             });
             await sprite.delete();
-            toUpdate.sprite = `${uid}${path.extname(spriteurl)}`
+            toUpdate.sprite = `${character.uid}${path.extname(spriteurl)}`
           } catch (e) {
             await sails.helpers.events.error(e);
             throw new Error(`Unable to download the provided image`);
