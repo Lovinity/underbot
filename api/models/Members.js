@@ -24,7 +24,20 @@ module.exports = {
       defaultsTo: '',
       description: 'The introduction / profile info for this member',
       maxLength: 2000
-    }
+    },
+
+    spamScore: {
+      type: 'number',
+      defaultsTo: 0,
+      description: 'Spam score for anti-raid features.'
+    },
+
+    spamScoreStamp: {
+      type: 'ref',
+      columnType: 'datetime',
+      defaultsTo: moment().toISOString(true),
+      description: 'Date/time when the member last received a nudge by the bot for spam.'
+    },
 
   },
 

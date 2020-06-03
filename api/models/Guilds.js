@@ -34,7 +34,33 @@ module.exports = {
       type: 'string',
       allowNull: true,
       description: 'The channel ID where the bot should post when a character has been deleted.'
-    }
+    },
+
+    antispamCooldown: {
+      type: 'number',
+      min: 1,
+      max: 100,
+      defaultsTo: 33,
+      description: 'The number of spamScore points removed from every member each minute.'
+    },
+
+    characterStatsChannel: {
+      type: 'string',
+      allowNull: true,
+      description: 'The channel ID containing character stats, auto updated by the bot as it changes'
+    },
+
+    muteRole: {
+      type: 'string',
+      allowNull: true,
+      description: 'The ID of the role assigned when a member is muted.'
+    },
+
+    unverifiedRole: {
+      type: 'string',
+      allowNull: true,
+      description: 'The role assigned to a member when they are not yet verified.'
+    },
 
   },
 

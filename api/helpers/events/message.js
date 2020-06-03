@@ -26,6 +26,9 @@ module.exports = {
       return;
     }
 
+    // Add spam score
+    await sails.helpers.spam.applyMessage(inputs.message);
+
     // COMMAND
 
     // Check for a command and execute it if found

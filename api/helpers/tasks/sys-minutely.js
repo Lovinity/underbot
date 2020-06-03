@@ -13,6 +13,21 @@ module.exports = {
 
 
   fn: async function (inputs) {
+    var members = Caches.get('members').collection;
+
+    // Decay spam scores every minute
+    members
+      .filter((member) => member.spamScore > 0) // Do not do anything for members with no spam score
+      .each(async (member) => {
+        var guild = Caches.get('guilds').find([ member.guildID ]);
+        var newScore = member.spamScore - (guild.antispamCooldown || 0);
+        if (newScore < 0)
+          newScore = 0;
+
+        Caches.get('members').set([ member.userID, member.guildID ], () => {
+          return { spamScore: newScore };
+        })
+      })
 
     // Every hour, scan for any characters whose owner is not in the guild and a task was not created.
     // Also, scan for active deletion schedules where the owner is back in the guild
