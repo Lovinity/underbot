@@ -70,6 +70,14 @@ module.exports = {
         }
       }
     } else { // Not a command
+
+      // Message reaction easter eggs
+
+      // Bone
+      if (inputs.message.cleanContent && inputs.message.cleanContent.toLowerCase().includes("bone")) {
+        inputs.message.react(`🦴`);
+      }
+      
     }
   }
 
