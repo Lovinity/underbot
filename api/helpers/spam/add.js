@@ -70,7 +70,7 @@ module.exports = {
 
         // Send a message
         if (inputs.message) {
-          var response = `:mute: <@${inputs.message.author.id}> The sun is shining... the birds are chirping... and kids like you... **SHOULD BE BURNING IN HELL**. (You have been muted until staff address / investigate your spamming)`;
+          var response = `:mute: <@${inputs.message.author.id}> It's a beautiful day outside. Birds are singing, flowers are blooming... on days like these, kids like you... **SHOULD BE BURNING IN HELL**. (You have been muted until staff address / investigate your spamming)`;
           inputs.message.send(response);
         }
 

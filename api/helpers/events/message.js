@@ -71,13 +71,17 @@ module.exports = {
       }
     } else { // Not a command
 
-      // Message reaction easter eggs
+      // Message easter eggs
 
-      // Bone
+      // Bone reaction
       if (inputs.message.cleanContent && inputs.message.cleanContent.toLowerCase().includes("bone")) {
         inputs.message.react(`🦴`);
       }
-      
+
+      // first Sans attack GIF
+      if (inputs.message.cleanContent && inputs.message.cleanContent.toLowerCase().includes("should be burning in hell")) {
+        inputs.message.send(`https://vignette4.wikia.nocookie.net/vsbattles/images/0/08/Sans_first_attack.gif/revision/latest?cb=20160203071121`);
+      }
     }
   }
 
