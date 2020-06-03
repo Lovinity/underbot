@@ -22,6 +22,14 @@ module.exports = {
       await inputs.member.fetch();
     }
 
+    // If member is supposed to be muted, mute them
+    if (inputs.member.settings.muted) {
+      inputs.member.roles.add(inputs.member.guild.settings.muteRole, `Was previously muted and left the guild; re-muted as they re-joined`);
+      if (inputs.member.voice.channel) {
+        inputs.member.voice.kick(`User is muted`)
+      }
+    }
+
     // Check if there are any pending character deletion tasks, and if so, delete them.
     var schedules = await sails.models.schedules.find({ task: 'removeCharacter' });
     schedules.map(async (record) => {

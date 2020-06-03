@@ -26,6 +26,17 @@ module.exports = {
       return;
     }
 
+    // If member is supposed to be muted, mute them and delete the message
+    if (inputs.message.member && inputs.message.member.settings.muted) {
+      if (inputs.message.guild.settings.muteRole && !inputs.message.member.roles.cache.has(inputs.message.guild.settings.muteRole))
+        inputs.message.member.roles.add(inputs.message.member.guild.settings.muteRole, `User was supposed to be muted`);
+      inputs.message.delete();
+      if (inputs.message.member.voice.channel) {
+        inputs.member.voice.kick(`User is muted`)
+      }
+      return;
+    }
+
     // Add spam score
     await sails.helpers.spam.applyMessage(inputs.message);
 

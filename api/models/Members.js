@@ -39,6 +39,12 @@ module.exports = {
       description: 'Date/time when the member last received a nudge by the bot for spam.'
     },
 
+    muted: {
+      type: 'boolean',
+      defaultsTo: false,
+      description: 'Whether or not the member is muted.'
+    }
+
   },
 
   // Websockets and cache standards

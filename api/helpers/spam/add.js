@@ -63,6 +63,11 @@ module.exports = {
         // Add the mute role
         inputs.member.roles.add(inputs.member.guild.settings.muteRole, `Triggered the bot anti-spam`);
 
+        // Kick out of voice channels
+        if (inputs.member.voice.channel) {
+          inputs.member.voice.kick(`User is muted`)
+        }
+
         // Send a message
         if (inputs.message) {
           var response = `:mute: <@${inputs.message.author.id}> The sun is shining... the birds are chirping... and kids like you... **SHOULD BE BURNING IN HELL**. (You have been muted until staff address / investigate your spamming)`;
