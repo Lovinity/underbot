@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require("path");
+
 module.exports = {
 
 
@@ -80,7 +83,7 @@ module.exports = {
 
       // first Sans attack GIF
       if (inputs.message.cleanContent && inputs.message.cleanContent.toLowerCase().includes("should be burning in hell")) {
-        inputs.message.send(`https://vignette4.wikia.nocookie.net/vsbattles/images/0/08/Sans_first_attack.gif/revision/latest?cb=20160203071121`);
+        inputs.message.send({ files: [ fs.readFileSync(path.resolve(__dirname, "../../../assets/images/sans_first_attack.gif")) ] });
       }
     }
   }
