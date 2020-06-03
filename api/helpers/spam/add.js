@@ -65,7 +65,7 @@ module.exports = {
 
         // Send a message
         if (inputs.message) {
-          var response = `:mute: <@${inputs.message.author.id}> The sun is shining... the birds are chirping... and kids like you... **SHOULD BE BURNING IN HELL**. `;
+          var response = `:mute: <@${inputs.message.author.id}> The sun is shining... the birds are chirping... and kids like you... **SHOULD BE BURNING IN HELL**. (You have been muted until staff address / investigate your spamming)`;
           inputs.message.send(response);
         }
 
