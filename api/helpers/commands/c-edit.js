@@ -59,7 +59,7 @@ module.exports = {
       try {
         var response = await inputs.message.channel.awaitMessages(filter, { max: 1, time: time, errors: [ 'time' ] });
       } catch (e) {
-        throw new Error(`newcharacter command timed out.`);
+        throw new Error(`Command timed out.`);
       }
 
       // Delete sent message if remove is true
