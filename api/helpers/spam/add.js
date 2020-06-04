@@ -28,6 +28,10 @@ module.exports = {
 
   fn: async function (inputs) {
     // Ignore if score = 0 or if the member does not have the unverified role and has at least one other roles.
+
+    // Temporarily disable
+    return null;
+
     if (inputs.amount === 0 || (inputs.member.roles.cache.size > 1 && !inputs.member.roles.cache.has(inputs.member.guild.settings.unverifiedRole)))
       return null;
 
