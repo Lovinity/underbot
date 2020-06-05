@@ -154,8 +154,8 @@ module.exports.bootstrap = async function () {
         score += (10 * numattachments);
         if (numattachments > 0) { scoreReasons[ "Attachments" ] = (numattachments * 10) }
 
-        // Calculate how many seconds this message took to type based off of 7 characters per second.
-        var messageTime = ((this.cleanContent ? this.cleanContent.length : 0) / 7);
+        // Calculate how many seconds this message took to type based off of 14 characters per second.
+        var messageTime = ((this.cleanContent ? this.cleanContent.length : 0) / 14);
 
         // Iterate through messages of this channel from the last 3 minutes by the same author
         var collection = this.channel.messages.cache
@@ -165,7 +165,7 @@ module.exports.bootstrap = async function () {
           });
 
         collection.each((message) => {
-          // If the current message was sent at a time that causes the typing speed to be more than 7 characters per second, 
+          // If the current message was sent at a time that causes the typing speed to be more than 14 characters per second, 
           // add score for flooding / copypasting. The faster / more characters typed, the more score added.
           var timediff = moment(this.createdAt).diff(moment(message.createdAt), 'seconds');
           if (timediff <= messageTime && !this.author.bot) {
@@ -260,9 +260,15 @@ module.exports.bootstrap = async function () {
           });
 
           this.cachedSpamScore = score;
+
+          sails.log.debug(scoreReasons);
+
           return score;
         } else {
           this.cachedSpamScore = score;
+
+          sails.log.debug(scoreReasons);
+
           return score;
         }
       }
