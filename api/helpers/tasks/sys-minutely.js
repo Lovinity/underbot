@@ -38,6 +38,7 @@ module.exports = {
       Caches.get('characters').collection.each(async (character) => {
         var guild = DiscordClient.guilds.resolve(character.guildID);
         if (guild) {
+          if (character.userID === null) return; // Null user ID means unclaimed character. Do not delete.
           var member = guild.members.resolve(character.userID);
           if (!member && !schedules.find((schedule) => schedule.data.uid === character.uid)) {
             uid = await sails.helpers.uid();
@@ -53,7 +54,7 @@ module.exports = {
           var guild = DiscordClient.guilds.resolve(character.guildID);
           if (guild) {
             var member = guild.members.resolve(character.userID);
-            if (member) {
+            if (member || character.userID === null) {
               await sails.models.schedules.destroyOne({ id: record.id });
             }
           }

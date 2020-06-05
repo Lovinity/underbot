@@ -23,7 +23,7 @@ module.exports = {
 
   fn: async function (inputs) {
     // Get the character from the database
-    var character = await sails.models.characters.findOne({ uid: character.uid });
+    var character = await sails.models.characters.findOne({ uid: inputs.uid });
 
     // Exit if the character was not found
     if (!character) {
@@ -50,7 +50,7 @@ module.exports = {
         })
       } else {
         if (guild)
-          await sails.helpers.guild.send(`characterDeletionChannel`, guild, `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. This character, being an OC, has left the role play.`)
+          await sails.helpers.guild.send(`characterDeletionChannel`, guild, `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. This character, being an OC, has disintegrated into dust and left the role play.`)
         Caches.get('characters').delete(character.id);
       }
     }
