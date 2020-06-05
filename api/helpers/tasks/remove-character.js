@@ -44,7 +44,7 @@ module.exports = {
     } else {
       if (!character.OC) {
         if (guild)
-          await sails.helpers.guild.send(`characterDeletionChannel`, guild, `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. This character is now open for claiming!`)
+          await sails.helpers.guild.send(`characterDeletionChannel`, guild, `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. This was an OG character, meaning it is now open for someone else to claim them!`)
         Caches.get('characters').set([ inputs.uid ], () => {
           return { userID: null }
         })
