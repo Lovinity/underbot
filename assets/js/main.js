@@ -122,12 +122,19 @@ function getGuildInformation () {
                     <h5 class="widget-user-desc">Claimed by ${character.owner}</h5>
                   </div>
                 </div>
-                <div class="widget-user-image" style="top: 0; left: 60px;">
-                  <img class="img-circle" src="/characters/sprite?uid=${character.uid}" alt="Sprite">
-                </div>
                 <div class="card-footer">
                   <div class="row">
-                    <div class="col-sm-4 border-right">
+                    <div class="col-sm-3 border-right">
+                      <div class="description-block">
+                        <span class="description-text">
+                          <div class="widget-user-image">
+                            <img class="img-circle" src="/characters/sprite?uid=${character.uid}" alt="Sprite">
+                          </div>
+                        </span>
+                      </div>
+                      <!-- /.description-block -->
+                    </div>
+                    <div class="col-sm-3 border-right">
                       <div class="description-block">
                         <h5 class="description-header">${character.LVL} / ${character.EXP}</h5>
                         <span class="description-text">LVL / EXP</span>
@@ -135,7 +142,7 @@ function getGuildInformation () {
                       <!-- /.description-block -->
                     </div>
                     <!-- /.col -->
-                    <div class="col-sm-4 border-right">
+                    <div class="col-sm-3 border-right">
                       <div class="description-block">
                         <h5 class="description-header">${character.ATK}</h5>
                         <span class="description-text">ATK</span>
@@ -143,7 +150,7 @@ function getGuildInformation () {
                       <!-- /.description-block -->
                     </div>
                     <!-- /.col -->
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                       <div class="description-block">
                         <h5 class="description-header">${character.DEF}</h5>
                         <span class="description-text">DEF</span>
@@ -153,18 +160,18 @@ function getGuildInformation () {
                     <!-- /.col -->
                   </div>
                   <!-- /.row -->
+                  <div class="row">
+                  <div class="col">
+                      <div class="progress m-2" style="height: 30px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: ${character.HPPercent}%;" aria-valuenow="${character.HPPercent}" aria-valuemin="0" aria-valuemax="100">${character.HP} / ${character.maxHP} HP</div>
+                      </div>
+                  </div>
+                </div>
                 </div>
               </div>
             </div>
           </div>
           <!-- /.row -->
-          <div class="row">
-            <div class="col">
-                <div class="progress m-2" style="height: 30px;">
-                  <div class="progress-bar bg-success" role="progressbar" style="width: ${character.HPPercent}%;" aria-valuenow="${character.HPPercent}" aria-valuemin="0" aria-valuemax="100">${character.HP} / ${character.maxHP} HP</div>
-                </div>
-            </div>
-          </div>
 
           <div class="row">
             <div class="col-lg-6 col-12">
@@ -315,49 +322,56 @@ function getGuildInformation () {
                     <h5 class="widget-user-desc">Claimed by ${character.owner}</h5>
                   </div>
                 </div>
-                <div class="widget-user-image" style="top: 0; left: 60px;">
-                  <img class="img-circle" src="/characters/sprite?uid=${character.uid}" alt="Sprite">
-                </div>
                 <div class="card-footer">
-                  <div class="row">
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">${character.LVL} / ${character.EXP}</h5>
-                        <span class="description-text">LVL / EXP</span>
-                      </div>
-                      <!-- /.description-block -->
+                <div class="row">
+                  <div class="col-sm-3 border-right">
+                    <div class="description-block">
+                      <span class="description-text">
+                        <div class="widget-user-image">
+                          <img class="img-circle" src="/characters/sprite?uid=${character.uid}" alt="Sprite">
+                        </div>
+                      </span>
                     </div>
-                    <!-- /.col -->
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">${character.ATK}</h5>
-                        <span class="description-text">ATK</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-4">
-                      <div class="description-block">
-                        <h5 class="description-header">${character.DEF}</h5>
-                        <span class="description-text">DEF</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
+                    <!-- /.description-block -->
                   </div>
+                  <div class="col-sm-3 border-right">
+                    <div class="description-block">
+                      <h5 class="description-header">${character.LVL} / ${character.EXP}</h5>
+                      <span class="description-text">LVL / EXP</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-3 border-right">
+                    <div class="description-block">
+                      <h5 class="description-header">${character.ATK}</h5>
+                      <span class="description-text">ATK</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-3">
+                    <div class="description-block">
+                      <h5 class="description-header">${character.DEF}</h5>
+                      <span class="description-text">DEF</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                </div>
                   <!-- /.row -->
+                  <div class="row">
+                  <div class="col">
+                      <div class="progress m-2" style="height: 30px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: ${character.HPPercent}%;" aria-valuenow="${character.HPPercent}" aria-valuemin="0" aria-valuemax="100">${character.HP} / ${character.maxHP} HP</div>
+                      </div>
+                  </div>
+                </div>
                 </div>
               </div>
             </div>
           </div>
           <!-- /.row -->
-          <div class="row">
-            <div class="col">
-                <div class="progress m-2" style="height: 30px;">
-                  <div class="progress-bar bg-success" role="progressbar" style="width: ${character.HPPercent}%;" aria-valuenow="${character.HPPercent}" aria-valuemin="0" aria-valuemax="100">${character.HP} / ${character.maxHP} HP</div>
-                </div>
-            </div>
-          </div>
 
           <div class="row">
             <div class="col-lg-6 col-12">
