@@ -40,17 +40,17 @@ module.exports = {
     // Delete original command message
     inputs.message.delete();
 
-    // Check permissions
-    if (!inputs.message.member.permissions.has('VIEW_AUDIT_LOG') && inputs.message.author.id !== sails.config.custom.discord.clientOwner) {
-      throw new Error(`You are not allowed to use this command.`);
-    }
-
     // Get the character
     var character = inputs.message.guild.characters.find((char) => char.name.toLowerCase() === inputs.character.toLowerCase());
 
     // Check if the character exists
     if (!character) {
       throw new Error(`That character was not found in the database.`)
+    }
+
+    // Check if we have permission to do this
+    if (character.userID !== inputs.message.author.id && !inputs.message.member.permissions.has('VIEW_AUDIT_LOG') && inputs.message.author.id !== sails.config.custom.discord.clientOwner) {
+      throw new Error(`Only the character owner or staff may add items to the character.`)
     }
 
     // Add the item to the repository
