@@ -127,9 +127,7 @@ function getGuildInformation () {
                     <div class="col-sm-3 border-right">
                       <div class="description-block">
                         <span class="description-text">
-                          <div style="width: 90px; height: auto;">
-                            <img class="img-circle" src="/characters/sprite?uid=${character.uid}" alt="Sprite">
-                          </div>
+                            <img class="img-circle" src="/characters/sprite?uid=${character.uid}" alt="Sprite" style="max-width: 96px; max-height: 96px;">
                         </span>
                       </div>
                       <!-- /.description-block -->
@@ -327,9 +325,7 @@ function getGuildInformation () {
                   <div class="col-sm-3 border-right">
                     <div class="description-block">
                       <span class="description-text">
-                      <div style="width: 90px; height: auto;">
-                          <img class="img-circle" src="/characters/sprite?uid=${character.uid}" alt="Sprite">
-                          </div>
+                          <img class="img-circle" src="/characters/sprite?uid=${character.uid}" alt="Sprite" style="max-width: 96px; max-height: 96px;">
                       </span>
                     </div>
                     <!-- /.description-block -->
