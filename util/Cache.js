@@ -112,6 +112,7 @@ class CacheContainer {
      * @param {function} criteria Function that returns a dictionary of key:value pairs either to use as a new record or to change an existing one.
      */
     set (values, criteria) {
+        sails.log.debug(`Set on ${this.model} of ${JSON.stringify(values)}`);
         // If the cache container was not yet initialized, queue this for later when it is initialized.
         if (!this.initialized) {
             this.queued.push([ values, criteria ]);
@@ -127,7 +128,7 @@ class CacheContainer {
 
                 // Do not proceed if changes do not actually change anything
                 if (_.isEqual(record, Object.assign(tempRecord, orm))) {
-                    console.log(`Bailing; equal.`);
+                    sails.log.debug(`Bailing: equal`)
                     return;
                 }
 
@@ -137,8 +138,13 @@ class CacheContainer {
 
                 this.collection.set(record.id, record);
 
+                var orm2 = _.cloneDeep(orm);
+
                 // Update database in the background
-                sails.models[ this.model ].update({ id: record.id }, _.cloneDeep(orm)).fetch().exec(() => { });
+                sails.models[ this.model ].update({ id: record.id }, orm2).fetch().exec((err) => {
+                    if (err)
+                        sails.helpers.events.error(err).exec(() => { });
+                });
             } else {
                 this._create(values, criteria);
             }
@@ -154,7 +160,10 @@ class CacheContainer {
         // Delete from cache before deleting from database
         this.collection.delete(id);
 
-        sails.models[ this.model ].destroy({ id }).fetch().exec(() => { });
+        sails.models[ this.model ].destroy({ id }).fetch().exec((err) => {
+            if (err)
+                sails.helpers.events.error(err).exec(() => { });
+        });
     }
 
     /**
@@ -164,6 +173,7 @@ class CacheContainer {
      * @param {object} orm Already-resolved object of criteria
      */
     _create (values, criteria) {
+        sails.log.debug(`_create on ${this.model} of ${JSON.stringify(values)}`);
         // Cache first, database second. Update/create record in the cache.
         var updating = false;
         var orm = criteria();
@@ -175,6 +185,7 @@ class CacheContainer {
 
         // Do not proceed if changes do not actually change anything
         if (tempRecord && _.isEqual(tempRecord, Object.assign(tempRecord, orm))) {
+            sails.log.debug(`Bailing; equal`);
             return;
         }
 
@@ -212,6 +223,7 @@ class CacheContainer {
                     this.sync = this.sync.filter((sync) => sync !== key)
                 } else {
                     console.error(err);
+                    sails.helpers.events.error(err).exec(() => { });
                 }
             });
         }
