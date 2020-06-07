@@ -23,7 +23,8 @@ module.exports = {
       type: 'string',
       defaultsTo: '',
       description: 'The introduction / profile info for this member',
-      maxLength: 2000
+      maxLength: 2000,
+      columnType: 'varchar(2000)'
     },
 
     spamScore: {
