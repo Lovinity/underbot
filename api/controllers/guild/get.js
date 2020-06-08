@@ -37,7 +37,16 @@ module.exports = {
       character.LVL = await sails.helpers.characters.calculateLevel(character);
       character.HPPercent = character.maxHP > 0 ? (character.HP / character.maxHP) * 100 : 0;
       character.claimed = character.userID !== null;
-      character.owner = character.userID ? guild.members.resolve(character.userID).user.tag : 'Unclaimed';
+      if (!character.userID) {
+      character.owner = 'Unclaimed';
+      } else {
+        character.owner = guild.members.resolve(character.userID);
+        if (character.owner) {
+          character.owner = character.owner.user.tag;
+        } else {
+          character.owner = 'Unknown User';
+        }
+      }
       return character;
     });
     var guildCharacters = await Promise.all(maps);
