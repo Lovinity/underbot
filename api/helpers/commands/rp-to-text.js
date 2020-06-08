@@ -43,7 +43,7 @@ module.exports = {
         ];
 
         var channels = inputs.message.guild.channels.cache.array()
-            .filter((channel) => channel.parentID && categories.has(channel.parentID) && channel.type === 'text')
+            .filter((channel) => channel.parentID && categories.indexOf(channel.parentID) !== -1 && channel.type === 'text')
 
         var index = 0;
 
