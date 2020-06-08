@@ -50,19 +50,33 @@ module.exports = {
         var messages = [];
 
         var afterSnowflake = `712380653928316949`;
+        var currentSnowflake;
 
         var channel;
 
+        var compare = (a, b) => {
+            return a.id - b.id;
+        }
+        var compareReverse = (a, b) => {
+            return b.id - a.id;
+        }
+
         var nextChannel = (async () => {
+            sails.log.debug(`nextChannel index ${index}`)
             if (index >= channels.length)
                 return;
 
             if (!channels[ index ]) {
+                sails.log.debug(`Channel not found`)
                 index++;
                 await nextChannel();
             }
 
+            sails.log.debug(`nextChannel channel name ${channels[ index ].name}`)
+
             await message.edit(`:hourglass: Please wait; this could take a while... (Fetching messages from channel ${index + 1}/${channels.length})`);
+
+            currentSnowflake = afterSnowflake;
 
             await nextMessageBatch();
         });
@@ -70,14 +84,19 @@ module.exports = {
         var nextMessageBatch = (() => {
             return new Promise(async (resolve, reject) => {
                 setTimeout(async () => {
-                    var msg = await channels[ index ].messages.fetch();
+                    sails.log.debug(`nextMessageBatch after snowflake ${currentSnowflake}`)
+                    var msg = await channels[ index ].messages.fetch({ after: currentSnowflake }, false);
                     if (!msg || msg.size === 0) {
+                        sails.log.debug(`nextMessageBatch: no more messages`)
                         index++;
                         await nextChannel();
                         return resolve();
                     } else {
+                        sails.log.debug(`nextMessageBatch: got ${msg.size} messages.`)
                         msg = msg.array();
+                        msg = msg.sort(compareReverse);
                         messages = messages.concat(msg);
+                        currentSnowflake = msg[ 0 ].id;
                         await nextMessageBatch();
                         return resolve();
                     }
@@ -87,11 +106,9 @@ module.exports = {
 
         await nextChannel();
 
-        await message.edit(`:hourglass: Please wait; this could take a while... (Sorting messages)`);
+        sails.log.debug(`nextChannel DONE`)
 
-        var compare = (a, b) => {
-            return a.id - b.id;
-        }
+        await message.edit(`:hourglass: Please wait; this could take a while... (Sorting messages)`);
 
         messages = messages.sort(compare);
 
