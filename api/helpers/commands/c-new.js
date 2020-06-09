@@ -264,9 +264,7 @@ module.exports = {
     obj.maxHP = maxHP;
 
     // Create or update the database record
-    Caches.get('characters').set([ uid ], () => {
-      return obj;
-    });
+    Caches.get('characters').set([ uid ], obj);
 
     // Return a message
     return inputs.message.send(`:white_check_mark: Splendid! The character was added! Note, custom dialog fonts must be manually installed by the bot owner. Otherwise, the bot will use the default font of determination.`);

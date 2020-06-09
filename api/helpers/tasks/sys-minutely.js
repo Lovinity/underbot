@@ -24,9 +24,7 @@ module.exports = {
         if (newScore < 0)
           newScore = 0;
 
-        Caches.get('members').set([ member.userID, member.guildID ], () => {
-          return { spamScore: newScore };
-        })
+        Caches.get('members').set([ member.userID, member.guildID ], { spamScore: newScore });
       })
 
     // Every hour, scan for any characters whose owner is not in the guild and a task was not created.

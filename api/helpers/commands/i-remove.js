@@ -68,9 +68,7 @@ module.exports = {
     })
 
     // Save to cache / database
-    Caches.get('characters').set([ character.uid ], () => {
-      return { items: character.items }
-    })
+    Caches.get('characters').set([ character.uid ], { items: character.items });
 
     // Return message
     return inputs.message.send(`**${character.name} has consumed / lost / removed an item!**: ${item.name}: ${item.description}`);

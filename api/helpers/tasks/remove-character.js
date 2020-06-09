@@ -45,9 +45,7 @@ module.exports = {
       if (character.claimable) {
         if (guild)
           await sails.helpers.guild.send(`characterDeletionChannel`, guild, `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. **This character may now be claimed by someone else**.`)
-        Caches.get('characters').set([ inputs.uid ], () => {
-          return { userID: null }
-        })
+        Caches.get('characters').set([ inputs.uid ], { userID: null });
       } else {
         if (guild)
           await sails.helpers.guild.send(`characterDeletionChannel`, guild, `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. This character cannot be claimed by others, therefore, it has disintegrated into dust and left the role play.`)

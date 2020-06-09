@@ -57,9 +57,7 @@ module.exports = {
     character.items.push({ name: inputs.name.toLowerCase(), description: inputs.description });
 
     // Save to the database and cache
-    Caches.get('characters').set([ character.uid ], () => {
-      return { items: character.items }
-    })
+    Caches.get('characters').set([ character.uid ], { items: character.items });
 
     // Return message
     return inputs.message.send(`**${character.name} has a [new] item!**: ${inputs.name.toLowerCase()}: ${inputs.description}`);

@@ -32,8 +32,8 @@ module.exports.bootstrap = async function () {
   */
 
   // Guilds
-  Caches.new('guilds', [ 'guildID' ]);
-  Caches.new('characters', [ 'uid' ]);
+  await Caches.new('guilds', [ 'guildID' ]);
+  await Caches.new('characters', [ 'uid' ]);
   Discord.Structures.extend('Guild', Guild => {
     class CoolGuild extends Guild {
       constructor(client, data) {
@@ -58,7 +58,7 @@ module.exports.bootstrap = async function () {
   });
 
   // GuildMember
-  Caches.new('members', [ 'userID', 'guildID' ]);
+  await Caches.new('members', [ 'userID', 'guildID' ]);
   Discord.Structures.extend('GuildMember', GuildMember => {
     class CoolGuildMember extends GuildMember {
       constructor(client, data, guild) {

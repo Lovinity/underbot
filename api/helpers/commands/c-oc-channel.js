@@ -51,18 +51,14 @@ module.exports = {
     }
 
     // Set new ocChannel
-    Caches.get('guilds').set([ inputs.message.guild.id ], () => {
-      return { ocChannel: inputs.message.channel.id }
-    });
+    Caches.get('guilds').set([ inputs.message.guild.id ], { ocChannel: inputs.message.channel.id });
 
     // Loop through each character in the database and create a stats message
     var maps2 = inputs.message.guild.characters
       .filter((character) => character.OC)
       .map(async (character) => {
         var message = await inputs.message.channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`} (${sails.config.custom.baseURL}/character/${character.uid})`);
-        Caches.get('characters').set([ character.uid ], () => {
-          return { ocMessage: message.id }
-        });
+        Caches.get('characters').set([ character.uid ], { ocMessage: message.id });
       });
     await Promise.all(maps2);
   }

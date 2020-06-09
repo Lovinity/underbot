@@ -12,9 +12,11 @@ class CacheManager {
      * @param {string} model Name of the sails.js model to cache
      * @param {array} uniqueFields Array of column names used to determine if a record is unique (unique unless ALL fields are the same between rows)
      */
-    new (model, uniqueFields) {
+    async new (model, uniqueFields) {
         if (this.containers.has(model)) return;
-        this.containers.set(model, new CacheContainer(model, uniqueFields));
+        var cacheContainer = new CacheContainer(model, uniqueFields);
+        this.containers.set(model, cacheContainer);
+        await cacheContainer.init();
     }
 
     /**
@@ -43,30 +45,30 @@ class CacheContainer {
      */
     constructor(model, uniqueFields) {
         this.collection = new Discord.Collection();
-        this.queued = [];
-        this.sync = [];
+        this.dbQueue = [];
 
         this.model = model;
         this.uniqueFields = uniqueFields;
 
         this.initialized = false;
+        this.running = false;
+    }
 
+    async init () {
         // Initialize the cache by loading what is currently in the database. Execute the queue once loaded.
-        sails.models[ this.model ].find().then((results) => {
-            results.forEach((result) => {
-                this.collection.set(result.id, result);
-            });
-            this.initialized = true;
-            this.queued.forEach((queued) => {
-                this.set(queued[ 0 ], queued[ 1 ]);
-            });
+        sails.log.verbose(`${this.model}: Initializing...`);
+        var results = await sails.models[ this.model ].find();
+        results.forEach((result) => {
+            this.collection.set(result.id, result);
         });
+        this.initialized = true;
+        sails.log.verbose(`${this.model}: Initialized`);
     }
 
     // Get a cache record by its key/ID
     get (key) {
-        if (this.cache.has(key)) {
-            const value = this.cache.get(key);
+        if (this.collection.has(key)) {
+            const value = this.collection.get(key);
             if (value) {
                 return value;
             }
@@ -82,6 +84,8 @@ class CacheContainer {
      * @return {?object} The record, or null if it does not exist and create was false.
      */
     find (values, create = true) {
+        if (!this.initialized)
+            throw new Error('Model is not yet initialized.');
         var criteria = {};
         var record = this.collection.find((rec) => {
             var found = true;
@@ -97,9 +101,7 @@ class CacheContainer {
         if (record) {
             return record;
         } else if (create) {
-            return this._create(values, () => {
-                return criteria;
-            })
+            return this._create(values, criteria);
         } else {
             return null;
         }
@@ -109,43 +111,31 @@ class CacheContainer {
      * Query the cache
      * 
      * @param {array} values Array of values for uniqueFields to determine which record(s) to edit.
-     * @param {function} criteria Function that returns a dictionary of key:value pairs either to use as a new record or to change an existing one.
+     * @param {object} criteria Object of key:value pairs to update to (or create with).
      */
     set (values, criteria) {
-        sails.log.debug(`Set on ${this.model} of ${JSON.stringify(values)}`);
+        sails.log.verbose(`${this.model}=>set(${JSON.stringify(values)}): set called (${JSON.stringify(criteria)})`);
         // If the cache container was not yet initialized, queue this for later when it is initialized.
         if (!this.initialized) {
-            this.queued.push([ values, criteria ]);
+            throw new Error("Model not initialized");
         } else {
-
             // Record found? Update it. Otherwise, create it.
             var record = this.collection.find((record) => this.filterByUnique(record, values) && !isNaN(record.id));
             if (record) {
+                sails.log.verbose(`${this.model}=>set(${JSON.stringify(values)}): Record found. Updating cache.`);
 
                 // Update cache first
-                var orm = criteria();
                 var tempRecord = _.cloneDeep(record);
 
-                // Do not proceed if changes do not actually change anything
-                if (_.isEqual(record, Object.assign(tempRecord, orm))) {
-                    sails.log.debug(`Bailing: equal`)
-                    return;
-                }
-
-                delete orm.id;
-                orm.updatedAt = moment().valueOf();
-                Object.assign(record, orm);
+                delete criteria.id; // Don't want to update cache with id
+                criteria.updatedAt = moment().valueOf();
+                Object.assign(record, criteria);
 
                 this.collection.set(record.id, record);
 
-                var orm2 = _.cloneDeep(orm);
-
-                // Update database in the background
-                sails.models[ this.model ].update({ id: record.id }, orm2).fetch().exec((err) => {
-                    if (err)
-                        sails.helpers.events.error(err).exec(() => { });
-                });
+                this.queueSync(record.id);
             } else {
+                sails.log.verbose(`${this.model}=>set(${JSON.stringify(values)}): Record not found.`);
                 this._create(values, criteria);
             }
         }
@@ -157,78 +147,158 @@ class CacheContainer {
      * @param {number} id ID of the record to delete
      */
     delete (id) {
+        sails.log.verbose(`${this.model}=>delete(${id}): Called.`);
         // Delete from cache before deleting from database
+        sails.log.verbose(`${this.model}=>delete(${id}): Deleting record from cache.`);
         this.collection.delete(id);
 
-        sails.models[ this.model ].destroy({ id }).fetch().exec((err) => {
-            if (err)
-                sails.helpers.events.error(err).exec(() => { });
-        });
+        this.queueSync(id);
     }
 
     /**
      * Create a new record in the cache and database.
      * NOTE: Not recommended to call this directly (you might end up with duplicate primary keys); use set or find instead.
      * 
-     * @param {object} orm Already-resolved object of criteria
+     * @param {array} values Array of values for uniqueFields to determine if a record was already created but not in the db yet.
+     * @param {object} criteria Object of key:value pairs; must pass all required fields!
      */
     _create (values, criteria) {
-        sails.log.debug(`_create on ${this.model} of ${JSON.stringify(values)}`);
+        sails.log.verbose(`${this.model}=>_create(${JSON.stringify(values)}): Called.`);
+
         // Cache first, database second. Update/create record in the cache.
-        var updating = false;
-        var orm = criteria();
         var key = this.generateKeyByFields(values);
-        orm.id = key;
-        orm.updatedAt = moment().valueOf();
+        criteria.id = key;
+        criteria.updatedAt = moment().valueOf();
+
+        sails.log.verbose(`${this.model}=>_create(${JSON.stringify(values)}): Temp ID is ${key}.`);
 
         var tempRecord = this.collection.get(key);
 
-        // Do not proceed if changes do not actually change anything
-        if (tempRecord && _.isEqual(tempRecord, Object.assign(tempRecord, orm))) {
-            sails.log.debug(`Bailing; equal`);
-            return;
-        }
+        sails.log.verbose(`${this.model}=>_create(${key}): Updating cache.`);
 
         if (tempRecord) {
-            updating = true;
-            Object.assign(tempRecord, orm);
+            Object.assign(tempRecord, criteria);
             this.collection.set(key, tempRecord);
         } else {
-            Object.assign(orm, this.generateCriteriaByFields(values));
-            tempRecord = makeDefault(sails.models[ this.model ].attributes, orm);
+            Object.assign(criteria, this.generateCriteriaByFields(values));
+            tempRecord = makeDefault(sails.models[ this.model ].attributes, criteria);
             this.collection.set(key, tempRecord);
         }
 
-        // Determine if we already queued for a create. If so, add a queue for an update after the create. Otherwise create.
-        if (updating) {
-            this.sync.push(key);
-        } else {
-            delete tempRecord.id;
-            sails.models[ this.model ].create(_.cloneDeep(tempRecord)).fetch().exec((err, recordx) => {
-                if (!err) {
-                    // Change key from temporary to permanent one, but maintain data in cache instead of database.
-                    var tempRecord2 = this.collection.get(key);
-                    this.collection.delete(key);
-                    this.collection.set(recordx.id, Object.assign(tempRecord2, { id: recordx.id }));
-
-                    // Execute an update if we are pending an additional sync triggered after the original create.
-                    this.sync
-                        .filter((sync) => sync === key)
-                        .map((sync) => {
-                            var updater = this.collection.get(key);
-                            delete updater.id;
-                            delete updater.updatedAt;
-                            sails.models[ this.model ].update({ id: recordx.id }, updater).fetch().exec(() => { });
-                        })
-                    this.sync = this.sync.filter((sync) => sync !== key)
-                } else {
-                    console.error(err);
-                    sails.helpers.events.error(err).exec(() => { });
-                }
-            });
-        }
+        this.queueSync(key);
 
         return this.collection.get(key);
+    }
+
+    /**
+     * Queue a record sync to DB.
+     * 
+     * @param {string|number} key The record key to sync to DB.
+     */
+    queueSync (key) {
+        // Queue a sync
+        sails.log.verbose(`${this.model}=>queueSync(${key}): Called.`);
+        if (!this.running) {
+            sails.log.verbose(`${this.model}=>queueSync(${key}): Syncing DB.`);
+            this.running = true;
+            this._sync(key);
+        } else {
+            if (this.dbQueue.indexOf(key) !== -1) {
+                sails.log.verbose(`${this.model}=>queueSync(${key}): DB operations running, but this record is already queued for sync.`);
+            } else {
+                sails.log.verbose(`${this.model}=>queueSync(${key}): DB operations running; queued sync.`);
+                this.dbQueue.push(key);
+            }
+        }
+    }
+
+    /**
+     * Process an operation in the actual database.
+     * NOTE: Should not be called directly; use queueSync instead.
+     * 
+     * @param {string|number} key The id of the record to sync.
+     */
+    _sync (key) {
+        sails.log.verbose(`${this.model}=>_sync(${key}): Called.`);
+        var nextTask = () => {
+            sails.log.verbose(`${this.model}=>_sync(${key})=>nextTask(): Called.`);
+            if (this.dbQueue.length > 0) {
+                var nextInLine = this.dbQueue.shift();
+                this._sync(nextInLine);
+            } else {
+                sails.log.verbose(`${this.model}=>_sync(${key})=>nextTask(): Nothing more to do; DB operations finished.`);
+                this.running = false;
+            }
+        };
+
+        // Change temporary id to permanent one if we can, else delete it
+        if (key && isNaN(key) && key.startsWith("F_")) {
+            var record = this.collection.find((record) => key === this.generateKeyByFields(record));
+            if (record) {
+                sails.log.verbose(`${this.model}=>_sync(${key}): Real id found: ${record.id}.`);
+                key = record.id;
+            } else {
+                sails.log.verbose(`${this.model}=>_sync(${JSON.stringify(values)}): Real id NOT found.`);
+            }
+        }
+
+        // Determine action
+        var record = this.collection.get(key);
+        var action;
+        if (!record) {
+            action = 'destroy';
+        } else if (record && isNaN(key) && key.startsWith("F_")) {
+            action = 'create';
+        } else {
+            action = 'update';
+        }
+
+        // Do stuff
+        var criteria = _.cloneDeep(record);
+        delete criteria.id;
+        switch (action) {
+            case 'create':
+                sails.log.verbose(`${this.model}=>_sync(${key}): Creating DB record.`);
+                sails.models[ this.model ].create(criteria).fetch().exec((err, recordx) => {
+                    if (!err) {
+                        sails.log.verbose(`${this.model}=>_sync(${key}): Created.`);
+
+                        // Change key from temporary to permanent one, but maintain data in cache instead of database.
+                        this.collection.delete(key);
+                        this.collection.set(recordx.id, Object.assign(record, { id: recordx.id }));
+                        sails.log.verbose(`${this.model}=>_sync(${key}): Updated cache temp id to permanent id ${recordx.id}.`);
+                    } else {
+                        sails.log.verbose(`${this.model}=>_sync(${key}): Create ERROR.`);
+                        sails.helpers.events.error(err).exec(() => { });
+                    }
+                    nextTask();
+                });
+                break;
+            case 'update':
+                sails.log.verbose(`${this.model}=>_sync(${key}): Updating DB record.`);
+                sails.models[ this.model ].update({ id: key }, criteria).fetch().exec((err) => {
+                    if (err) {
+                        sails.helpers.events.error(err).exec(() => { });
+                        sails.log.verbose(`${this.model}=>_sync(${key}): Update ERROR.`);
+                    } else {
+                        sails.log.verbose(`${this.model}=>_sync(${key}): Updated.`);
+                    }
+                    nextTask();
+                });
+                break;
+            case 'destroy':
+                sails.log.verbose(`${this.model}=>_sync(${key}): Destroying DB record.`);
+                sails.models[ this.model ].destroy({ id: key }).fetch().exec((err) => {
+                    if (err) {
+                        sails.helpers.events.error(err).exec(() => { });
+                        sails.log.verbose(`${this.model}=>_sync(${key}): destroy ERROR.`);
+                    } else {
+                        sails.log.verbose(`${this.model}=>_sync(${key}): Destroyed.`);
+                    }
+                    nextTask();
+                });
+                break;
+        }
     }
 
     /**
@@ -251,14 +321,16 @@ class CacheContainer {
     /**
      * Generate a temporary key/ID for a cache entry before it gets added to the database.
      * 
-     * @param {object} values key:value entries for the uniqueFields of the record.
+     * @param {array|object} values Array of entries, or object of key:value pairs, for the uniqueFields of the record.
      * @returns {string} The temporary key based on the uniqueFields with an F_ prefix (to indicate it is temporary).
      */
     generateKeyByFields (values) {
         var returnString = `F_`;
         this.uniqueFields.forEach((field, index) => {
-            if (values[ index ]) {
+            if (values.constructor === Array && values[ index ]) {
                 returnString += `${values[ index ]}_`
+            } else if (values[ field ]) {
+                returnString += `${values[ field ]}_`
             }
         });
         return returnString;

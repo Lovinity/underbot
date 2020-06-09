@@ -38,15 +38,11 @@ module.exports = {
 
             // If member has muted role and database does not say they are muted, update to say they are
             if (isMuted && !inputs.newMember.settings.muted) {
-                Caches.get('members').set([ inputs.newMember.id, inputs.newMember.guild.id ], () => {
-                    return { muted: true };
-                });
+                Caches.get('members').set([ inputs.newMember.id, inputs.newMember.guild.id ], { muted: true });
 
                 // Use labeled muted in the database but does not have the mute role
             } else if (!isMuted && inputs.newMember.settings.muted) {
-                Caches.get('members').set([ inputs.newMember.id, inputs.newMember.guild.id ], () => {
-                    return { muted: false };
-                });
+                Caches.get('members').set([ inputs.newMember.id, inputs.newMember.guild.id ], { muted: false });
             }
         }
     }

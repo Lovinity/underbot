@@ -70,9 +70,7 @@ module.exports = {
     }
 
     // Set the new HP
-    Caches.get('characters').set([ character.uid ], () => {
-      return { HP: newHP };
-    })
+    Caches.get('characters').set([ character.uid ], { HP: newHP });
 
     // Send a message
 

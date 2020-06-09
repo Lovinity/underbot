@@ -51,17 +51,13 @@ module.exports = {
     }
 
     // Set new characterStatsChannel
-    Caches.get('guilds').set([ inputs.message.guild.id ], () => {
-      return { characterStatsChannel: inputs.message.channel.id }
-    });
+    Caches.get('guilds').set([ inputs.message.guild.id ], { characterStatsChannel: inputs.message.channel.id });
 
     // Loop through each character in the database and create a stats message
     var maps2 = inputs.message.guild.characters.map(async (character) => {
       var embed = await sails.helpers.characters.generateStatsEmbed(character);
       var message = await inputs.message.channel.send({ embed: embed });
-      Caches.get('characters').set([ character.uid ], () => {
-        return { tallyMessage: message.id }
-      });
+      Caches.get('characters').set([ character.uid ], { tallyMessage: message.id });
     });
     await Promise.all(maps2);
   }

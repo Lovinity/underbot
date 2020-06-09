@@ -279,9 +279,7 @@ module.exports = {
     }
 
     // Update database
-    Caches.get('characters').set([ character.uid ], () => {
-      return toUpdate;
-    })
+    Caches.get('characters').set([ character.uid ], toUpdate);
 
     return inputs.message.send(':white_check_mark: It has been edited!');
 
