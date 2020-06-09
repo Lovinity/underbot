@@ -36,14 +36,6 @@ module.exports = {
       }
 
     });
-
-    for (var i = 0; i < 10; i++) {
-      Caches.get('characters').set([ `i_${i}` ], { name: `n_${i}`, guildID: `STUFF` });
-    }
-
-    for (var i = 0; i < 10; i++) {
-      Caches.get('characters').set([ `i_${i}` ], { name: `n2_${i}`, guildID: `STUFF` });
-    }
   }
 
 };
