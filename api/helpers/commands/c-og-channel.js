@@ -59,7 +59,7 @@ module.exports = {
         var maps2 = inputs.message.guild.characters
             .filter((character) => !character.OC)
             .map(async (character) => {
-                var message = await inputs.message.channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`}`);
+                var message = await inputs.message.channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`} (${sails.config.custom.baseURL}/character/${character.uid})`);
                 Caches.get('characters').set([ character.uid ], () => {
                     return { ogMessage: message.id }
                 });

@@ -237,7 +237,7 @@ module.exports = {
         if (character.OC) {
           var channel = await DiscordClient.channels.resolve(guild.settings.ocChannel);
           if (channel) {
-            var message = await channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`}`);
+            var message = await channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`} (${sails.config.custom.baseURL}/character/${character.uid})`);
             Caches.get('characters').set([ character.uid ], () => {
               return { ocMessage: message.id }
             });
@@ -245,7 +245,7 @@ module.exports = {
         } else {
           var channel = await DiscordClient.channels.resolve(guild.settings.ogChannel);
           if (channel) {
-            var message = await channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`}`);
+            var message = await channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`} (${sails.config.custom.baseURL}/character/${character.uid})`);
             Caches.get('characters').set([ character.uid ], () => {
               return { ogMessage: message.id }
             });
@@ -301,7 +301,7 @@ module.exports = {
           });
           var channel = await DiscordClient.channels.resolve(guild.settings.ogChannel);
           if (channel) {
-            var message = await channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`}`);
+            var message = await channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`} (${sails.config.custom.baseURL}/character/${character.uid})`);
             Caches.get('characters').set([ character.uid ], () => {
               return { ogMessage: message.id }
             });
@@ -323,7 +323,7 @@ module.exports = {
           });
           var channel = await DiscordClient.channels.resolve(guild.settings.ocChannel);
           if (channel) {
-            var message = await channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`}`);
+            var message = await channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`} (${sails.config.custom.baseURL}/character/${character.uid})`);
             Caches.get('characters').set([ character.uid ], () => {
               return { ocMessage: message.id }
             });
@@ -335,7 +335,7 @@ module.exports = {
               try {
                 var message = await channel.messages.fetch(character.ogMessage);
                 if (message) {
-                  await message.edit(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`}`);
+                  await message.edit(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`} (${sails.config.custom.baseURL}/character/${character.uid})`);
                 }
               } catch (e) {
                 sails.log.error(e);
@@ -347,7 +347,7 @@ module.exports = {
               try {
                 var message = await channel.messages.fetch(character.ocMessage);
                 if (message) {
-                  await message.edit(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`}`);
+                  await message.edit(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`} (${sails.config.custom.baseURL}/character/${character.uid})`);
                 }
               } catch (e) {
                 sails.log.error(e);
