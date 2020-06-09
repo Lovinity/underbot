@@ -50,6 +50,18 @@ module.exports = {
       description: 'The channel ID containing character stats, auto updated by the bot as it changes'
     },
 
+    ogChannel: {
+      type: 'string',
+      allowNull: true,
+      description: 'The channel ID containing a list of claimed and unclaimed OG characters.'
+    },
+
+    ocChannel: {
+      type: 'string',
+      allowNull: true,
+      description: 'The channel ID containing a list of claimed and unclaimed OC characters.'
+    },
+
     muteRole: {
       type: 'string',
       allowNull: true,

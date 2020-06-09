@@ -71,8 +71,169 @@ function getGuildInformation () {
                         <div class="content">
                         <div class="callout callout-success">
                 <h5>Character is unclaimed!</h5>
-                <p>This character has not been claimed yet! Join our guild (under "Home") and create a character sheet (as per instructions in the guild) to claim this character!</p>
+                <p>This character has not been claimed yet! Join our guild (under "Home") and create a character sheet (as per instructions in the guild) to claim this character! The sheet below resembles the character previously; when you request to claim the character, you can change the sheet with staff approval.</p>
               </div>
+
+              <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card card-widget widget-user">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header text-white"
+                  style="background: url('/characters/photo?uid=${character.uid}') center center; background-size:cover; height: 384px;"
+                  id="profile-background">
+                  <div style="background-color: rgba(0, 0, 0, 0.7);">
+                    <h3 class="widget-user-username">${character.name}</h3>
+                    <h5 class="widget-user-desc">Claimed by ${character.owner}</h5>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="row">
+                    <div class="col-sm-3 border-right">
+                      <div class="description-block">
+                        <span class="description-text">
+                            <img class="img-circle" src="/characters/sprite?uid=${character.uid}" alt="Sprite" style="max-width: 96px; max-height: 96px;">
+                        </span>
+                      </div>
+                      <!-- /.description-block -->
+                    </div>
+                    <div class="col-sm-3 border-right">
+                      <div class="description-block">
+                        <h5 class="description-header">${character.LVL} / ${character.EXP}</h5>
+                        <span class="description-text">LVL / EXP</span>
+                      </div>
+                      <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-3 border-right">
+                      <div class="description-block">
+                        <h5 class="description-header">${character.ATK}</h5>
+                        <span class="description-text">ATK</span>
+                      </div>
+                      <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-3">
+                      <div class="description-block">
+                        <h5 class="description-header">${character.DEF}</h5>
+                        <span class="description-text">DEF</span>
+                      </div>
+                      <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                  <div class="row">
+                  <div class="col">
+                      <div class="progress m-2" style="height: 30px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: ${character.HPPercent}%;" aria-valuenow="${character.HPPercent}" aria-valuemin="0" aria-valuemax="100">${character.HP} / ${character.maxHP} HP</div>
+                      </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
+
+          <div class="row">
+            <div class="col-lg-6 col-12">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Quick Information</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <strong>Nicknames</strong>
+                  <p class="text-muted">${character.nicknames}</p>
+                  <hr>
+
+                  <strong>Pronouns</strong>
+                  <p class="text-muted">${character.pronouns}</p>
+                  <hr>
+                  
+                  <strong>Age</strong>
+                  <p class="text-muted">${character.age}</p>
+                  <hr>
+                  
+                  <strong>Soul Type</strong>
+                  <p class="text-muted">${character.soulType}</p>
+                  
+                </div>
+                <!-- /.card-body -->
+              </div>
+            </div>
+            
+            <div class="col-lg-6 col-12">
+              <div class="card card-info">
+                <div class="card-header">
+                  <h3 class="card-title">Personality</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <strong>Personality</strong>
+                  <p class="text-muted">${character.personality}</p>
+                  <hr>
+
+                  <strong>Likes</strong>
+                  <p class="text-muted">${character.likes}</p>
+                  <hr>
+                  
+                  <strong>Dislikes</strong>
+                  <p class="text-muted">${character.dislikes}</p>
+                  
+                </div>
+                <!-- /.card-body -->
+              </div>
+            </div>
+            
+            <div class="col-lg-6 col-12">
+              <div class="card card-danger">
+                <div class="card-header">
+                  <h3 class="card-title">Physique / Items</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                <strong>Height</strong>
+                <p class="text-muted">${character.height}</p>
+                <hr>
+
+                  <strong>Appearance</strong>
+                  <p class="text-muted">${character.appearance}</p>
+                  <hr>
+
+                  <strong>Weapons</strong>
+                  <p class="text-muted">${character.weapons}</p>
+                  <hr>
+                  
+                  <strong>Armor</strong>
+                  <p class="text-muted">${character.armor}</p>
+                  <hr>
+                  
+                  <strong>Items</strong>
+                  <p class="text-muted">${character.items.map((item) => `<strong>${item.name}</strong>: ${item.description}`).join("<br />")}</p>
+                  
+                </div>
+                <!-- /.card-body -->
+              </div>
+            </div>
+            
+            <div class="col-lg-6 col-12">
+              <div class="card card-warning">
+                <div class="card-header">
+                  <h3 class="card-title">Extra Information</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  ${character.extraInfo}
+                </div>
+                <!-- /.card-body -->
+              </div>
+            </div>
+    
+          </div>
+
+        </div><!-- /.container-fluid -->
                         </div>
                         </div>
                         </section>`);

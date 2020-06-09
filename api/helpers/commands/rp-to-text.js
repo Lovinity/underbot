@@ -49,7 +49,7 @@ module.exports = {
 
         var messages = [];
 
-        var afterSnowflake = `712380653928316949`;
+        var afterSnowflake = `719626749377511516`; // 2020-06-08 15:08 EDT
         var currentSnowflake;
 
         var channel;

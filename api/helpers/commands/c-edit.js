@@ -79,7 +79,7 @@ module.exports = {
     }
 
     // Prompt for which property to edit
-    var property = await prompt(`What do you want to edit for ${character.name}?: oc, owner, name, photo, sprite, nicknames, pronouns, age, height, appearance, personality, soulType, HP, maxHP, EXP, ATK, DEF, gold, weapons, armor, likes, dislikes, extraInfo (items has their own commands). (timeout: 2 minutes)`, 120000);
+    var property = await prompt(`What do you want to edit for ${character.name}?: oc, claimable, owner, name, photo, sprite, nicknames, pronouns, age, height, appearance, personality, soulType, HP, maxHP, EXP, ATK, DEF, gold, weapons, armor, likes, dislikes, extraInfo (items has their own commands). (timeout: 2 minutes)`, 120000);
     property = property.cleanContent.toLowerCase();
 
     // Prompt based on what property we are editing
@@ -99,8 +99,13 @@ module.exports = {
         break;
       case 'oc':
         // Prompt for OC status
-        var OC = await prompt(`If this character is a canon Undertale character (can be re-claimed by someone else when/if the owner leaves the guild and does not come back for 24 hours), type "no". Otherwise, for OC characters (character will be deleted if the owner leaves the guild and does not come back for 24 hours), type "yes". (timeout: 2 minutes)`, 120000);
+        var OC = await prompt(`Is this character an OC character (NOT an original Undertale character)? (timeout: 2 minutes)`, 120000);
         toUpdate.OC = OC.cleanContent.toLowerCase() === 'yes' || OC.cleanContent.toLowerCase() === 'y';
+        break;
+      case 'claimable':
+        // Prompt for claimable status
+        var claimable = await prompt(`Can this character be re-claimed by someone else should the original claimer leave the guild for more than 24 hours? (if no, the character would be deleted instead) (timeout: 2 minutes)`, 120000);
+        toUpdate.claimable = claimable.cleanContent.toLowerCase() === 'yes' || claimable.cleanContent.toLowerCase() === 'y';
         break;
       case 'owner':
         var owner = await prompt(`Please provide the username, snowflake ID, or mention of the member who now owns this character. Or, type "none" to mark this character as unclaimed. (timeout: 2 minutes)`, 120000);

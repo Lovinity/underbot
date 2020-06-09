@@ -31,7 +31,13 @@ module.exports = {
     OC: {
       type: 'boolean',
       defaultsTo: false,
-      description: 'Is this character an OC? If true, this character will be deleted 24 hours after the owner leaves the guild. If false, the character will simply have its userID erased.'
+      description: 'Is this character an OC? If false, it is an OG.'
+    },
+
+    claimable: {
+      type: 'boolean',
+      defaultsTo: false,
+      description: 'Can this character be claimed? If true, should the claimer leave the guild, someone else can claim the character. If false, this character disintegrates / gets deleted.'
     },
 
     name: {
@@ -189,6 +195,18 @@ module.exports = {
       type: 'string',
       allowNull: true,
       description: 'The message ID containing the character stats, which is updated by commands, and is posted in the guild characterStatsChannel.'
+    },
+
+    ogMessage: {
+      type: 'string',
+      allowNull: true,
+      description: 'The message ID posted in the OG channel if this is an OG character.'
+    },
+
+    ocMessage: {
+      type: 'string',
+      allowNull: true,
+      description: 'The message ID posted in the OC channel if this is an OC character.'
     }
   },
 
@@ -198,18 +216,42 @@ module.exports = {
     sails.sockets.broadcast(`characters-${newlyCreatedRecord.guildID}`, 'characters', data)
     Caches.set('characters', newlyCreatedRecord);
 
-    // New stats message if characterStatsChannel exists
     var temp = (async (character) => {
       var guild = await DiscordClient.guilds.resolve(character.guildID);
-      if (guild && guild.settings.characterStatsChannel) {
-        var channel = await DiscordClient.channels.resolve(guild.settings.characterStatsChannel);
-        if (channel) {
-          var embed = await sails.helpers.characters.generateStatsEmbed(character);
-          var message = await channel.send({ embed: embed });
-          Caches.get('characters').set([ character.uid ], () => {
-            return { tallyMessage: message.id }
-          });
+
+      if (guild) {
+
+        // New stats message if characterStatsChannel exists
+        if (guild.settings.characterStatsChannel) {
+          var channel = await DiscordClient.channels.resolve(guild.settings.characterStatsChannel);
+          if (channel) {
+            var embed = await sails.helpers.characters.generateStatsEmbed(character);
+            var message = await channel.send({ embed: embed });
+            Caches.get('characters').set([ character.uid ], () => {
+              return { tallyMessage: message.id }
+            });
+          }
         }
+
+        // New character list message
+        if (character.OC) {
+          var channel = await DiscordClient.channels.resolve(guild.settings.ocChannel);
+          if (channel) {
+            var message = await channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`}`);
+            Caches.get('characters').set([ character.uid ], () => {
+              return { ocMessage: message.id }
+            });
+          }
+        } else {
+          var channel = await DiscordClient.channels.resolve(guild.settings.ogChannel);
+          if (channel) {
+            var message = await channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`}`);
+            Caches.get('characters').set([ character.uid ], () => {
+              return { ogMessage: message.id }
+            });
+          }
+        }
+
       }
     })(newlyCreatedRecord)
 
@@ -221,18 +263,99 @@ module.exports = {
     sails.sockets.broadcast(`characters-${updatedRecord.guildID}`, 'characters', data)
     Caches.set('characters', updatedRecord);
 
-    // Update stats message if it exists
     var temp = (async (character) => {
       var guild = await DiscordClient.guilds.resolve(character.guildID);
-      if (guild && guild.settings.characterStatsChannel) {
-        var channel = await DiscordClient.channels.resolve(guild.settings.characterStatsChannel);
-        if (channel && character.tallyMessage) {
-          var message = await channel.messages.fetch(character.tallyMessage);
-          if (message) {
-            var embed = await sails.helpers.characters.generateStatsEmbed(character);
-            await message.edit({ embed: embed });
+      if (guild) {
+
+        // Update stats message if it exists
+        if (guild.settings.characterStatsChannel) {
+          var channel = await DiscordClient.channels.resolve(guild.settings.characterStatsChannel);
+          if (channel && character.tallyMessage) {
+            try {
+              var message = await channel.messages.fetch(character.tallyMessage);
+              if (message) {
+                var embed = await sails.helpers.characters.generateStatsEmbed(character);
+                await message.edit({ embed: embed });
+              }
+            } catch (e) {
+              sails.log.error(e);
+            }
           }
         }
+
+        // Update list message if it exists
+        if (character.ocMessage && !character.OC) {
+          var channel = await DiscordClient.channels.resolve(guild.settings.ocChannel);
+          if (channel) {
+            try {
+              var message = await channel.messages.fetch(character.ocMessage);
+              if (message) {
+                await message.delete();
+              }
+            } catch (e) {
+              sails.log.error(e);
+            }
+          }
+          Caches.get('characters').set([ character.uid ], () => {
+            return { ocMessage: null }
+          });
+          var channel = await DiscordClient.channels.resolve(guild.settings.ogChannel);
+          if (channel) {
+            var message = await channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`}`);
+            Caches.get('characters').set([ character.uid ], () => {
+              return { ogMessage: message.id }
+            });
+          }
+        } else if (character.ogMessage && character.OC) {
+          var channel = await DiscordClient.channels.resolve(guild.settings.ogChannel);
+          if (channel) {
+            try {
+              var message = await channel.messages.fetch(character.ogMessage);
+              if (message) {
+                await message.delete();
+              }
+            } catch (e) {
+              sails.log.error(e);
+            }
+          }
+          Caches.get('characters').set([ character.uid ], () => {
+            return { ogMessage: null }
+          });
+          var channel = await DiscordClient.channels.resolve(guild.settings.ocChannel);
+          if (channel) {
+            var message = await channel.send(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`}`);
+            Caches.get('characters').set([ character.uid ], () => {
+              return { ocMessage: message.id }
+            });
+          }
+        } else {
+          if (character.ogMessage) {
+            var channel = await DiscordClient.channels.resolve(guild.settings.ogChannel);
+            if (channel) {
+              try {
+                var message = await channel.messages.fetch(character.ogMessage);
+                if (message) {
+                  await message.edit(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`}`);
+                }
+              } catch (e) {
+                sails.log.error(e);
+              }
+            }
+          } else if (character.ocMessage) {
+            var channel = await DiscordClient.channels.resolve(guild.settings.ocChannel);
+            if (channel) {
+              try {
+                var message = await channel.messages.fetch(character.ocMessage);
+                if (message) {
+                  await message.edit(`**${character.name}** - ${character.userID ? `claimed by <@${character.userID}>` : `${character.claimable ? `UNCLAIMED (you can claim them by making a submission)` : `UNCLAIMED (this character cannot be claimed at this time)`}`}`);
+                }
+              } catch (e) {
+                sails.log.error(e);
+              }
+            }
+          }
+        }
+
       }
     })(updatedRecord)
 
@@ -244,16 +367,57 @@ module.exports = {
     sails.sockets.broadcast(`characters-${destroyedRecord.guildID}`, 'characters', data)
     Caches.del('characters', destroyedRecord);
 
-    // delete stats message if it exists
     var temp = (async (character) => {
       var guild = await DiscordClient.guilds.resolve(character.guildID);
-      if (guild && guild.settings.characterStatsChannel) {
-        var channel = await DiscordClient.channels.resolve(guild.settings.characterStatsChannel);
-        if (channel && character.tallyMessage) {
-          var message = await channel.messages.fetch(character.tallyMessage);
-          if (message) {
-            await message.delete();
+      if (guild) {
+
+        // delete stats message if it exists
+        if (guild.settings.characterStatsChannel) {
+          var channel = await DiscordClient.channels.resolve(guild.settings.characterStatsChannel);
+          if (channel && character.tallyMessage) {
+            try {
+              var message = await channel.messages.fetch(character.tallyMessage);
+              if (message) {
+                await message.delete();
+              }
+            } catch (e) {
+              sails.log.error(e);
+            }
           }
+        }
+
+        // Delete character messages if they exist
+        if (character.ocMessage) {
+          var channel = await DiscordClient.channels.resolve(guild.settings.ocChannel);
+          if (channel) {
+            try {
+              var message = await channel.messages.fetch(character.ocMessage);
+              if (message) {
+                await message.delete();
+              }
+            } catch (e) {
+              sails.log.error(e);
+            }
+          }
+          Caches.get('characters').set([ character.uid ], () => {
+            return { ocMessage: null }
+          });
+        }
+        if (character.ogMessage) {
+          var channel = await DiscordClient.channels.resolve(guild.settings.ogChannel);
+          if (channel) {
+            try {
+              var message = await channel.messages.fetch(character.ogMessage);
+              if (message) {
+                await message.delete();
+              }
+            } catch (e) {
+              sails.log.error(e);
+            }
+          }
+          Caches.get('characters').set([ character.uid ], () => {
+            return { ogMessage: null }
+          });
         }
       }
     })(destroyedRecord)

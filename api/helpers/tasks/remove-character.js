@@ -42,15 +42,15 @@ module.exports = {
     if (guild && guild.members.resolve(character.userID)) {
       return;
     } else {
-      if (!character.OC) {
+      if (character.claimable) {
         if (guild)
-          await sails.helpers.guild.send(`characterDeletionChannel`, guild, `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. This was an OG character, meaning it is now open for someone else to claim them!`)
+          await sails.helpers.guild.send(`characterDeletionChannel`, guild, `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. **This character may now be claimed by someone else**.`)
         Caches.get('characters').set([ inputs.uid ], () => {
           return { userID: null }
         })
       } else {
         if (guild)
-          await sails.helpers.guild.send(`characterDeletionChannel`, guild, `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. This character, being an OC, has disintegrated into dust and left the role play.`)
+          await sails.helpers.guild.send(`characterDeletionChannel`, guild, `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. This character cannot be claimed by others, therefore, it has disintegrated into dust and left the role play.`)
         Caches.get('characters').delete(character.id);
       }
     }

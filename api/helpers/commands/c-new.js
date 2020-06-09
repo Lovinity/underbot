@@ -82,8 +82,12 @@ module.exports = {
     nicknames = nicknames.cleanContent;
 
     // Prompt for OC status
-    var OC = await prompt(`Aww, those are cute! If this character is a canon Undertale character (can be re-claimed by someone else when/if the owner leaves the guild and does not come back for 24 hours), type "no". Otherwise, for OC characters (character will be deleted if the owner leaves the guild and does not come back for 24 hours), type "yes". (timeout: 2 minutes)`, 120000);
+    var OC = await prompt(`Aww, those are cute! Is this character an OC character (NOT an original Undertale character)? (timeout: 2 minutes)`, 120000);
     OC = OC.cleanContent.toLowerCase() === 'yes' || OC.cleanContent.toLowerCase() === 'y';
+
+    // Prompt for claimable status
+    var claimable = await prompt(`Cool! Can this character be re-claimed by someone else should the original claimer leave the guild for more than 24 hours? (if no, the character would be deleted instead) (timeout: 2 minutes)`, 120000);
+    claimable = claimable.cleanContent.toLowerCase() === 'yes' || claimable.cleanContent.toLowerCase() === 'y';
 
     // Prompt for the member who owns this character
     var owner = await prompt(`Alrighty! Now, Please provide the username, snowflake ID, or mention of the member who owns / has claim over this character. Or, type "none" if this character is not claimed yet. (timeout: 2 minutes)`, 120000);
@@ -231,6 +235,7 @@ module.exports = {
       guildID: inputs.message.guild.id,
       userID: owner,
       OC: OC,
+      claimable: claimable,
       name: name,
       photo: photo,
       sprite: sprite,
