@@ -18,7 +18,7 @@ module.exports = {
       required: true,
       description: 'The channel ID the reminder was set in (and will be triggered)'
     },
-    message: {
+    reminder: {
       type: 'string',
       required: true,
       description: "The reminder message."
@@ -41,7 +41,7 @@ module.exports = {
     if (!channel) return;
 
     // Post the reminder
-    return channel.send(`:alarm_clock: **Reminder for <@${inputs.user}>**: ${inputs.message}`);
+    return channel.send(`:alarm_clock: **Reminder for <@${inputs.user}>**: ${inputs.reminder}`);
   }
 
 
