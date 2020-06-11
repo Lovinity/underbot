@@ -69,16 +69,27 @@ module.exports = {
     }
 
     // Prompt confirmation
-    var confirm = await prompt(`You are about to set a reminder for ${moment(datetime).format("LLLL")}. Is this correct? (timeout: 1 minute)`, 60000);
-    if (confirm.cleanContent.toLowerCase() !== 'yes' && confirm.cleanContent.toLowerCase() === 'y') {
-      return inputs.message.send(`:x: Reminder not set. Please use the rNew command again. Remember, bot server time is America/New_York (Eastern Time).`);
+    confirmSchedule = async () => {
+      var confirm = await prompt(`You are about to set a reminder for ${moment(datetime).format("LLLL Z")}. Is this correct? (timeout: 1 minute)`, 60000);
+      if (confirm.cleanContent.toLowerCase() !== 'yes' && confirm.cleanContent.toLowerCase() === 'y') {
+        await rePromptSchedule();
+      }
     }
+
+    // Schedule re-prompting
+    rePromptSchedule = async () => {
+      datetime = await prompt(`Please specify a different date/time for your reminder. Specify your timezone if different from Eastern Time (America/New_York). (timeout: 2 minutes)`, 120000);
+      datetime = datetime.cleanContent;
+      await confirmSchedule();
+    }
+
+    await confirmSchedule();
 
     // Create the schedule
     uid = await sails.helpers.uid();
-    await sails.models.schedules.create({ uid: uid, task: 'reminder', data: { user: inputs.message.author.id, channel: inputs.message.channel.id, message: inputs.reminder }, nextRun: moment(datetime).toISOString(true) }).fetch()
+    await sails.models.schedules.create({ uid: uid, task: 'reminder', data: { user: inputs.message.author.id, channel: inputs.message.channel.id, reminder: inputs.reminder }, nextRun: moment(datetime).toISOString(true) }).fetch()
 
-    return inputs.message.send(`:white_check_mark: Your reminder has been set! Its ID is ${uid}`);
+    return inputs.message.send(`:white_check_mark: Your reminder has been set! Its uid is ${uid}`);
   }
 
 
