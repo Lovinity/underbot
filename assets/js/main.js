@@ -145,19 +145,19 @@ function getGuildInformation () {
                 <!-- /.card-header -->
                 <div class="card-body">
                   <strong>Nicknames</strong>
-                  <p class="text-muted">${character.nicknames}</p>
+                  <p class="text-muted">${character.nicknames.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
 
                   <strong>Pronouns</strong>
-                  <p class="text-muted">${character.pronouns}</p>
+                  <p class="text-muted">${character.pronouns.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Age</strong>
-                  <p class="text-muted">${character.age}</p>
+                  <p class="text-muted">${character.age.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Soul Type</strong>
-                  <p class="text-muted">${character.soulType}</p>
+                  <p class="text-muted">${character.soulType.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   
                 </div>
                 <!-- /.card-body -->
@@ -172,15 +172,15 @@ function getGuildInformation () {
                 <!-- /.card-header -->
                 <div class="card-body">
                   <strong>Personality</strong>
-                  <p class="text-muted">${character.personality}</p>
+                  <p class="text-muted">${character.personality.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
 
                   <strong>Likes</strong>
-                  <p class="text-muted">${character.likes}</p>
+                  <p class="text-muted">${character.likes.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Dislikes</strong>
-                  <p class="text-muted">${character.dislikes}</p>
+                  <p class="text-muted">${character.dislikes.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   
                 </div>
                 <!-- /.card-body -->
@@ -195,19 +195,19 @@ function getGuildInformation () {
                 <!-- /.card-header -->
                 <div class="card-body">
                 <strong>Height</strong>
-                <p class="text-muted">${character.height}</p>
+                <p class="text-muted">${character.height.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                 <hr>
 
                   <strong>Appearance</strong>
-                  <p class="text-muted">${character.appearance}</p>
+                  <p class="text-muted">${character.appearance.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
 
                   <strong>Weapons</strong>
-                  <p class="text-muted">${character.weapons}</p>
+                  <p class="text-muted">${character.weapons.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Armor</strong>
-                  <p class="text-muted">${character.armor}</p>
+                  <p class="text-muted">${character.armor.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Items</strong>
@@ -225,7 +225,7 @@ function getGuildInformation () {
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  ${character.extraInfo}
+                  ${character.extraInfo.replace(/(?:\r\n|\r|\n)/g, '<br>')}
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -341,19 +341,19 @@ function getGuildInformation () {
                 <!-- /.card-header -->
                 <div class="card-body">
                   <strong>Nicknames</strong>
-                  <p class="text-muted">${character.nicknames}</p>
+                  <p class="text-muted">${character.nicknames.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
 
                   <strong>Pronouns</strong>
-                  <p class="text-muted">${character.pronouns}</p>
+                  <p class="text-muted">${character.pronouns.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Age</strong>
-                  <p class="text-muted">${character.age}</p>
+                  <p class="text-muted">${character.age.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Soul Type</strong>
-                  <p class="text-muted">${character.soulType}</p>
+                  <p class="text-muted">${character.soulType.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   
                 </div>
                 <!-- /.card-body -->
@@ -368,15 +368,15 @@ function getGuildInformation () {
                 <!-- /.card-header -->
                 <div class="card-body">
                   <strong>Personality</strong>
-                  <p class="text-muted">${character.personality}</p>
+                  <p class="text-muted">${character.personality.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
 
                   <strong>Likes</strong>
-                  <p class="text-muted">${character.likes}</p>
+                  <p class="text-muted">${character.likes.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Dislikes</strong>
-                  <p class="text-muted">${character.dislikes}</p>
+                  <p class="text-muted">${character.dislikes.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   
                 </div>
                 <!-- /.card-body -->
@@ -391,19 +391,19 @@ function getGuildInformation () {
                 <!-- /.card-header -->
                 <div class="card-body">
                 <strong>Height</strong>
-                <p class="text-muted">${character.height}</p>
+                <p class="text-muted">${character.height.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                 <hr>
 
                   <strong>Appearance</strong>
-                  <p class="text-muted">${character.appearance}</p>
+                  <p class="text-muted">${character.appearance.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
 
                   <strong>Weapons</strong>
-                  <p class="text-muted">${character.weapons}</p>
+                  <p class="text-muted">${character.weapons.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Armor</strong>
-                  <p class="text-muted">${character.armor}</p>
+                  <p class="text-muted">${character.armor.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Items</strong>
@@ -421,7 +421,7 @@ function getGuildInformation () {
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  ${character.extraInfo}
+                  ${character.extraInfo.replace(/(?:\r\n|\r|\n)/g, '<br>')}
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -539,19 +539,19 @@ function getGuildInformation () {
                 <!-- /.card-header -->
                 <div class="card-body">
                   <strong>Nicknames</strong>
-                  <p class="text-muted">${character.nicknames}</p>
+                  <p class="text-muted">${character.nicknames.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
 
                   <strong>Pronouns</strong>
-                  <p class="text-muted">${character.pronouns}</p>
+                  <p class="text-muted">${character.pronouns.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Age</strong>
-                  <p class="text-muted">${character.age}</p>
+                  <p class="text-muted">${character.age.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Soul Type</strong>
-                  <p class="text-muted">${character.soulType}</p>
+                  <p class="text-muted">${character.soulType.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   
                 </div>
                 <!-- /.card-body -->
@@ -566,15 +566,15 @@ function getGuildInformation () {
                 <!-- /.card-header -->
                 <div class="card-body">
                   <strong>Personality</strong>
-                  <p class="text-muted">${character.personality}</p>
+                  <p class="text-muted">${character.personality.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
 
                   <strong>Likes</strong>
-                  <p class="text-muted">${character.likes}</p>
+                  <p class="text-muted">${character.likes.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Dislikes</strong>
-                  <p class="text-muted">${character.dislikes}</p>
+                  <p class="text-muted">${character.dislikes.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   
                 </div>
                 <!-- /.card-body -->
@@ -589,19 +589,19 @@ function getGuildInformation () {
                 <!-- /.card-header -->
                 <div class="card-body">
                 <strong>Height</strong>
-                <p class="text-muted">${character.height}</p>
+                <p class="text-muted">${character.height.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                 <hr>
 
                   <strong>Appearance</strong>
-                  <p class="text-muted">${character.appearance}</p>
+                  <p class="text-muted">${character.appearance.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
 
                   <strong>Weapons</strong>
-                  <p class="text-muted">${character.weapons}</p>
+                  <p class="text-muted">${character.weapons.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Armor</strong>
-                  <p class="text-muted">${character.armor}</p>
+                  <p class="text-muted">${character.armor.replace(/(?:\r\n|\r|\n)/g, '<br>')}</p>
                   <hr>
                   
                   <strong>Items</strong>
@@ -619,7 +619,7 @@ function getGuildInformation () {
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  ${character.extraInfo}
+                  ${character.extraInfo.replace(/(?:\r\n|\r|\n)/g, '<br>')}
                 </div>
                 <!-- /.card-body -->
               </div>
