@@ -1,0 +1,41 @@
+module.exports = {
+
+
+  friendlyName: 'helpers.commands.fishPun',
+
+
+  description: 'Get a random fish pun.',
+
+
+  inputs: {
+    message: {
+      type: 'ref',
+      required: true,
+      description: 'The message that triggered the command'
+    },
+  },
+
+
+  exits: {
+
+    success: {
+      description: 'All done.',
+    },
+
+  },
+
+
+  fn: async function (inputs) {
+    var puns = ['Seems a bit fishy to me.','Dear Cod, I laughed so hard!','He really schooled you then.','I’d make him walk the plankton for that.','Not bad, cod do better…','We should dolphinitely scale back on the fish puns.','Any fin is possible, just don’t trout yourself!','Ahh guys, you’re krilling me now!','We, the jury, find this site gill-ty of too many fish puns!','Oh for Gods hake, not another fish pun.','What’s this fish pun website you’ve been herring all about?','It’s a great oppor-tuna-ty!','Never trust unlicensed puns – always check they’re o-fish-al.','I feel great every day of the week, barramundi.','Have you thought of a fish pun yet, or do you need some time to mullet over?','You don’t have to be a brain sturgeon to come up with a fish pun.','What a load of pollocks!','Hoping to avoid turtle disaster.','Create your own fish pun, don’t leave it to salmon else.','Can you do any Betta than this?','Are you trying to gill-t me into thinking of a better pun?','This is going to get a-trout-cious real quick!','This is neither the time, nor the plaice for this.','My dad was a fisherman, but he quit because his net income wasn’t enough.','Stop carping on; you’re giving me a haddock.','Sorry, my attempt at a joke was a pile of carp.','I’m hooked!','You’re not quite up to scale.','I won’t be cod dead participating in this.','I’m waiting for someone else to mussel in on this now.','Who will be the sole survivor?','I really believe that to the bottom of my sole.','Salmon had to say it.','This is a big issue a-monk fishermen.','You Betta believe it.','Fishcious rumors.','I think you’re fintastic.','DJ’s aren’t allowed to work at fish markets because they’re always dropping the bass.','Cod you pass me the salt?','Most fish will tell you they like their food cold, and their bait a little worm.','Some people don’t like fish puns, but they are kraken me up!','We’re swimming along nicely.','Cod that was bad, eely bad!','I’m hooked!','Cod I borrow you for a few minutes?','I’ll bait these puns can’t go on for much longer.','All I sea are bass-icaly cod awful puns!','I’m stuck between a rock and a hard plaice now!','You’ve met your nemo-sis.','You’re clearly a Dab hand at this.','Anyone else want to rise to the bait?','You better not, or you’ll feel my wrasse!','Don’t listen to them, I think you’re fin-tastic!','We all just need to clam down now; I’m a bit shell shocked.','Keep your friends close and your anemones closer.','We whaley need to stop now!','Or you’re so sofishticated!','Q: Did you hear about the fight in that restaurant? A: Four fish were battered!','Q: Which fish go to heaven? A: Angelfish.','Q: Why did the fish get bad grades? A: Because it was below sea level.','Q: Where do sick fish go?A: To see a sturgeon.','Q: Why did the little boy not eat his sushi? A: Because it looked too fishy.','Q: What’s the difference between a lawyer and a fish? A: One is a scum-sucking scavenger; the other is just a fish.','Q: If a fish got the main role in a movie, what would it be called?A: Starfish.','Q: How does a school of fish keep up to date about sealife?A: They listen to the current news.','Q: Why did the woman make tons of fish-eye soup?A: Because it will see her through the week.','Q: How do you tuna fish?A: Adjust their scales.','Q: How do you keep a fish from smelling? A: Chop of its nose.','Q: Why did the fish blush? A: Because he saw the boats bottom.','Q: Why did the teenage fish get told off in school?A: Because he was talking on his shell phone.','Q: Why did the fish get a detention?A: Because he was being too shellfish.','Q: What did the fish say to his girlfriend? A: You plaice or mine?','Q: What did the fish say to his girlfriend when they split up? A: I’m outta this plaice!','Q: Did you hear about the illiterate fisherman?A: He was lost at C.','Q: What happens when you mix a fish and a banker? A: A loan shark.','Q: How do you make an octopus laugh? A: Give it ten-tickles.','Q: Where did Noah keep all of the fish? A: In the multi-storey carp ark.','Q: Why should you never fight an octopus?A: Because he’s too well armed.','Q: What did the fish say when his relationship started to flounder? A: Halibut we chat about it?','Q: What does a fish wear to keep warm? A: A shoal!','Q: Why is a fisherman so stingy? A: Because his work made him sell-fish.','Q: What did the romantic fisherman want? A: A gill-friend.','Q: Why are fish so smart?A: They live in schools.','Q: Why did the fish blush?A: Because the sea-weed!','Q: Who do fish pray to? A: Cod Almighty.','Q: Why do fish swim in schools? A: Because they can’t walk.','Q: What fish travels 100 mph? A: A motor pike.','Q: What’s the laziest fish in the world? A: A Kipper.','Q: Why did the shopkeeper through the clams out? A: They were past their shell-by-date.','Q: Why will fish never take responsibility? A: Because it’s always salmon else’s fault.','Q: Why is it so easy to weigh a fish? A: Because they have their own scales.','Q: What type of instrument do fish love to play? A: A bass drum.','Q: Where do fish store their money? A: In a river bank.','Q: Why did the fish start a charity? A: He was reely good at findraising.','Q: Why don’t fish go into business together A: They are always sole traders.','Q: What makes fish terrible journalists? A: They always spread hake news.','Q: What did the fish take to work? A: A b-reef-case.','Q: What type of music is best to listen to while fishing? A: Something catchy!','Q: Why do fish always lose their court cases? A: They are always gill-ty.','Q: Why can’t fish have romantic relationships? A: They are scared of intima-sea.','Q: Why are fish so lucky? A: They seize every oppor-tuna-ty.','Q: What did Dorothy the fish say? A: There’s no plaice like home.','Q: Why do fish companies never work? A: They always have to scale back.','Q: Why do fish not go to war A: Because they are paci-fish-ts.','Q: What did the fish say when everyone left his party? A: Tanks for coming!','That isn’t yours nemo.','It’s making me feel so barf-ishreading this many puns!','What a load of Pollocks.','I need my daily cafin!','This is most sardinely the best fish pun ever!','Don’t be koi with me!','I like cuttling you! You are soft!','Too much, just a dab will do!','It’s only a friendly debait.','Our relationships taken a bit of a dive.','I had to take the eelevator up to the lab!','This day has been fintastic!','I have a really good eeling about this!','The human stole my fins; no wonder he was coffin so much!','We’ll have so much fin.','I swear to Cod.','You look very gillty!','I’ve haddock just about enough of this.','Stop carping on about it.','Stop talking, you are giving me a haddock!','I’ve been herring rumors about you.','Ahh, let’s do it just for the halibut!','That idiot is very gill-mannered!','I mantasay this…','We need some moray puns!','I’ll mullet over and let you know.','Minnows is sunburnt!','He will always be my arch nemo-sis.','Hoki, if you say so!','I don’t believe in war, I’m a paci-fish-t.','Your plaice or mine?','I am feeling reel good today!','Oh, good greef!','You look so shad!','I think we should scale back; these puns are off the scale!','You just got schooled!','Man you’re just so shellfish!','I do not sea what you mean.','You don’t have to be a brain sturgeon to make up a fish pun!','I’ve broken the shoal of my shoe.','Do not get your sole stolen!','He started to flounder figuring out a good fish pun.','Salmon call the doctor!','Wow, the atmosphere is tenchin here!','Tanks for coming.','I’ve got no fin left to give.','You’re skating on fin ice!','You’re such a trawl! You should be banned!'];
+
+    return inputs.message.send(puns[getRandomInt(0, puns.length - 1)]);
+  }
+
+
+};
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
