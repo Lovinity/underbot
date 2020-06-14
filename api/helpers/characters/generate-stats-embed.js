@@ -43,13 +43,24 @@ module.exports = {
       }
     }
 
+    // Now for determination
+    var dtBar = ``;
+    for (var i = 0; i < 10; i++) {
+      if (inputs.character.DT > (i * 10)) {
+        dtBar += `:heart: `
+      } else {
+        dtBar += `:black_heart: `
+      }
+    }
+
     var embed = new Discord.MessageEmbed()
       .setTitle(`Stats for ${inputs.character.name}`)
       .setAuthor(member ? member.tag : `**Unclaimed Character**`)
       .setThumbnail(`${sails.config.custom.baseURL}/characters/photo?uid=${inputs.character.uid}`)
       .addFields(
-        { name: 'Current HP / Max HP', value: `${inputs.character.HP} HP / ${maxHP} HP${inputs.character.HP <= 0 ? ` **DEAD**` : ``}` + "\n" + hpBar },
-        { name: 'Current LVL (EXP)', value: `${lvl} (${inputs.character.EXP})` },
+        { name: 'HP (Health)', value: `${inputs.character.HP} HP / ${maxHP} HP${inputs.character.HP <= 0 ? ` **DEAD**` : ``}` + "\n" + hpBar },
+        { name: 'LOVE [EXP] (Level of Violence; Execution points)', value: `${lvl} [${inputs.character.EXP}]` },
+        { name: 'DT (Determination)', value: inputs.character.DT + "\n" + dtBar },
         { name: 'ATK (Attack)', value: inputs.character.ATK !== '' ? inputs.character.ATK : 'Unknown' },
         { name: 'DEF (Defense)', value: inputs.character.DEF !== '' ? inputs.character.DEF : 'Unknown' },
         { name: 'G (gold)', value: `${inputs.character.gold}G` },

@@ -196,6 +196,10 @@ module.exports = {
     var maxHP = await prompt(`oooh! If this character has a static max HP that does not change, provide it here. Or, type 0 if this character's static HP should depend on their LVL (standard human Undertale EXP system). (Must be a number, eg 20) (timeout: 2 minutes)`, 120000);
     maxHP = parseInt(maxHP.cleanContent);
 
+    // Prompt for DT
+    var DT = await prompt(`Sweet! Specify the character's starting DT (determination). (Must be a number, eg 20, and must be between 0 and 100.) (timeout: 2 minutes)`, 120000);
+    DT = parseInt(DT.cleanContent);
+
     // Prompt for EXP
     var EXP = await prompt(`Specify this character's starting EXP. (Must be a number, eg 20) (timeout: 2 minutes)`, 120000);
     EXP = parseInt(EXP.cleanContent);
@@ -248,6 +252,7 @@ module.exports = {
       soulType: soulType,
       HP: maxHP !== 0 ? maxHP : 20,
       maxHP: maxHP,
+      DT: DT,
       EXP: EXP,
       ATK: ATK,
       DEF: DEF,

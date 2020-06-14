@@ -140,6 +140,14 @@ module.exports = {
       description: 'The character defense.'
     },
 
+    DT: {
+      type: 'number',
+      defaultsTo: 50,
+      min: 0,
+      max: 100,
+      description: 'The character determination.'
+    },
+
     gold: {
       type: 'number',
       defaultsTo: 0,

@@ -79,7 +79,7 @@ module.exports = {
     }
 
     // Prompt for which property to edit
-    var property = await prompt(`What do you want to edit for ${character.name}?: oc, claimable, owner, name, photo, sprite, nicknames, pronouns, age, height, appearance, personality, soulType, HP, maxHP, EXP, ATK, DEF, gold, weapons, armor, likes, dislikes, extraInfo (items has their own commands). (timeout: 2 minutes)`, 120000);
+    var property = await prompt(`What do you want to edit for ${character.name}?: oc, claimable, owner, name, photo, sprite, nicknames, pronouns, age, height, appearance, personality, soulType, HP, maxHP, DT, EXP, ATK, DEF, gold, weapons, armor, likes, dislikes, extraInfo (items has their own commands). (timeout: 2 minutes)`, 120000);
     property = property.cleanContent.toLowerCase();
 
     // Prompt based on what property we are editing
@@ -230,6 +230,10 @@ module.exports = {
       case 'maxhp':
         var maxHP = await prompt(`If this character has a static max HP that does not change, provide it here. Or, type 0 if this character's static HP should depend on their LVL (standard human Undertale EXP system). (Must be a number, eg 20) (timeout: 2 minutes)`, 120000);
         toUpdate.maxHP = parseInt(maxHP.cleanContent);
+        break;
+      case 'dt':
+        var DT = await prompt(`Specify the character's DT (determination). (Must be a number, eg 20, and must be between 0 and 100.) (timeout: 2 minutes)`, 120000);
+        toUpdate.DT = parseInt(DT.cleanContent);
         break;
       case 'exp':
         var EXP = await prompt(`Specify this character's new current EXP. (Must be a number, eg 20) (timeout: 2 minutes)`, 120000);

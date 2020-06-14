@@ -27,7 +27,8 @@
     "string-similarity": "^4.0.1"
   },
   "devDependencies": {
-    "eslint": "5.16.0"
+    "eslint": "5.16.0",
+    "sloc": "^0.2.1"
   },
   "scripts": {
     "start": "NODE_ENV=production node app.js",

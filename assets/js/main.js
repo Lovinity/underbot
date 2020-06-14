@@ -91,16 +91,16 @@ function getGuildInformation () {
                   <div class="row">
                     <div class="col-sm-3 border-right">
                       <div class="description-block">
-                        <span class="description-text">
-                            <img class="img-circle" src="/characters/sprite?uid=${character.uid}" alt="Sprite" style="max-width: 96px; max-height: 96px;">
-                        </span>
+                        <h5 class="description-header">${character.LVL} / ${character.EXP}</h5>
+                        <span class="description-text">LOVE / EXP</span>
                       </div>
                       <!-- /.description-block -->
                     </div>
+                    <!-- /.col -->
                     <div class="col-sm-3 border-right">
                       <div class="description-block">
-                        <h5 class="description-header">${character.LVL} / ${character.EXP}</h5>
-                        <span class="description-text">LVL / EXP</span>
+                        <h5 class="description-header">${character.DT}</h5>
+                        <span class="description-text">DT</span>
                       </div>
                       <!-- /.description-block -->
                     </div>
@@ -287,16 +287,16 @@ function getGuildInformation () {
                   <div class="row">
                     <div class="col-sm-3 border-right">
                       <div class="description-block">
-                        <span class="description-text">
-                            <img class="img-circle" src="/characters/sprite?uid=${character.uid}" alt="Sprite" style="max-width: 96px; max-height: 96px;">
-                        </span>
+                        <h5 class="description-header">${character.LVL} / ${character.EXP}</h5>
+                        <span class="description-text">LOVE / EXP</span>
                       </div>
                       <!-- /.description-block -->
                     </div>
+                    <!-- /.col -->
                     <div class="col-sm-3 border-right">
                       <div class="description-block">
-                        <h5 class="description-header">${character.LVL} / ${character.EXP}</h5>
-                        <span class="description-text">LVL / EXP</span>
+                        <h5 class="description-header">${character.DT}</h5>
+                        <span class="description-text">DT</span>
                       </div>
                       <!-- /.description-block -->
                     </div>
@@ -485,20 +485,20 @@ function getGuildInformation () {
                 <div class="row">
                   <div class="col-sm-3 border-right">
                     <div class="description-block">
-                      <span class="description-text">
-                          <img class="img-circle" src="/characters/sprite?uid=${character.uid}" alt="Sprite" style="max-width: 96px; max-height: 96px;">
-                      </span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <div class="col-sm-3 border-right">
-                    <div class="description-block">
                       <h5 class="description-header">${character.LVL} / ${character.EXP}</h5>
-                      <span class="description-text">LVL / EXP</span>
+                      <span class="description-text">LOVE / EXP</span>
                     </div>
                     <!-- /.description-block -->
                   </div>
                   <!-- /.col -->
+                  <div class="col-sm-3 border-right">
+                      <div class="description-block">
+                        <h5 class="description-header">${character.DT}</h5>
+                        <span class="description-text">DT</span>
+                      </div>
+                      <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
                   <div class="col-sm-3 border-right">
                     <div class="description-block">
                       <h5 class="description-header">${character.ATK}</h5>
