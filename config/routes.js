@@ -53,6 +53,13 @@ module.exports.routes = {
     }
   },
 
+  'GET /determination': {
+    view: 'pages/determination',
+    locals: {
+      layout: 'layouts/main',
+    }
+  },
+
   'GET /members': {
     view: 'pages/members',
     locals: {
