@@ -38,7 +38,7 @@ module.exports = {
       character.HPPercent = character.maxHP > 0 ? (character.HP / character.maxHP) * 100 : 0;
       character.claimed = character.userID !== null;
       if (!character.userID) {
-      character.owner = 'Unclaimed';
+        character.owner = 'Unclaimed';
       } else {
         character.owner = guild.members.resolve(character.userID);
         if (character.owner) {
@@ -80,7 +80,13 @@ module.exports = {
       }),
       claimedCharacters: guild.characters.filter((character) => character.userID !== null).size,
       unclaimedCharacters: guild.characters.filter((character) => character.userID === null).size,
-      characters: guildCharacters
+      characters: guildCharacters,
+      DT: {
+        total: guild.characters.filter((character) => character.userID !== null && character.HP > 0).reduce((acc, character) => acc + character.DT, 0),
+        low: guild.characters.filter((character) => character.userID !== null && character.HP > 0 && character.DT < 26).size,
+        normal: guild.characters.filter((character) => character.userID !== null && character.HP > 0 && character.DT >= 26 && character.DT < 76).size,
+        high: guild.characters.filter((character) => character.userID !== null && character.HP > 0 && character.DT >= 76).size
+      }
     };
 
   }

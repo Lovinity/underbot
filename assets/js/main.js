@@ -14,6 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // Set Navigation
   navigation.addItem('#nav-home', '#section-home', 'Undertale Underground', '/', true);
   navigation.addItem('#nav-lore', '#section-lore', 'Lore - Undertale Underground', '/lore', false);
+  navigation.addItem('#nav-determination', '#section-determination', 'Determination (DT) - Undertale Underground', '/determination', false);
   navigation.addItem('#nav-members', '#section-members', 'Members - Undertale Underground', '/members', false);
   // navigation.addItem('#nav-events', '#section-events', 'Events - Undertale Underground', '/events', false);
   navigation.addItem('#nav-rules', '#section-rules', 'Rules - Undertale Underground', '/rules', false);
@@ -37,6 +38,11 @@ function getGuildInformation () {
         $('.guild-numbots').html(guild.numBots);
         $('.guild-claimedcharacters').html(guild.claimedCharacters);
         $('.guild-unclaimedcharacters').html(guild.unclaimedCharacters);
+
+        $('.dt-total').html(guild.DT.total);
+        $('.dt-low').html(guild.DT.low);
+        $('.dt-normal').html(guild.DT.normal);
+        $('.dt-high').html(guild.DT.high);
 
         $('#sections-characters').html('');
         $('#content-members').html('');
