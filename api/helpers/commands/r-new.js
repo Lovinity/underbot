@@ -71,7 +71,7 @@ module.exports = {
     // Prompt confirmation
     confirmSchedule = async () => {
       var confirm = await prompt(`You are about to set a reminder for ${moment(datetime).format("LLLL Z")}. Is this correct? (timeout: 1 minute)`, 60000);
-      if (confirm.cleanContent.toLowerCase() !== 'yes' && confirm.cleanContent.toLowerCase() === 'y') {
+      if (confirm.cleanContent.toLowerCase() !== 'yes' && confirm.cleanContent.toLowerCase() !== 'y') {
         await rePromptSchedule();
       }
     }
