@@ -19,13 +19,16 @@ global[ 'Caches' ] = new CacheManager();
 // Schedules cache
 global[ 'Schedules' ] = {};
 
-// Load moment model for date/time manipulation and processing
-global[ 'moment' ] = require('moment');
+// Load moment model for date/time manipulation and processing; include timezone support
+global[ 'moment' ] = require('moment-timezone');
 require('moment-duration-format');
 
+// Used in raid detection for detecting how similar two strings are.
 const stringSimilarity = require("string-similarity");
 
 module.exports.bootstrap = async function () {
+  // Set default timezone to UTC
+  moment.tz.setDefault("UTC");
 
   /*
       INIT CACHES AND STRUCTURES
