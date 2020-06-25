@@ -13,7 +13,6 @@ module.exports = {
 
 
   fn: async function (inputs) {
-    console.log('sysMinutely executed');
     var members = Caches.get('members').collection;
 
     // Decay spam scores every minute
@@ -28,12 +27,10 @@ module.exports = {
         Caches.get('members').set([ member.userID, member.guildID ], { spamScore: newScore });
       })
 
-    console.log('spam scores decayed');
 
     // Every hour, scan for any characters whose owner is not in the guild and a task was not created.
     // Also, scan for active deletion schedules where the owner is back in the guild
     if (moment().minute() === 0) {
-      console.log('top of hour checks');
 
       var schedules = await sails.models.schedules.find({ task: 'removeCharacter' });
 
@@ -63,7 +60,6 @@ module.exports = {
           }
         }
       })
-      console.log('finished top of hour checks');
     }
   }
 

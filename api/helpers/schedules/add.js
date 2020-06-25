@@ -32,7 +32,7 @@ module.exports = {
       var temp = (async (record) => {
         Schedules[ record.id ] = new CronJob(moment(record.nextRun).toDate(), async () => {
           await sails.helpers.tasks[ record.task ].with(record.data || {});
-  
+
           // Destroy the one-time schedule
           await sails.models.schedules.destroy({ id: record.id }).fetch();
         }, null, true, "UTC");
@@ -49,7 +49,7 @@ module.exports = {
             Schedules[ record.id ].stop();
             Schedules[ record.id ] = new CronJob(record.cron, async () => {
               await sails.helpers.tasks[ record.task ].with(record.data || {});
-      
+
               // Update lastRun
               await sails.models.schedules.updateOne({ id: record.id }, { lastRun: moment().toISOString(true) });
             }, null, true, "UTC", null, true);
@@ -58,13 +58,10 @@ module.exports = {
       } else { // no nextRun? Just schedule the cron
         var temp = (async (record) => {
           Schedules[ record.id ] = new CronJob(record.cron, async () => {
-            console.log('CRON tick');
             await sails.helpers.tasks[ record.task ].with(record.data || {});
-            console.log('TASK finished');
-    
+
             // Update lastRun
             await sails.models.schedules.updateOne({ id: record.id }, { lastRun: moment().toISOString(true) });
-            console.log('lastRun updated');
           }, null, true, "UTC");
         })(inputs.record);
       }
