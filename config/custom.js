@@ -17,6 +17,9 @@ module.exports.custom = {
       messageSweepInterval: (60 * 60),
       // fetchAllMembers: true,
       partials: [ 'USER', 'MESSAGE', 'CHANNEL', 'GUILD_MEMBER', 'REACTION' ],
+      ws: { 
+        intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', 'GUILD_PRESENCES'] // TODO: October 7, 2020, these are required to be defined
+      },
     },
     regex: {
       userOrMember: /^(?:<@!?)?(\d{17,19})>?$/,
