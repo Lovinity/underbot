@@ -35,7 +35,7 @@ module.exports = {
 
           // Destroy the one-time schedule
           await sails.models.schedules.destroy({ id: record.id }).fetch();
-        }, null, true, "UTC");
+        }, null, true);
       })(inputs.record);
 
       // Tasks that have a cron recurrence
@@ -53,7 +53,7 @@ module.exports = {
               // Update lastRun
               await sails.models.schedules.updateOne({ id: record.id }, { lastRun: moment().toISOString(true) });
             }, null, true, "UTC", null, true);
-          }, null, true, "UTC");
+          }, null, true);
         })(inputs.record);
       } else { // no nextRun? Just schedule the cron
         var temp = (async (record) => {
