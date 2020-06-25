@@ -19,8 +19,6 @@ module.exports = {
 
 
   fn: async function (inputs) {
-    console.log(inputs.record.id);
-
     // Skip tasks that do not exist
     if (typeof sails.helpers.tasks === 'undefined' || typeof sails.helpers.tasks[ inputs.record.task ] === 'undefined') return;
 
