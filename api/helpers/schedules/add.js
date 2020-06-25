@@ -51,7 +51,7 @@ module.exports = {
               await sails.helpers.tasks[ record.task ].with(record.data || {});
 
               // Update lastRun
-              await sails.models.schedules.updateOne({ id: record.id }, { lastRun: moment().toISOString(true) });
+              await sails.models.schedules.updateOne({ id: record.id }, { lastRun: moment().format() });
             }, null, true, "UTC", null, true);
           }, null, true);
         })(inputs.record);
@@ -61,7 +61,7 @@ module.exports = {
             await sails.helpers.tasks[ record.task ].with(record.data || {});
 
             // Update lastRun
-            await sails.models.schedules.updateOne({ id: record.id }, { lastRun: moment().toISOString(true) });
+            await sails.models.schedules.updateOne({ id: record.id }, { lastRun: moment().format() });
           }, null, true, "UTC");
         })(inputs.record);
       }

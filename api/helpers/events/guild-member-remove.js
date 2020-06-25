@@ -31,7 +31,7 @@ module.exports = {
       .filter((character) => character.userID === inputs.member.id)
       .each(async (character) => {
         uid = await sails.helpers.uid();
-        await sails.models.schedules.create({ uid: uid, task: 'removeCharacter', data: { uid: character.uid }, nextRun: moment().add(1, 'days').toISOString(true) }).fetch()
+        await sails.models.schedules.create({ uid: uid, task: 'removeCharacter', data: { uid: character.uid }, nextRun: moment().add(1, 'days').format() }).fetch()
       });
   }
 

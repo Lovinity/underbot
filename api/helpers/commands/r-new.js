@@ -87,7 +87,7 @@ module.exports = {
 
     // Create the schedule
     uid = await sails.helpers.uid();
-    await sails.models.schedules.create({ uid: uid, task: 'reminder', data: { user: inputs.message.author.id, channel: inputs.message.channel.id, reminder: inputs.reminder }, nextRun: moment(datetime).toISOString(true) }).fetch()
+    await sails.models.schedules.create({ uid: uid, task: 'reminder', data: { user: inputs.message.author.id, channel: inputs.message.channel.id, reminder: inputs.reminder }, nextRun: moment(datetime).format() }).fetch()
 
     return inputs.message.send(`:white_check_mark: Your reminder has been set! Its uid is ${uid}`);
   }

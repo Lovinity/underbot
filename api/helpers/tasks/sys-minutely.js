@@ -42,7 +42,7 @@ module.exports = {
           var member = guild.members.resolve(character.userID);
           if (!member && !schedules.find((schedule) => schedule.data.uid === character.uid)) {
             uid = await sails.helpers.uid();
-            await sails.models.schedules.create({ uid: uid, task: 'removeCharacter', data: { uid: character.uid }, nextRun: moment().add(1, 'days').toISOString(true) }).fetch()
+            await sails.models.schedules.create({ uid: uid, task: 'removeCharacter', data: { uid: character.uid }, nextRun: moment().add(1, 'days').format() }).fetch()
           }
         }
       });

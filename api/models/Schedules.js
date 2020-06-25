@@ -25,13 +25,14 @@ module.exports = {
     },
 
     lastRun: {
-      type: 'ref',
-      columnType: 'datetime'
+      type: 'string',
+      allowNull: true
     },
 
     nextRun: {
-      type: 'ref',
-      columnType: 'datetime'
+      type: 'string',
+      allowNull: true,
+      description: 'Must be moment compatible string'
     },
 
     catchUp: {
