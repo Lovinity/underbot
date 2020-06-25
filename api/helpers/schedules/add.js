@@ -19,6 +19,7 @@ module.exports = {
 
 
   fn: async function (inputs) {
+    console.log(inputs.record.id);
 
     // Skip tasks that do not exist
     if (typeof sails.helpers.tasks === 'undefined' || typeof sails.helpers.tasks[ inputs.record.task ] === 'undefined') return;
@@ -59,6 +60,9 @@ module.exports = {
         }, null, true, "UTC");
       }
     }
+
+    console.log('Schedule registered for ' + inputs.record.id);
+    console.dir(Schedules[ inputs.record.id ].nextDates());
   }
 
 
