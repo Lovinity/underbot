@@ -254,8 +254,10 @@ class CacheContainer {
         }
 
         // Do stuff
-        var criteria = _.cloneDeep(record);
-        delete criteria.id;
+        if (record) {
+            var criteria = _.cloneDeep(record);
+            delete criteria.id;
+        }
         switch (action) {
             case 'create':
                 sails.log.verbose(`${this.model}=>_sync(${key}): Creating DB record.`);
