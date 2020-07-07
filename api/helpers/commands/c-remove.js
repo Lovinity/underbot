@@ -13,7 +13,7 @@ module.exports = {
       required: true,
       description: 'Starts a wizard to add a new character into the database.'
     },
-    name: {
+    character: {
       type: 'string',
       required: true,
       description: 'The name of the character to remove.'
