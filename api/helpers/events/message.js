@@ -86,6 +86,11 @@ module.exports = {
         inputs.message.react(`🦿`);
       }
 
+      // Vomit reaction to babe
+      if (inputs.message.cleanContent && inputs.message.cleanContent.toLowerCase().includes("babe")) {
+        inputs.message.react(`🤮`);
+      }
+
       // first Sans attack GIF
       if (inputs.message.cleanContent && inputs.message.cleanContent.toLowerCase().includes("should be burning in hell")) {
         inputs.message.send({ files: [ fs.readFileSync(path.resolve(__dirname, "../../../assets/images/sans_first_attack.gif")) ] });
