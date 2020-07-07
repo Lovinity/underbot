@@ -32,6 +32,14 @@ class CacheManager {
     set (model, record) {
         // TODO: Temporary black hole for model lifecycles. Find a way to compare what is passed here with the cache and determine if the cache should be updated with this.
     }
+
+    // Flush all the caches and resync with the database
+    async flushAll () {
+        var maps = this.containers.map(async (container) => {
+            await container.flush();
+        });
+        await Promise.all(maps);
+    }
 }
 
 class CacheContainer {
@@ -63,6 +71,13 @@ class CacheContainer {
         });
         this.initialized = true;
         sails.log.verbose(`${this.model}: Initialized`);
+    }
+
+    // Flush and resync the container
+    async flush () {
+        this.initialized = false;
+        this.collection = new Discord.Collection();
+        await this.init();
     }
 
     // Get a cache record by its key/ID
