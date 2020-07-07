@@ -110,7 +110,7 @@ module.exports = {
 
     var death = `${dying()}
 
-**${name} has died and disintegrated into dust, leaving the role play forever**`;
+**${inputs.character} has died and disintegrated into dust, leaving the role play forever**`;
 
     return inputs.message.send(death);
 
