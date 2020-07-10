@@ -88,14 +88,36 @@ module.exports = {
           } catch (e) {
             // There was an error in the command
             await sails.helpers.events.error(e);
-            inputs.message.reply(`:no_entry: ${e.message}`);
+
+            // Return an error message
+            const errorMessage = new Discord.MessageEmbed()
+              .setTitle(`❌ An error has occurred while executing ${command}.`)
+              .setDescription(`${e.message}\n\u200b`)
+              .setColor(`#ee110f`)
+              .setThumbnail(
+                `https://cdn.discordapp.com/emojis/604486986170105866.png?v=1`
+              );
+            inputs.message.channel
+              .send(errorMessage)
+              .then((a) => a.delete({ timeout: 30000 }));
           }
         } else {
           // Invalid command
           await sails.helpers.events.warn(
             `Discord: command ${command} does not exist.`
           );
-          inputs.message.reply(":x: Sorry, but that command does not exist");
+
+          // Return an error message
+          const errorMessage = new Discord.MessageEmbed()
+            .setTitle(`❌ The command ${command} does not exist.`)
+            .setDescription(`Remember that command parameters must be separated with " | " or double spaces`)
+            .setColor(`#ee110f`)
+            .setThumbnail(
+              `https://cdn.discordapp.com/emojis/604486986170105866.png?v=1`
+            );
+          inputs.message.channel
+            .send(errorMessage)
+            .then((a) => a.delete({ timeout: 15000 }));
         }
       }
     } else {
