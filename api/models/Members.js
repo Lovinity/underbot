@@ -6,72 +6,80 @@
  */
 
 module.exports = {
-
   attributes: {
-
     userID: {
-      type: 'string',
-      required: true
+      type: "string",
+      required: true,
     },
 
     guildID: {
-      type: 'string',
-      required: true
+      type: "string",
+      required: true,
     },
 
     introduction: {
-      type: 'string',
-      defaultsTo: '',
-      description: 'The introduction / profile info for this member',
+      type: "string",
+      defaultsTo: "",
+      description: "The introduction / profile info for this member",
       maxLength: 2000,
-      columnType: 'varchar(2000)'
+      columnType: "varchar(2000)",
     },
 
     spamScore: {
-      type: 'number',
+      type: "number",
       defaultsTo: 0,
-      description: 'Spam score for anti-raid features.'
+      description: "Spam score for anti-raid features.",
     },
 
     spamScoreStamp: {
-      type: 'ref',
-      columnType: 'datetime',
+      type: "ref",
+      columnType: "datetime",
       defaultsTo: moment().toISOString(true),
-      description: 'Date/time when the member last received a nudge by the bot for spam.'
+      description:
+        "Date/time when the member last received a nudge by the bot for spam.",
     },
 
     muted: {
-      type: 'boolean',
+      type: "boolean",
       defaultsTo: false,
-      description: 'Whether or not the member is muted.'
-    }
-
+      description: "Whether or not the member is muted.",
+    },
   },
 
   // Websockets and cache standards
   afterCreate: function (newlyCreatedRecord, proceed) {
-    var data = { insert: newlyCreatedRecord }
-    sails.sockets.broadcast(`members-${newlyCreatedRecord.guildID}`, 'members', data)
-    Caches.set('members', newlyCreatedRecord);
+    var data = { insert: newlyCreatedRecord };
+    sails.sockets.broadcast(
+      `members-${newlyCreatedRecord.guildID}`,
+      "members",
+      data
+    );
+    Caches.set("members", newlyCreatedRecord);
 
-    return proceed()
+    return proceed();
   },
 
   afterUpdate: function (updatedRecord, proceed) {
-    var data = { update: updatedRecord }
-    sails.sockets.broadcast(`members-${updatedRecord.guildID}`, 'members', data)
-    Caches.set('members', updatedRecord);
+    var data = { update: updatedRecord };
+    sails.sockets.broadcast(
+      `members-${updatedRecord.guildID}`,
+      "members",
+      data
+    );
+    Caches.set("members", updatedRecord);
 
-    return proceed()
+    return proceed();
   },
 
   afterDestroy: function (destroyedRecord, proceed) {
-    var data = { remove: destroyedRecord.id }
-    sails.sockets.broadcast(`members-${destroyedRecord.guildID}`, 'members', data)
-    Caches.del('members', destroyedRecord);
+    var data = { remove: destroyedRecord.id };
+    sails.sockets.broadcast(
+      `members-${destroyedRecord.guildID}`,
+      "members",
+      data
+    );
+    Caches.del("members", destroyedRecord);
 
-    return proceed()
-  }
-
+    return proceed();
+  },
 };
-

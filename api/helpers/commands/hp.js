@@ -1,41 +1,36 @@
 module.exports = {
+  friendlyName: "commands.hp",
 
-
-  friendlyName: 'commands.hp',
-
-
-  description: 'Get the current HP of the provided character.',
-
+  description: "Get the current HP of the provided character.",
 
   inputs: {
     message: {
-      type: 'ref',
+      type: "ref",
       required: true,
-      description: 'The message that triggered the command'
+      description: "The message that triggered the command",
     },
     character: {
-      type: 'string',
+      type: "string",
       required: true,
-      description: 'The name of the character in the database to get the HP of.'
+      description:
+        "The name of the character in the database to get the HP of.",
     },
   },
 
-
-  exits: {
-
-  },
-
+  exits: {},
 
   fn: async function (inputs) {
     // Delete original command message
     inputs.message.delete();
 
     // Get the character
-    var character = inputs.message.guild.characters.find((char) => char.name.toLowerCase() === inputs.character.toLowerCase());
+    var character = inputs.message.guild.characters.find(
+      (char) => char.name.toLowerCase() === inputs.character.toLowerCase()
+    );
 
     // Check if the character exists
     if (!character) {
-      throw new Error(`That character was not found in the database.`)
+      throw new Error(`That character was not found in the database.`);
     }
 
     var maxHP = await sails.helpers.characters.calculateMaxHp(character);
@@ -46,10 +41,10 @@ module.exports = {
     // Determine emojis to use
     var hpBar = ``;
     for (var i = 0; i < 20; i++) {
-      if (percent > (i / 20)) {
-        hpBar += `:green_heart: `
+      if (percent > i / 20) {
+        hpBar += `:green_heart: `;
       } else {
-        hpBar += `:black_heart: `
+        hpBar += `:black_heart: `;
       }
     }
 
@@ -59,7 +54,5 @@ module.exports = {
     
 HP: ${character.HP} / ${maxHP} HP ${character.HP <= 0 ? `**DEAD**` : ``}
 ${hpBar}`);
-  }
-
-
+  },
 };

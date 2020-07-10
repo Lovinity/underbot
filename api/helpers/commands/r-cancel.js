@@ -1,39 +1,33 @@
 module.exports = {
+  friendlyName: "helpers.commands.rCancel",
 
-
-  friendlyName: 'helpers.commands.rCancel',
-
-
-  description: 'Cancel a set reminder',
-
+  description: "Cancel a set reminder",
 
   inputs: {
     message: {
-      type: 'ref',
+      type: "ref",
       required: true,
-      description: 'Starts a wizard to add a new character into the database.'
+      description: "Starts a wizard to add a new character into the database.",
     },
     uid: {
-      type: 'string',
+      type: "string",
       required: true,
-      description: "The uid of the reminder to cancel"
-    }
+      description: "The uid of the reminder to cancel",
+    },
   },
-
 
   exits: {
-
     success: {
-      description: 'All done.',
+      description: "All done.",
     },
-
   },
 
-
   fn: async function (inputs) {
-
     // Get the reminder task; error if not found
-    var schedule = await sails.models.schedules.findOne({ uid: inputs.uid, task: 'reminder' });
+    var schedule = await sails.models.schedules.findOne({
+      uid: inputs.uid,
+      task: "reminder",
+    });
     if (!schedule)
       throw new Error(`A reminder with the provided uid was not found.`);
 
@@ -44,9 +38,8 @@ module.exports = {
     // Cancel the reminder.
     await sails.models.schedules.destroyOne({ id: schedule.id });
 
-    return inputs.message.send(`:white_check_mark: The reminder has been canceled!`)
-  }
-
-
+    return inputs.message.send(
+      `:white_check_mark: The reminder has been canceled!`
+    );
+  },
 };
-

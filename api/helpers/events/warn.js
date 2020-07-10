@@ -1,29 +1,18 @@
 module.exports = {
+  friendlyName: "events.warn",
 
-
-  friendlyName: 'events.warn',
-
-
-  description: 'DiscordClient warn event',
-
+  description: "DiscordClient warn event",
 
   inputs: {
     info: {
-      type: 'string',
-      required: true
-    }
+      type: "string",
+      required: true,
+    },
   },
 
-
-  exits: {
-
-  },
-
+  exits: {},
 
   fn: async function (inputs) {
     sails.log.warn(inputs.info);
-  }
-
-
+  },
 };
-

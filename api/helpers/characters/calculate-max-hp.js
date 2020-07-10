@@ -1,30 +1,21 @@
 module.exports = {
+  friendlyName: "characters.calculateMaxHp",
 
-
-  friendlyName: 'characters.calculateMaxHp',
-
-
-  description: 'Calculate the maximum HP of a character',
-
+  description: "Calculate the maximum HP of a character",
 
   inputs: {
     character: {
-      type: 'ref',
+      type: "ref",
       required: true,
-      description: 'the character record'
-    }
+      description: "the character record",
+    },
   },
 
-
-  exits: {
-
-  },
-
+  exits: {},
 
   fn: async function (inputs) {
     // If maxHP is set, return that instead of calculating by level
-    if (inputs.character.maxHP !== 0)
-      return inputs.character.maxHP;
+    if (inputs.character.maxHP !== 0) return inputs.character.maxHP;
 
     // Determine current level
     var lvl = await sails.helpers.characters.calculateLevel(inputs.character);
@@ -34,12 +25,9 @@ module.exports = {
     if (lvl >= 20) {
       maxHP = 99;
     } else {
-      maxHP += ((lvl - 1) * 4);
+      maxHP += (lvl - 1) * 4;
     }
 
     return maxHP;
-  }
-
-
+  },
 };
-

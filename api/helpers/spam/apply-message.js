@@ -1,27 +1,22 @@
 module.exports = {
+  friendlyName: "spam.applyMessage",
 
-
-  friendlyName: 'spam.applyMessage',
-
-
-  description: 'Apply spam score for the provided message.',
-
+  description: "Apply spam score for the provided message.",
 
   inputs: {
     message: {
-      type: 'ref',
-      required: true
+      type: "ref",
+      required: true,
     },
   },
 
-
   fn: async function (inputs) {
-    if (!inputs.message.member)
-      return;
+    if (!inputs.message.member) return;
 
-    await sails.helpers.spam.add(inputs.message.member, inputs.message.spamScore, inputs.message);
-  }
-
-
+    await sails.helpers.spam.add(
+      inputs.message.member,
+      inputs.message.spamScore,
+      inputs.message
+    );
+  },
 };
-

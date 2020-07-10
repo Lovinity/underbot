@@ -8,98 +8,101 @@
 // API note: This model should be used with the CacheManager. Do not use sails.js create, find, update, or destroy. Use the cache instead.
 
 module.exports = {
-
   attributes: {
-
     // API note: guildID should be the only required attribute; try to define defaultsTo where applicable
     guildID: {
-      type: 'string',
+      type: "string",
       required: true,
-      unique: true
+      unique: true,
     },
 
     prefix: {
-      type: 'string',
+      type: "string",
       allowNull: true,
-      description: 'Change the bot prefix on a per-guild bases by specifying a new prefix.'
+      description:
+        "Change the bot prefix on a per-guild bases by specifying a new prefix.",
     },
 
     characterStatsChannel: {
-      type: 'string',
+      type: "string",
       allowNull: true,
-      description: 'The channel ID containing character stats, auto updated by the bot as it changes'
+      description:
+        "The channel ID containing character stats, auto updated by the bot as it changes",
     },
 
     characterDeletionChannel: {
-      type: 'string',
+      type: "string",
       allowNull: true,
-      description: 'The channel ID where the bot should post when a character has been deleted.'
+      description:
+        "The channel ID where the bot should post when a character has been deleted.",
     },
 
     antispamCooldown: {
-      type: 'number',
+      type: "number",
       min: 1,
       max: 100,
       defaultsTo: 33,
-      description: 'The number of spamScore points removed from every member each minute.'
+      description:
+        "The number of spamScore points removed from every member each minute.",
     },
 
     characterStatsChannel: {
-      type: 'string',
+      type: "string",
       allowNull: true,
-      description: 'The channel ID containing character stats, auto updated by the bot as it changes'
+      description:
+        "The channel ID containing character stats, auto updated by the bot as it changes",
     },
 
     ogChannel: {
-      type: 'string',
+      type: "string",
       allowNull: true,
-      description: 'The channel ID containing a list of claimed and unclaimed OG characters.'
+      description:
+        "The channel ID containing a list of claimed and unclaimed OG characters.",
     },
 
     ocChannel: {
-      type: 'string',
+      type: "string",
       allowNull: true,
-      description: 'The channel ID containing a list of claimed and unclaimed OC characters.'
+      description:
+        "The channel ID containing a list of claimed and unclaimed OC characters.",
     },
 
     muteRole: {
-      type: 'string',
+      type: "string",
       allowNull: true,
-      description: 'The ID of the role assigned when a member is muted.'
+      description: "The ID of the role assigned when a member is muted.",
     },
 
     unverifiedRole: {
-      type: 'string',
+      type: "string",
       allowNull: true,
-      description: 'The role assigned to a member when they are not yet verified.'
+      description:
+        "The role assigned to a member when they are not yet verified.",
     },
-
   },
 
   // Websockets and cache standards
   afterCreate: function (newlyCreatedRecord, proceed) {
-    var data = { insert: newlyCreatedRecord }
-    sails.sockets.broadcast('guilds', 'guilds', data)
-    Caches.set('guilds', newlyCreatedRecord);
+    var data = { insert: newlyCreatedRecord };
+    sails.sockets.broadcast("guilds", "guilds", data);
+    Caches.set("guilds", newlyCreatedRecord);
 
-    return proceed()
+    return proceed();
   },
 
   afterUpdate: function (updatedRecord, proceed) {
-    var data = { update: updatedRecord }
-    sails.sockets.broadcast('guilds', 'guilds', data)
-    Caches.set('guilds', updatedRecord);
+    var data = { update: updatedRecord };
+    sails.sockets.broadcast("guilds", "guilds", data);
+    Caches.set("guilds", updatedRecord);
 
-    return proceed()
+    return proceed();
   },
 
   afterDestroy: function (destroyedRecord, proceed) {
-    var data = { remove: destroyedRecord.id }
-    sails.sockets.broadcast('guilds', 'guilds', data)
-    Caches.del('guilds', destroyedRecord);
+    var data = { remove: destroyedRecord.id };
+    sails.sockets.broadcast("guilds", "guilds", data);
+    Caches.del("guilds", destroyedRecord);
 
-    return proceed()
-  }
-
+    return proceed();
+  },
 };
-

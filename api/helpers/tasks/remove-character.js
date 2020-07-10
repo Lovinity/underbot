@@ -1,25 +1,17 @@
 module.exports = {
+  friendlyName: "tasks.removeCharacter",
 
-
-  friendlyName: 'tasks.removeCharacter',
-
-
-  description: 'Removes a character',
-
+  description: "Removes a character",
 
   inputs: {
     uid: {
-      type: 'string',
+      type: "string",
       required: true,
-      description: 'The UID of the character to remove.'
-    }
+      description: "The UID of the character to remove.",
+    },
   },
 
-
-  exits: {
-
-  },
-
+  exits: {},
 
   fn: async function (inputs) {
     // Get the character from the database
@@ -44,16 +36,21 @@ module.exports = {
     } else {
       if (character.claimable) {
         if (guild)
-          await sails.helpers.guild.send(`characterDeletionChannel`, guild, `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. **This character may now be claimed by someone else**.`)
-        Caches.get('characters').set([ inputs.uid ], { userID: null });
+          await sails.helpers.guild.send(
+            `characterDeletionChannel`,
+            guild,
+            `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. **This character may now be claimed by someone else**.`
+          );
+        Caches.get("characters").set([inputs.uid], { userID: null });
       } else {
         if (guild)
-          await sails.helpers.guild.send(`characterDeletionChannel`, guild, `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. This character cannot be claimed by others, therefore, it has disintegrated into dust and left the role play.`)
-        Caches.get('characters').delete(character.id);
+          await sails.helpers.guild.send(
+            `characterDeletionChannel`,
+            guild,
+            `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. This character cannot be claimed by others, therefore, it has disintegrated into dust and left the role play.`
+          );
+        Caches.get("characters").delete(character.id);
       }
     }
-  }
-
-
+  },
 };
-

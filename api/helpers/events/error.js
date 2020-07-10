@@ -1,34 +1,28 @@
 module.exports = {
+  friendlyName: "events.error",
 
-
-  friendlyName: 'events.error',
-
-
-  description: 'DiscordClient error event.',
-
+  description: "DiscordClient error event.",
 
   inputs: {
     error: {
-      type: 'ref',
-      description: 'Error',
-      required: true
-    }
+      type: "ref",
+      description: "Error",
+      required: true,
+    },
   },
-
 
   fn: async function (inputs) {
     sails.log.error(inputs.error);
 
     // Send a message to the owner in DM of high-level errors
     if (sails.config.custom.discord.clientOwner) {
-      var owner = DiscordClient.users.resolve(sails.config.custom.discord.clientOwner);
+      var owner = DiscordClient.users.resolve(
+        sails.config.custom.discord.clientOwner
+      );
       if (owner) {
         owner.send(`:x: ERROR: :x:
         ${inputs.error.message}`);
       }
     }
-  }
-
-
+  },
 };
-

@@ -6,78 +6,72 @@
  */
 
 module.exports = {
-
   attributes: {
-
     uid: {
-      type: 'string',
+      type: "string",
       unique: true,
-      required: true
+      required: true,
     },
 
     task: {
-      type: 'string',
-      required: true
+      type: "string",
+      required: true,
     },
 
     data: {
-      type: 'json'
+      type: "json",
     },
 
     lastRun: {
-      type: 'string',
-      allowNull: true
+      type: "string",
+      allowNull: true,
     },
 
     nextRun: {
-      type: 'string',
+      type: "string",
       allowNull: true,
-      description: 'Must be moment compatible string'
+      description: "Must be moment compatible string",
     },
 
     catchUp: {
-      type: 'boolean',
-      defaultsTo: true
+      type: "boolean",
+      defaultsTo: true,
     },
 
     cron: {
-      type: 'string',
-      allowNull: true
-    }
-
-
+      type: "string",
+      allowNull: true,
+    },
   },
 
   // Websockets and cache standards
   afterCreate: function (newlyCreatedRecord, proceed) {
-    var data = { insert: newlyCreatedRecord }
-    sails.sockets.broadcast('schedules', 'schedules', data)
+    var data = { insert: newlyCreatedRecord };
+    sails.sockets.broadcast("schedules", "schedules", data);
 
     // Schedule the new schedule in cron
-    sails.helpers.schedules.add(newlyCreatedRecord).exec(() => { });
+    sails.helpers.schedules.add(newlyCreatedRecord).exec(() => {});
 
-    return proceed()
+    return proceed();
   },
 
   afterUpdate: function (updatedRecord, proceed) {
-    var data = { update: updatedRecord }
-    sails.sockets.broadcast('schedules', 'schedules', data)
+    var data = { update: updatedRecord };
+    sails.sockets.broadcast("schedules", "schedules", data);
 
     // Re-schedule the schedule in cron
-    sails.helpers.schedules.add(updatedRecord).exec(() => { });
+    sails.helpers.schedules.add(updatedRecord).exec(() => {});
 
-    return proceed()
+    return proceed();
   },
 
   afterDestroy: function (destroyedRecord, proceed) {
-    var data = { remove: destroyedRecord.id }
-    sails.sockets.broadcast('schedules', 'schedules', data)
+    var data = { remove: destroyedRecord.id };
+    sails.sockets.broadcast("schedules", "schedules", data);
 
     // Remove the schedule from cron
-    sails.helpers.schedules.remove(destroyedRecord).exec(() => { });
+    sails.helpers.schedules.remove(destroyedRecord).exec(() => {});
 
-    return proceed()
-  }
-
+    return proceed();
+  },
 };
-

@@ -1,20 +1,15 @@
 module.exports = {
+  friendlyName: "event.inputs.guildMemberAdd",
 
-
-  friendlyName: 'event.inputs.guildMemberAdd',
-
-
-  description: 'Discord guild member add event',
-
+  description: "Discord guild member add event",
 
   inputs: {
     member: {
-      type: 'ref',
+      type: "ref",
       required: true,
-      description: 'Guild member added.'
-    }
+      description: "Guild member added.",
+    },
   },
-
 
   fn: async function (inputs) {
     // Upgrade partial members to full members
@@ -24,22 +19,26 @@ module.exports = {
 
     // If member is supposed to be muted, mute them
     if (inputs.member.settings.muted) {
-      inputs.member.roles.add(inputs.member.guild.settings.muteRole, `Was previously muted and left the guild; re-muted as they re-joined`);
+      inputs.member.roles.add(
+        inputs.member.guild.settings.muteRole,
+        `Was previously muted and left the guild; re-muted as they re-joined`
+      );
       if (inputs.member.voice.channel) {
-        inputs.member.voice.kick(`User is muted`)
+        inputs.member.voice.kick(`User is muted`);
       }
     }
 
     // Check if there are any pending character deletion tasks, and if so, delete them.
-    var schedules = await sails.models.schedules.find({ task: 'removeCharacter' });
+    var schedules = await sails.models.schedules.find({
+      task: "removeCharacter",
+    });
     schedules.map(async (record) => {
-      var character = Caches.get('characters').collection.find((char) => char.uid === record.data.uid);
+      var character = Caches.get("characters").collection.find(
+        (char) => char.uid === record.data.uid
+      );
       if (character && character.userID === inputs.member.id) {
         await sails.models.schedules.destroyOne({ id: record.id });
       }
-    })
-  }
-
-
+    });
+  },
 };
-
