@@ -5,7 +5,7 @@ module.exports = {
 
   inputs: {
     message: {
-      type: "string",
+      type: "ref",
       required: true,
       description: "The message with the command.",
     },
