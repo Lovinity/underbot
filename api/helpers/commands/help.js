@@ -49,32 +49,11 @@ module.exports = {
           Object.prototype.hasOwnProperty.call(info.inputs, input)
         ) {
           var value = info.inputs[input].required
-            ? `**REQUIRED**` + "\n"
-            : `OPTIONAL` + "\n";
+            ? `REQUIRED` + "\n"
+            : `optional` + "\n";
+          value += info.inputs[input].description + "\n";
+          value += `------` + "\n";
           value += `Type: ${info.inputs[input].type}` + "\n";
-          if (info.inputs[input].isInteger) value += `Integer.` + "\n";
-          if (info.inputs[input].isCreditCard)
-            value += `Credit Card Number.` + "\n";
-          if (info.inputs[input].isEmail) value += `Email Address.` + "\n";
-          if (info.inputs[input].isHexColor)
-            value += `Hexadecimal Color.` + "\n";
-          if (info.inputs[input].isIP) value += `IP address.` + "\n";
-          if (info.inputs[input].isURL) value += `URL.` + "\n";
-          if (info.inputs[input].isUUID) value += `UUID.` + "\n";
-          if (info.inputs[input].regex)
-            value += `Regex: ${info.inputs[input].regex}` + "\n";
-          if (typeof info.inputs[input].custom !== "undefined")
-            value += `Property also has custom validation.` + "\n";
-          if (typeof info.inputs[input].isBefore !== "undefined") {
-            value +=
-              `Before Date: ${moment(info.inputs[input].isBefore).format()}` +
-              "\n";
-          }
-          if (typeof info.inputs[input].isAfter !== "undefined") {
-            value +=
-              `After Date: ${moment(info.inputs[input].isAfter).format()}` +
-              "\n";
-          }
           if (
             typeof info.inputs[input].defaultsTo !== "undefined" ||
             info.inputs[input].allowNull
@@ -85,6 +64,29 @@ module.exports = {
                   ? info.inputs[input].defaultsTo
                   : `null`
               }` + "\n";
+          if (info.inputs[input].isInteger)
+            value += `Must be an integer.` + "\n";
+          if (info.inputs[input].isCreditCard)
+            value += `Must be a credit card number.` + "\n";
+          if (info.inputs[input].isEmail)
+            value += `Must be an email address.` + "\n";
+          if (info.inputs[input].isHexColor)
+            value += `Must be a hexadecimal color.` + "\n";
+          if (info.inputs[input].isIP) value += `Must be an IP address.` + "\n";
+          if (info.inputs[input].isURL) value += `Must be a URL.` + "\n";
+          if (info.inputs[input].isUUID) value += `Must be a UUID.` + "\n";
+          if (info.inputs[input].regex)
+            value += `Regex: ${info.inputs[input].regex}` + "\n";
+          if (typeof info.inputs[input].isBefore !== "undefined") {
+            value +=
+              `Before Date: ${moment(info.inputs[input].isBefore).format()}` +
+              "\n";
+          }
+          if (typeof info.inputs[input].isAfter !== "undefined") {
+            value +=
+              `After Date: ${moment(info.inputs[input].isAfter).format()}` +
+              "\n";
+          }
           if (typeof info.inputs[input].isIn !== "undefined")
             value +=
               `Must be one of the following: [${info.inputs[input].isIn.join(
@@ -107,7 +109,8 @@ module.exports = {
             value +=
               `Maximum length: ${info.inputs[input].maxLength} characters` +
               "\n";
-          value += info.inputs[input].description + "\n";
+          if (typeof info.inputs[input].custom !== "undefined")
+            value += `Property also has custom validation.` + "\n";
 
           embed.addField(input, value);
         }
