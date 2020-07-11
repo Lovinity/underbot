@@ -19,9 +19,9 @@ module.exports = {
   exits: {},
 
   fn: async function (inputs) {
-    var guildSettings = await inputs.message.guild.settings();
     var prefix =
-      guildSettings.prefix || sails.config.custom.discord.defaultPrefix;
+      inputs.message.guild.settings.prefix ||
+      sails.config.custom.discord.defaultPrefix;
 
     // Get info about a specific command
     var commandHelp = async (command) => {
@@ -48,7 +48,9 @@ module.exports = {
           input !== "message" &&
           Object.prototype.hasOwnProperty.call(info.inputs, input)
         ) {
-          var value = info.inputs[input].required ? `**REQUIRED**` + "\n" : `OPTIONAL` + "\n";
+          var value = info.inputs[input].required
+            ? `**REQUIRED**` + "\n"
+            : `OPTIONAL` + "\n";
           value += `Type: ${info.inputs[input].type}` + "\n";
           if (info.inputs[input].isInteger) value += `Integer.` + "\n";
           if (info.inputs[input].isCreditCard)
