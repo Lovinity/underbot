@@ -9,16 +9,22 @@
  */
 
 module.exports.custom = {
-
   discord: {
-    clientOptions: { // Discord.js clientOptions. You can override in local.js
+    clientOptions: {
+      // Discord.js clientOptions. You can override in local.js
       messageCacheMaxSize: 10000,
-      messageCacheLifetime: (60 * 60 * 24 * 10),
-      messageSweepInterval: (60 * 60),
+      messageCacheLifetime: 60 * 60 * 24 * 10,
+      messageSweepInterval: 60 * 60,
       // fetchAllMembers: true,
-      partials: [ 'USER', 'MESSAGE', 'CHANNEL', 'GUILD_MEMBER', 'REACTION' ],
-      ws: { 
-        intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', 'GUILD_PRESENCES'] // TODO: October 7, 2020, these are required to be defined
+      partials: ["USER", "MESSAGE", "CHANNEL", "GUILD_MEMBER", "REACTION"],
+      ws: {
+        intents: [
+          "GUILDS",
+          "GUILD_MESSAGES",
+          "GUILD_MEMBERS",
+          "GUILD_PRESENCES",
+          "GUILD_MESSAGE_REACTIONS"
+        ], // TODO: October 7, 2020, these are required to be defined
       },
     },
     regex: {
@@ -26,7 +32,7 @@ module.exports.custom = {
       channel: /^(?:<#)?(\d{17,19})>?$/,
       emoji: /^(?:<a?:\w{2,32}:)?(\d{17,19})>?$/,
       role: /^(?:<@&)?(\d{17,19})>?$/,
-      snowflake: /^(\d{17,19})$/
+      snowflake: /^(\d{17,19})$/,
     },
     defaultPrefix: `ub!`, // Default prefix for activating bot commands if not set in guild settings.
     token: ``, // Bot user token
@@ -140,10 +146,9 @@ module.exports.custom = {
       "twunt",
       "w00se",
       "wanker",
-      "whore"
+      "whore",
     ],
   },
 
-  baseURL: `https://example.com` // Base URL for the REST API
-
+  baseURL: `https://example.com`, // Base URL for the REST API
 };
