@@ -28,8 +28,8 @@ module.exports = {
       var info = sails.helpers.commands[command].toJSON();
       var embed = new Discord.MessageEmbed()
         .setAuthor(
-          `Drago's Moderation - Help`,
-          `${Client.user.displayAvatarURL()}`
+          `Underbot - Help`,
+          `${DiscordClient.user.displayAvatarURL()}`
         )
         .setTitle(`Bot Command ${prefix}${command}`)
         .setDescription(info.description)
@@ -152,8 +152,8 @@ module.exports = {
         commands2.map((group) => {
           var groupEmbed = new Discord.MessageEmbed()
             .setAuthor(
-              `Drago's Moderation - Help`,
-              `${Client.user.displayAvatarURL()}`
+              `Underbot - Help`,
+              `${DiscordClient.user.displayAvatarURL()}`
             )
             .setDescription(
               `Here is a list of available commands in the bot ( use the prefix **${prefix}** at the beginning of a command name to execute it ). Use the reactions to scroll between pages. Type a command name to view more info about that command.`
