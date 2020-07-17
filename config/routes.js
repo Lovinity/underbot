@@ -81,6 +81,20 @@ module.exports.routes = {
     }
   },
 
+  'GET /underbot': {
+    view: 'pages/underbot',
+    locals: {
+      layout: 'layouts/main',
+    }
+  },
+
+  'GET /underbot/privacy-policy': {
+    view: 'pages/underbotpp',
+    locals: {
+      layout: 'layouts/main',
+    }
+  },
+
   'GET /character/:character': function (req, res) {
     var character = req.param('character');
     return res.view('pages/character', { layout: 'layouts/main', character: character })

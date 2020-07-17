@@ -48,7 +48,7 @@
 
     <!--Main-->
     <script src="/plugins/navigation/js/navigation.js"></script>
-    <script src="/js/main.js?t=202006160214"></script>
+    <script src="/js/main.js?t=202007170115"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -125,6 +125,25 @@
                                 <i class="nav-icon fas fa-exclamation-triangle"></i>
                                 <p>
                                     Guild Rules
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-header text-light">UNDERBOT</li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" id="nav-underbot"
+                                title="Learn about underbot and the commands.">
+                                <i class="nav-icon fas fa-terminal"></i>
+                                <p>
+                                    About / Commands
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" id="nav-underbotpp"
+                                title="What data does Underbot collect, and how is it used?">
+                                <i class="nav-icon fas fa-user-shield"></i>
+                                <p>
+                                    Privacy Policy
                                 </p>
                             </a>
                         </li>
@@ -838,6 +857,250 @@
                         <!-- /.card-body -->
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section id="section-underbot">
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0 text-dark guild-name">Underbot About / Commands</h1>
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+                    </div><!-- /.container-fluid -->
+                </div>
+                <!-- /.content-header -->
+
+                <div class="card card-primary elevation-2">
+                    <div class="card-header">
+                        <h3 class="card-title">What is Underbot?</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <p>Underbot is a custom bot we use to help manage registered characters and their stats (such as
+                            HP, DT, EXP, LOVE, G gold, items, etc). The bot also gives us anti-raid protection. Underbot
+                            also provides this website, which contains the database of registered characters.</p>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+
+                <div class="card card-warning elevation-2">
+                    <div class="card-header">
+                        <h3 class="card-title">What Happens when you Leave Undertale Enhanced?</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <p>If you leave the guild and do not return for 24 hours, the following will happen for each of
+                            your claimed characters:
+                        <ul>
+                            <li>For OG characters: The character will become unclaimed and someone else may re-claim the
+                                character. Once re-claimed, the character will continue where it left off in RP.</li>
+                            <li>For OC characters: The character will disintegrate into dust and leave the RP. If you
+                                instead want your character to be claimable by other members, especially should you
+                                leave, please specify so when you submit your character sheet.</li>
+                        </ul>
+                        </p>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+
+                <div class="card card-info elevation-2">
+                    <div class="card-header">
+                        <h3 class="card-title">Available Commands</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <p>Commands in <span class="badge badge-danger">red</span> may only be used by UE staff.
+                            Commands in <span class="badge badge-warning">yellow</span> may only be used by UE staff
+                            or the owner of the specified character. Commands in <span
+                                class="badge badge-success">green</span> may be used by anyone.</p>
+                        <p>Parameters may be separated with " | " or with a double space.</p>
+                        <p>You can use <span class="badge badge-success">ub!help</span> for more information about
+                            available commands.</p>
+                        <h4>Characters</h4>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-danger">ub!cNew</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Begin the wizard for adding a new [approved] character into the bot. <strong>Have the
+                                    character photo and sprite (pixelized black/white dialog image) ready before adding
+                                    it.</strong>
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-danger">ub!cEdit | character name</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Edit something about a character already in the bot. The bot will prompt you what you
+                                want to edit.
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-danger">ub!cStatsChannel</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Use this in the character stats channel to re-generate all character stats embeds.
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-danger">ub!cOgChannel</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Use this in the channel you want OG characters and by whom they're claimed to be listed.
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-danger">ub!cOcChannel</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Use this in the channel you want OC characters and by whom they're claimed to be listed.
+                            </div>
+                        </div>
+                        <h4>HP Tracking</h4>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-green">ub!hp | character name</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Get the current HP of the provided character.
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-warning">ub!hpDamage | character name | HP</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Inflict the specified amount of HP damage (subtract) on the provided character.
+                                <strong>Don't forget to set their DT to 0 if they die!</strong>
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-warning">ub!hpHeal | character name | HP</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Heal the specified amount of HP (add) on the provided character.
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-warning">ub!hpSet | character name | HP</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Set the provided character's HP level to the specific provided HP. <strong>Don't forget
+                                    to set their DT to 0 if they die!</strong>
+                            </div>
+                        </div>
+                        <h4>DT (determination) Tracking</h4>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-warning">ub!dtSet | character name | DT</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Change the DT (determination) level of the provided character. See #determination for
+                                more info.
+                            </div>
+                        </div>
+                        <h4>Item Inventory</h4>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-warning">ub!iAdd | character name | item name | item
+                                    description</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Add an item to the character's inventory. Description should explain what the item is
+                                and what it does or how it relates in RP. Multiple items with the same name are
+                                permitted. However, if they serve different functions, you should give them a different
+                                name (such as putting a different number on the end).
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-warning">ub!iRemove | character name | item name</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Remove item with the provided name from the provided character's inventory. If multiple
+                                items with that name exist, only one of them will be removed.
+                            </div>
+                        </div>
+                        <h4>Undertale-style Dialog Images</h4>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-success">ub!dialog | character name | message</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Generate an Undertale-style dialog image with the character's sprite. The message has a
+                                240-character limit.
+                            </div>
+                        </div>
+                        <h4>SAVE Points</h4>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-danger">ub!rpSave</span>
+                            </div>
+                            <div class="col-sm-8">
+                                When someone activates a SAVE point, a staff member should execute this command. The bot
+                                will generate a unique save ID number and post it in every channel (if we RESET to this
+                                SAVE point, everything sent after this bot message should be considered null and void).
+                                Also, the bot will generate and attach a character database TXT file. All characters
+                                should be reset to this database by the Underbot developer if we reset to this SAVE
+                                point.
+                            </div>
+                        </div>
+                        <h4>Reminders</h4>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-success">ub!rNew | date/time | reminder</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Set a reminder. The bot will mention you in the channel you set the reminder. Date/time
+                                can be any human-readable time, date, time and date, or duration from now format. A uid
+                                of the reminder will be returned. Recurring reminders are not (and will never be)
+                                supported.
+                                <ul>
+                                    <li>Dates with slashes are in US format (eg. month/day/year)</li>
+                                    <li>You should always specify a time zone (either abbreviation or GMT+-offset) when
+                                        times are involved. Otherwise, it will default to UTC/GMT. Note that the bot
+                                        will confirm the correct date/time with you, but it will be displayed in
+                                        UTC/GMT.</li>
+                                    <li>You should use military time format (no colon, eg. 0900, or 2100) when
+                                        specifying time in 24-hour format.</li>
+                                    <li>You should always specify AM or PM when using times, unless you are using
+                                        military time (no colon) for 24-hour format.</li>
+                                    <li>A few bugs in parsing may be present. Let me know if you find one.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-warning">ub!rCancel | uid</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Cancel a reminder by its uid provided when you created it. You can only cancel your own
+                                reminders.
+                            </div>
+                        </div>
+                        <h4>Puns</h4>
+                        <div class="row p-2">
+                            <div class="col-sm-4">
+                                <span class="badge badge-success">ub!fishPun</span>
+                            </div>
+                            <div class="col-sm-8">
+                                Halibut you check out these fishy puns? They will dolphinately make you groan.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+
             </div>
         </section>
 

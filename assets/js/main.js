@@ -17,6 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
   navigation.addItem('#nav-determination', '#section-determination', 'Determination (DT) - Undertale Underground', '/determination', false);
   navigation.addItem('#nav-members', '#section-members', 'Members - Undertale Underground', '/members', false);
   // navigation.addItem('#nav-events', '#section-events', 'Events - Undertale Underground', '/events', false);
+  navigation.addItem('#nav-underbot', '#section-underbot', 'Underbot About / Commands - Undertale Underground', '/underbot', false);
   navigation.addItem('#nav-rules', '#section-rules', 'Rules - Undertale Underground', '/rules', false);
 
   // Load guild information
