@@ -1139,131 +1139,133 @@
                 </div>
                 <!-- /.content-header -->
 
+                <div class="content">
+                    <p>This policy was last updated <strong>July 12, 2020.</strong></p>
+    
+                    <h2>What is Underbot?</h2>
+                    <p>Underbot is a custom bot developed by @Undyne (with a Spear) . Its two primary purposes include the
+                        following:
+                    <ul>
+                        <li>To provide character management / a character database for characters used in the Undertale
+                            Enhanced role play</li>
+                        <li>To provide anti-raid protection for the Undertale Enhanced server.</li>
+                    </ul>
+                    Underbot is not used in any other servers except a private testing server to test new features.</p>
+    
+                    <h2>What Personal Data is Collected and How it is Used</h2>
+    
+                    <h3>Database</h3>
+                    <p>The information outlined in this section is collected by the bot and stored on a MariaDB database
+                        server. This database cannot be directly accessed by anyone other than the bot developer and the
+                        company hosting the service, server4you.</p>
+    
+                    <h3>Role Play Characters</h3>
+                    <p>The bot stores information about registered characters used in the Undertale Enhanced role play. This
+                        information is stored and edited by means of the cNew and cEdit bot commands, which are used by the
+                        staff. This information is used to display a public character sheet of all characters in the role
+                        play for others to read, available at https://undertaleenhanced.club/ . The information is also used
+                        to track certain stats easily in role play.
+                        The following information is collected about characters:
+                    <ul>
+                        <li>The ID of this server, and the snowflake ID of the member who owns / has claimed the character.
+                        </li>
+                        <li>Whether or not the character: is an OC, can be claimed by others if the owner leaves the server.
+                        </li>
+                        <li>The character's name, nicknames, pronouns, age, height, appearance, SOUL type, personality, HP /
+                            max HP, EXP (experience), ATK (attack), DEF (defense), DT (determination), gold, items in
+                            inventory, weapons, armor, likes, dislikes, and extra info.</li>
+                        <li>Photos of the character and its sprite.</li>
+                        <li>The snowflake IDs of the messages posted by the bot of the character in #og-character-list ,
+                            #oc-list , and/or #character-stats , so the bot can update these when the character is modified.
+                        </li>
+                    </ul>
+                    <span class="text-danger">Role play characters are deleted from the database after 24 hours when its
+                        owner leaves the server (and the character cannot be re-claimed), or upon request.</span></p>
+    
+                    <h3>Guild Members</h3>
+                    <p>For the purpose of raid protection, the bot stores some information about members in this server,
+                        effective immediately upon joining the server. Information includes the following:
+                    <ul>
+                        <li>The member's snowflake ID</li>
+                        <li>A "spam score", which is generated from the messages the member sends in the guild and decays
+                            over time. Members who reach a threshold of spam score will be notified by the bot to stop for a
+                            few minutes. And if continued, the bot will add a muted role to the member.</li>
+                        <li>A timestamp indicating the last time the bot mentioned someone to stop sending messages for a
+                            few minutes; this is used to determine if the bot should mention someone versus muting someone.
+                        </li>
+                        <li>Whether or not the member is supposed to be muted (mute evasion detection should the member
+                            leave and re-join the server).</li>
+                    </ul>
+                    <span class="text-primary">Although not stored in the database, members in the server can be viewed on
+                        the website https://undertaleenhanced.club/members . Information includes username, nickname,
+                        avatar, roles, and date joined. You will disappear from the website immediately upon leaving the
+                        server.</span><br />
+                    <span class="text-danger">This information is not deleted when a member leaves the server. It is only
+                        removed upon requesting for its removal with the bot developer or the UE staff.</span></p>
+    
+                    <h3>Schedules</h3>
+                    <p>When a member sets a reminder, a schedule entry is added to the bot so the bot can re-initiate the
+                        cron job on reboot. The schedule entry includes when the reminder should be triggered, the user ID
+                        to mention, and the reminder text. This record is deleted once the bot sends out the reminder.</p>
+                    <p>When a member leaves the guild, any characters that cannot be re-claimed will be added to the
+                        schedules records with a 24-hour timer. These characters are deleted once the 24 hour timer is up,
+                        unless the member re-joins the guild before-hand (in which the schedules are deleted)</p>
+    
+                    <h2>Who do we Share Underbot Data With?</h2>
+                    <p>Characters added to the database are shared publicly via our website at
+                        https://undertaleenhanced.club/ . Members in the guild are listed at
+                        https://undertaleenhanced.club/members . Besides these mediums, we do not share Underbot data.</p>
+    
+                    <h2>How Long do we Retain your Data?</h2>
+    
+                    <h3>Guild Members</h3>
+                    <p>Member data stays in the database indefinitely unless requested for removal. The reason for this is
+                        we track whether or not a member should be muted upon re-entering the guild (mute evasion
+                        prevention). However, when requesting for the removal of your data, you will be asked to leave the
+                        guild, and a permanent ban will be placed on you (to prevent disciplinary evasion), otherwise the
+                        bot will generate a new record in the database.</p>
+    
+                    <h3>Role Play Characters</h3>
+                    <p>Characters in the database that cannot be claimed by others when the owner leaves the server will be
+                        deleted after 24 hours when the owner leaves the server. Otherwise, the characters remain in the
+                        database until manually removed.</p>
+    
+                    <h2>What Rights do you Have Over Your Data?</h2>
+                    <p>You have the right to request the removal of any/all of your characters or your member data. Please
+                        contact the bot developer @Undyne (with a Spear) to do so.</p>
+                    <p>You may also request to see the data currently in the bot database pertaining / tied to your
+                        snowflake ID.</p>
+    
+                    <h2>Where do we Send Your Data?</h2>
+                    <p>We do not generally send any of the bot data to anyone. However, should Discord or law enforcement
+                        request its data, we are under obligation to comply sending it over.</p>
+    
+                    <h2>How do we Protect Your Data?</h2>
+                    <p>The database for the bot cannot be directly accessed by anyone except the developer, through the use
+                        of a password and a computer on a specific IP address. The exception to this is the company
+                        server4you, who owns the server running the database.</p>
+    
+                    <h2>Data Breach Procedures</h2>
+                    <p>We do not have a data breach procedure in place for Underbot since the bot does not store any
+                        personal information deemed sensitive and private.</p>
+    
+                    <h2>What Third Parties use Data From Underbot?</h2>
+                    <p>There are no third parties with access to Underbot's data at this time.</p>
+    
+                    <h2>What automated decision making and/or profiling we do with user data?</h2>
+                    <p>The bot has a raid protection feature. New members are given a spam score for every message sent in
+                        the server. The cumulative score is stored on record (but not the message nor the individual scores
+                        themselves). The score decays over time. If a member reaches a certain threshold, the bot will ask
+                        them to stop sending messages for a few minutes. If they continue, the bot will add a muted role to
+                        them. If a member leaves the server having had the muted role, and then later re-joins, the bot will
+                        automatically re-add the muted role.</p>
+                </div>
+
             </div>
         </section>
 
         <div id="sections-characters">
-            <div class="content">
-                <p>This policy was last updated <strong>July 12, 2020.</strong></p>
-
-                <h2>What is Underbot?</h2>
-                <p>Underbot is a custom bot developed by @Undyne (with a Spear) . Its two primary purposes include the
-                    following:
-                <ul>
-                    <li>To provide character management / a character database for characters used in the Undertale
-                        Enhanced role play</li>
-                    <li>To provide anti-raid protection for the Undertale Enhanced server.</li>
-                </ul>
-                Underbot is not used in any other servers except a private testing server to test new features.</p>
-
-                <h2>What Personal Data is Collected and How it is Used</h2>
-
-                <h3>Database</h3>
-                <p>The information outlined in this section is collected by the bot and stored on a MariaDB database
-                    server. This database cannot be directly accessed by anyone other than the bot developer and the
-                    company hosting the service, server4you.</p>
-
-                <h3>Role Play Characters</h3>
-                <p>The bot stores information about registered characters used in the Undertale Enhanced role play. This
-                    information is stored and edited by means of the cNew and cEdit bot commands, which are used by the
-                    staff. This information is used to display a public character sheet of all characters in the role
-                    play for others to read, available at https://undertaleenhanced.club/ . The information is also used
-                    to track certain stats easily in role play.
-                    The following information is collected about characters:
-                <ul>
-                    <li>The ID of this server, and the snowflake ID of the member who owns / has claimed the character.
-                    </li>
-                    <li>Whether or not the character: is an OC, can be claimed by others if the owner leaves the server.
-                    </li>
-                    <li>The character's name, nicknames, pronouns, age, height, appearance, SOUL type, personality, HP /
-                        max HP, EXP (experience), ATK (attack), DEF (defense), DT (determination), gold, items in
-                        inventory, weapons, armor, likes, dislikes, and extra info.</li>
-                    <li>Photos of the character and its sprite.</li>
-                    <li>The snowflake IDs of the messages posted by the bot of the character in #og-character-list ,
-                        #oc-list , and/or #character-stats , so the bot can update these when the character is modified.
-                    </li>
-                </ul>
-                <span class="text-danger">Role play characters are deleted from the database after 24 hours when its
-                    owner leaves the server (and the character cannot be re-claimed), or upon request.</span></p>
-
-                <h3>Guild Members</h3>
-                <p>For the purpose of raid protection, the bot stores some information about members in this server,
-                    effective immediately upon joining the server. Information includes the following:
-                <ul>
-                    <li>The member's snowflake ID</li>
-                    <li>A "spam score", which is generated from the messages the member sends in the guild and decays
-                        over time. Members who reach a threshold of spam score will be notified by the bot to stop for a
-                        few minutes. And if continued, the bot will add a muted role to the member.</li>
-                    <li>A timestamp indicating the last time the bot mentioned someone to stop sending messages for a
-                        few minutes; this is used to determine if the bot should mention someone versus muting someone.
-                    </li>
-                    <li>Whether or not the member is supposed to be muted (mute evasion detection should the member
-                        leave and re-join the server).</li>
-                </ul>
-                <span class="text-primary">Although not stored in the database, members in the server can be viewed on
-                    the website https://undertaleenhanced.club/members . Information includes username, nickname,
-                    avatar, roles, and date joined. You will disappear from the website immediately upon leaving the
-                    server.</span><br />
-                <span class="text-danger">This information is not deleted when a member leaves the server. It is only
-                    removed upon requesting for its removal with the bot developer or the UE staff.</span></p>
-
-                <h3>Schedules</h3>
-                <p>When a member sets a reminder, a schedule entry is added to the bot so the bot can re-initiate the
-                    cron job on reboot. The schedule entry includes when the reminder should be triggered, the user ID
-                    to mention, and the reminder text. This record is deleted once the bot sends out the reminder.</p>
-                <p>When a member leaves the guild, any characters that cannot be re-claimed will be added to the
-                    schedules records with a 24-hour timer. These characters are deleted once the 24 hour timer is up,
-                    unless the member re-joins the guild before-hand (in which the schedules are deleted)</p>
-
-                <h2>Who do we Share Underbot Data With?</h2>
-                <p>Characters added to the database are shared publicly via our website at
-                    https://undertaleenhanced.club/ . Members in the guild are listed at
-                    https://undertaleenhanced.club/members . Besides these mediums, we do not share Underbot data.</p>
-
-                <h2>How Long do we Retain your Data?</h2>
-
-                <h3>Guild Members</h3>
-                <p>Member data stays in the database indefinitely unless requested for removal. The reason for this is
-                    we track whether or not a member should be muted upon re-entering the guild (mute evasion
-                    prevention). However, when requesting for the removal of your data, you will be asked to leave the
-                    guild, and a permanent ban will be placed on you (to prevent disciplinary evasion), otherwise the
-                    bot will generate a new record in the database.</p>
-
-                <h3>Role Play Characters</h3>
-                <p>Characters in the database that cannot be claimed by others when the owner leaves the server will be
-                    deleted after 24 hours when the owner leaves the server. Otherwise, the characters remain in the
-                    database until manually removed.</p>
-
-                <h2>What Rights do you Have Over Your Data?</h2>
-                <p>You have the right to request the removal of any/all of your characters or your member data. Please
-                    contact the bot developer @Undyne (with a Spear) to do so.</p>
-                <p>You may also request to see the data currently in the bot database pertaining / tied to your
-                    snowflake ID.</p>
-
-                <h2>Where do we Send Your Data?</h2>
-                <p>We do not generally send any of the bot data to anyone. However, should Discord or law enforcement
-                    request its data, we are under obligation to comply sending it over.</p>
-
-                <h2>How do we Protect Your Data?</h2>
-                <p>The database for the bot cannot be directly accessed by anyone except the developer, through the use
-                    of a password and a computer on a specific IP address. The exception to this is the company
-                    server4you, who owns the server running the database.</p>
-
-                <h2>Data Breach Procedures</h2>
-                <p>We do not have a data breach procedure in place for Underbot since the bot does not store any
-                    personal information deemed sensitive and private.</p>
-
-                <h2>What Third Parties use Data From Underbot?</h2>
-                <p>There are no third parties with access to Underbot's data at this time.</p>
-
-                <h2>What automated decision making and/or profiling we do with user data?</h2>
-                <p>The bot has a raid protection feature. New members are given a spam score for every message sent in
-                    the server. The cumulative score is stored on record (but not the message nor the individual scores
-                    themselves). The score decays over time. If a member reaches a certain threshold, the bot will ask
-                    them to stop sending messages for a few minutes. If they continue, the bot will add a muted role to
-                    them. If a member leaves the server having had the muted role, and then later re-joins, the bot will
-                    automatically re-add the muted role.</p>
-            </div>
+            
         </div>
 
     </div>
