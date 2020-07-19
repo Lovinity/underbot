@@ -88,7 +88,7 @@ module.exports.routes = {
     }
   },
 
-  'GET /underbot/privacy-policy': {
+  'GET /underbotpp': {
     view: 'pages/underbotpp',
     locals: {
       layout: 'layouts/main',
