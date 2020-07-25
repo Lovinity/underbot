@@ -27,9 +27,8 @@ module.exports = {
       "YIP",
       "YAP",
       "YIF",
-      "GROWL",
     ];
-    var rareBarks = ["NYA", "*SNEEZE*"];
+    var rareBarks = ["NYA", "*SNEEZE*", "*GROWL SNARL*"];
 
     var len = getRandomInt(15, 30);
 
