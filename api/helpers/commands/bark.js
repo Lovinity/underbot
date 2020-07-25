@@ -18,7 +18,18 @@ module.exports = {
   },
 
   fn: async function (inputs) {
-    var barks = ["BARK", "ARF", "WOOF", "RUFF", "YIP", "YAP", "YIF", "GROWL"];
+    var barks = [
+      "BARK",
+      "BORK",
+      "ARF",
+      "WOOF",
+      "RUFF",
+      "YIP",
+      "YAP",
+      "YIF",
+      "GROWL",
+    ];
+    var rareBarks = ["NYA", "*SNEEZE*"];
 
     var len = getRandomInt(15, 30);
 
@@ -27,18 +38,38 @@ module.exports = {
     var barkIndex = getRandomInt(0, barks.length - 1);
     var random = getRandomInt(1, 3);
     var random2 = getRandomInt(1, 9);
+    var random3 = getRandomInt(1, 50);
     for (var i = 0; i < len; i++) {
-      str += barks[barkIndex];
-      if (random2 === 8) {
+      if (random3 !== 25) {
+        str += barks[barkIndex];
+        if (random2 === 8 || random2 === 9) {
+          str += `... `;
+          if (random === 1) barkIndex = getRandomInt(0, barks.length - 1);
+          random = getRandomInt(1, 3);
+        } else if (random2 !== 7 && random2 !== 6) {
+          str += ` `;
+          if (random === 1) barkIndex = getRandomInt(0, barks.length - 1);
+          random = getRandomInt(1, 3);
+        }
+      } else if (
+        random2 !== 7 &&
+        random2 !== 6 &&
+        (random3 === 30 ||
+          random3 === 31 ||
+          random3 === 32 ||
+          random3 === 33 ||
+          random3 === 34)
+      ) {
+        var random4 = getRandomInt(3, 10);
+        for (var i2 = 0; i2 < random4; i2++) {
+          str += `*PANT* `;
+        }
         str += `... `;
-        if (random === 1) barkIndex = getRandomInt(0, barks.length - 1);
-        random = getRandomInt(1, 3);
-      } else if (random2 !== 7 && random2 !== 6) {
-        str += ` `;
-        if (random === 1) barkIndex = getRandomInt(0, barks.length - 1);
-        random = getRandomInt(1, 3);
+      } else {
+        str += rareBarks[getRandomInt(0, rareBarks.length - 1)] + `... `;
       }
       random2 = getRandomInt(1, 9);
+      random3 = getRandomInt(1, 50);
     }
 
     return inputs.message.channel.send(str);
