@@ -20,28 +20,28 @@ module.exports = {
   fn: async function (inputs) {
     var barks = ["BARK", "ARF", "WOOF", "RUFF", "YIP", "YAP", "YIF", "GROWL"];
 
-    var length = getRandomInt(15, 30);
+    var len = getRandomInt(15, 30);
 
-    var string = ``;
+    var str = ``;
 
     var barkIndex = getRandomInt(0, barks.length - 1);
     var random = getRandomInt(1, 3);
     var random2 = getRandomInt(1, 9);
-    for (var i; i < length; i++) {
-      string += barks[barkIndex];
+    for (var i = 0; i < len; i++) {
+      str += barks[barkIndex];
       if (random2 === 8) {
-        string += `... `;
+        str += `... `;
         if (random === 1) barkIndex = getRandomInt(0, barks.length - 1);
         random = getRandomInt(1, 3);
       } else if (random2 !== 7 && random2 !== 6) {
-        string += ` `;
+        str += ` `;
         if (random === 1) barkIndex = getRandomInt(0, barks.length - 1);
         random = getRandomInt(1, 3);
       }
       random2 = getRandomInt(1, 9);
     }
 
-    return inputs.message.channel.send(string);
+    return inputs.message.channel.send(str);
   },
 };
 
