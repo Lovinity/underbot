@@ -89,10 +89,6 @@ module.exports = {
           channel.type === "text"
       );
 
-    channels = inputs.message.guild.channels.cache
-      .array()
-      .filter((channel) => channel.id === "713904511197904927");
-
     var index = 0;
 
     var messages = [];
