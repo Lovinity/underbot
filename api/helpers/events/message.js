@@ -141,14 +141,15 @@ module.exports = {
         categories.indexOf(inputs.message.channel.parent.id) !== -1
       ) {
         if (
+          inputs.message.author &&
           inputs.message.cleanContent &&
           !inputs.message.cleanContent.startsWith("(") &&
           !inputs.message.cleanContent.startsWith("/") &&
           inputs.message.cleanContent.length >= 128
         ) {
           Caches.get("members").set(
-            [inputs.message.member.id, inputs.message.guild.id],
-            { rpPosts: inputs.message.member.settings.rpPosts + 1 }
+            [inputs.message.author.id, inputs.message.guild.id],
+            { rpPosts: inputs.message.author.guildSettings(inputs.message.guild.id).rpPosts + 1 }
           );
         }
       }
