@@ -89,6 +89,10 @@ module.exports = {
           channel.type === "text"
       );
 
+    channels = inputs.message.guild.channels.cache
+      .array()
+      .filter((channel) => channel.id === "713904511197904927");
+
     var index = 0;
 
     var messages = [];
@@ -219,7 +223,6 @@ module.exports = {
           );
           if (!msg || msg.size === 0) {
             sails.log.debug(`nextMessageBatch: no more messages`);
-            index++;
             await mg.edit(
               `:hourglass: Please wait; this could take a while... (Processing ${
                 messages.length
@@ -229,6 +232,7 @@ module.exports = {
             );
             messages = messages.sort(compare);
             await splitMessages();
+            index++;
             await nextChannel();
             return resolve();
           } else {
