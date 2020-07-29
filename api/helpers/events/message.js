@@ -110,7 +110,9 @@ module.exports = {
           // Return an error message
           const errorMessage = new Discord.MessageEmbed()
             .setTitle(`❌ The command ${command} does not exist.`)
-            .setDescription(`Remember that command parameters must be separated with " | " or double spaces`)
+            .setDescription(
+              `Remember that command parameters must be separated with " | " or double spaces`
+            )
             .setColor(`#ee110f`)
             .setThumbnail(
               `https://cdn.discordapp.com/emojis/604486986170105866.png?v=1`
@@ -122,6 +124,35 @@ module.exports = {
       }
     } else {
       // Not a command
+
+      // RP post?
+      var categories = [
+        "710408355373383772", // ruins
+        "710413557333884948", // snowdin
+        "710413584772890685", // waterfall
+        "710413617073487914", // Hotlands
+        "710413931885363253", // Core
+        "710413972385431633", // New home
+        "711099427770728449", // Undernet
+      ];
+
+      if (
+        inputs.message.channel.parent &&
+        categories.indexOf(inputs.message.channel.parent.id) !== -1
+      ) {
+        if (
+          inputs.message.cleanContent &&
+          !inputs.message.cleanContent.startsWith("(") &&
+          !inputs.message.cleanContent.startsWith("/") &&
+          inputs.message.cleanContent.length >= 128
+        ) {
+          var settings = await inputs.message.member.settings();
+          await sails.models.members.update(
+            { id: settings.id },
+            { rpPosts: settings.rpPosts + 1 }
+          );
+        }
+      }
 
       // Message easter eggs
 

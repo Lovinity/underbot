@@ -44,6 +44,12 @@ module.exports = {
       defaultsTo: false,
       description: "Whether or not the member is muted.",
     },
+
+    rpPosts: {
+      type: 'number',
+      defaultsTo: 0,
+      description: "The total number of official RP posts this member has made."
+    }
   },
 
   // Websockets and cache standards

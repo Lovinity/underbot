@@ -647,11 +647,13 @@ function getGuildInformation () {
 
         // Process members
         guild.members
-          .sort((a, b) => { // Bots at bottom, staff at top, then sort by join date
+          .sort((a, b) => { // Bots at bottom, staff at top, then sort by rpPosts, then sort by join date
             if (a.bot && !b.bot) return 1;
             if (!a.bot && b.bot) return -1;
             if (a.staff && !b.staff) return -1;
             if (!a.staff && b.staff) return 1;
+            if (a.rpPosts > b.rpPosts) return -1;
+            if (b.rpPosts > a.rpPosts) return 1;
             return (a.joinedTimestamp || 0) - (b.joinedTimestamp - 0)
           })
           .map((member) => {
@@ -686,9 +688,9 @@ function getGuildInformation () {
                           </p>
                           <hr>
                           
-                          <strong>About</strong>
-                          <p class="text-muted">
-                            ${member.introduction}
+                          <strong>RP Posts</strong>
+                          <p class="text-muted h1 text-center">
+                            ${member.rpPosts}
                           </p>
           
                         </div>
