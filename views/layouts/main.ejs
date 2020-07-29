@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
 
     <title class="guild-name">Undertale Enhanced</title>
 
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css" />
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link
+      rel="stylesheet"
+      href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css"
+    />
     <!-- Theme style -->
-    <link rel="stylesheet" href="/plugins/adminlte/css/adminlte.min.css">
+    <link rel="stylesheet" href="/plugins/adminlte/css/adminlte.min.css" />
     <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+      rel="stylesheet"
+    />
 
     <!-- jQuery -->
     <script src="/plugins/jquery/jquery.min.js"></script>
@@ -41,1236 +46,1568 @@
     <script src="/plugins/eventemitter/js/EventEmitter.min.js"></script>
 
     <!--izi-->
-    <link rel="stylesheet" href="/plugins/iziModal/css/iziModal.min.css">
-    <link rel="stylesheet" href="/plugins/iziToast/css/iziToast.min.css">
+    <link rel="stylesheet" href="/plugins/iziModal/css/iziModal.min.css" />
+    <link rel="stylesheet" href="/plugins/iziToast/css/iziToast.min.css" />
     <script src="/plugins/iziModal/js/iziModal.min.js"></script>
     <script src="/plugins/iziToast/js/iziToast.min.js"></script>
 
     <!--Main-->
     <script src="/plugins/navigation/js/navigation.js"></script>
     <script src="/js/main.js?t=202007282246"></script>
-</head>
+  </head>
 
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+  <body
+    class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed"
+  >
     <div class="wrapper">
+      <!-- Navbar -->
+      <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-widget="pushmenu"
+              href="#"
+              title="Display / Hide Side Menu"
+              ><i class="fas fa-bars"></i
+            ></a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.navbar -->
 
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" title="Display / Hide Side Menu"><i
-                            class="fas fa-bars"></i></a>
-                </li>
+      <!-- Main Sidebar Container -->
+      <aside class="main-sidebar sidebar-dark-danger elevation-4">
+        <!-- Brand Logo -->
+        <a href="https://undertaleenhanced.club" class="brand-link">
+          <img
+            src="none.jpg"
+            alt="UE"
+            class="brand-image img-circle bg-white elevation-3 guild-logo"
+            style="opacity: 0.8;"
+          />
+          <span class="brand-text font-weight-light guild-name"
+            >Undertale Enhanced</span
+          >
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+            <ul
+              class="nav nav-pills nav-sidebar flex-column"
+              data-widget="treeview"
+              role="menu"
+              data-accordion="false"
+            >
+              <li class="nav-header text-light">ABOUT US</li>
+              <li class="nav-item">
+                <a
+                  href="#"
+                  class="nav-link"
+                  id="nav-home"
+                  title="Home Page; learn about the Discord guild"
+                >
+                  <i class="nav-icon fas fa-home"></i>
+                  <p>
+                    Home
+                  </p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  href="#"
+                  class="nav-link"
+                  id="nav-lore"
+                  title="The current premises for our RP guild"
+                >
+                  <i class="nav-icon fas fa-scroll"></i>
+                  <p>
+                    Current Lore
+                  </p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  href="#"
+                  class="nav-link"
+                  id="nav-determination"
+                  title="Learn about a unique stat we use in our RP: determination."
+                >
+                  <i class="nav-icon fas fa-heartbeat"></i>
+                  <p>
+                    Determination (DT)
+                  </p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  href="#"
+                  class="nav-link"
+                  id="nav-members"
+                  title="Learn about the members and staff"
+                >
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>
+                    Meet the Members
+                  </p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  href="#"
+                  class="nav-link"
+                  id="nav-rules"
+                  title="Learn about our Discord rules"
+                >
+                  <i class="nav-icon fas fa-exclamation-triangle"></i>
+                  <p>
+                    Guild Rules
+                  </p>
+                </a>
+              </li>
+              <li class="nav-header text-light">UNDERBOT</li>
+              <li class="nav-item">
+                <a
+                  href="#"
+                  class="nav-link"
+                  id="nav-underbot"
+                  title="Learn about underbot and the commands."
+                >
+                  <i class="nav-icon fas fa-terminal"></i>
+                  <p>
+                    About / Commands
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  href="#"
+                  class="nav-link"
+                  id="nav-underbotpp"
+                  title="What data does Underbot collect, and how is it used?"
+                >
+                  <i class="nav-icon fas fa-user-shield"></i>
+                  <p>
+                    Privacy Policy
+                  </p>
+                </a>
+              </li>
+
+              <li class="nav-header text-light">UNCLAIMED CHARACTERS</li>
+              <div id="nav-og-unclaimed"></div>
+
+              <li class="nav-header text-light">CLAIMED OG CHARACTERS</li>
+              <div id="nav-og-claimed"></div>
+
+              <li class="nav-header text-light">CLAIMED OC CHARACTERS</li>
+              <div id="nav-oc"></div>
             </ul>
-        </nav>
-        <!-- /.navbar -->
-
-        <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-danger elevation-4">
-            <!-- Brand Logo -->
-            <a href="https://undertaleenhanced.club" class="brand-link">
-                <img src="none.jpg" alt="UE" class="brand-image img-circle bg-white elevation-3 guild-logo"
-                    style="opacity: .8">
-                <span class="brand-text font-weight-light guild-name">Undertale Enhanced</span>
-            </a>
-
-            <!-- Sidebar -->
-            <div class="sidebar">
-
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
-                        <li class="nav-header text-light">ABOUT US</li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" id="nav-home" title="Home Page; learn about the Discord guild">
-                                <i class="nav-icon fas fa-home"></i>
-                                <p>
-                                    Home
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" id="nav-lore" title="The current premises for our RP guild">
-                                <i class="nav-icon fas fa-scroll"></i>
-                                <p>
-                                    Current Lore
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" id="nav-determination"
-                                title="Learn about a unique stat we use in our RP: determination.">
-                                <i class="nav-icon fas fa-heartbeat"></i>
-                                <p>
-                                    Determination (DT)
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" id="nav-members" title="Learn about the members and staff">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    Meet the Members
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" id="nav-rules" title="Learn about our Discord rules">
-                                <i class="nav-icon fas fa-exclamation-triangle"></i>
-                                <p>
-                                    Guild Rules
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-header text-light">UNDERBOT</li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" id="nav-underbot"
-                                title="Learn about underbot and the commands.">
-                                <i class="nav-icon fas fa-terminal"></i>
-                                <p>
-                                    About / Commands
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" id="nav-underbotpp"
-                                title="What data does Underbot collect, and how is it used?">
-                                <i class="nav-icon fas fa-user-shield"></i>
-                                <p>
-                                    Privacy Policy
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-header text-light">UNCLAIMED CHARACTERS</li>
-                        <div id="nav-og-unclaimed"></div>
-
-                        <li class="nav-header text-light">CLAIMED OG CHARACTERS</li>
-                        <div id="nav-og-claimed"></div>
-
-                        <li class="nav-header text-light">CLAIMED OC CHARACTERS</li>
-                        <div id="nav-oc"></div>
-
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
-        </aside>
-
-        <!-- Content Wrapper. Contains page content -->
-
-        <section id="section-home">
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1 class="m-0 text-dark guild-name">Undertale Enhanced</h1>
-                            </div><!-- /.col -->
-                        </div><!-- /.row -->
-                    </div><!-- /.container-fluid -->
-                </div>
-                <!-- /.content-header -->
-
-                <!-- Main content -->
-                <div class="content">
-                    <div class="card card-widget widget-user-2">
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-danger">
-                            <div class="row">
-                                <div class="col-12 col-md-8">
-                                    <div class="widget-user-image">
-                                        <img class="img-circle elevation-2 guild-logo" src="none.jpg"
-                                            alt="Guild Avatar">
-                                    </div>
-                                    <!-- /.widget-user-image -->
-                                    <h3 class="widget-user-username guild-name">Undertale Enhanced</h3>
-                                    <h5 class="widget-user-desc">A Discord Undertale RP Guild</h5>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <a type="button" href="https://discord.gg/FVj9yfv"
-                                        class="btn btn-block bg-purple btn-lg">Join Discord</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="small-box bg-success" title="Number of members currently in our guild">
-                                <div class="inner">
-                                    <h3 class="guild-nummembers">???</h3>
-
-                                    <p>Guild Members</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="small-box bg-primary" title="Number of bots in our guild">
-                                <div class="inner">
-                                    <h3 class="guild-numbots">???</h3>
-
-                                    <p>Bots</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-robot"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="small-box bg-danger"
-                                title="Number of claimed characters currently in the role play">
-                                <div class="inner">
-                                    <h3 class="guild-claimedcharacters">???</h3>
-
-                                    <p>Claimed Characters</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="small-box bg-warning"
-                                title="Number of unclaimed OG characters that may be claimed for use in the role play (This excludes original monsters, which can be made).">
-                                <div class="inner">
-                                    <h3 class="guild-unclaimedcharacters">???</h3>
-
-                                    <p>Unclaimed Characters</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-user-slash"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card card-primary elevation-2">
-                        <div class="card-header">
-                            <h3 class="card-title">Features</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Staying Close to the Canon</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Although we allow OC characters, we do not allow AU (alternate universe) versions of
-                                    OG (canon) characters. Our guild stays as close to the canon as possible (while
-                                    allowing for some variety).
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Text Channels for Every Space</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Our guild is structured in such a way each spot of Undertale is its own text
-                                    channel. That way, conversations and actions taking place in one part of Undertale
-                                    do not interfere with conversations/actions taking place in another.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Undernet Simulation</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    We simulate the Undernet in our Role Play environment. Make undernet "posts" for
-                                    everyone, or only specific characters, to see. Or, place phone calls or send text
-                                    messages to specific characters.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Open Mechanics</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Apart from a few basic rules, the mechanics of each RP session (such as dice rolling
-                                    and turns) can be agreed on by the players involved. There is no set-in-stone global
-                                    mechanic that everyone is required to follow.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Role Play Lock-Downs</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    When a character is involved in a role play session, they are locked out of all
-                                    other sessions. This prevents story and lore conflicts.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Side Role-Plays</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Despite the lock-downs, we do have a few channels for side role plays to take place
-                                    which are not affected by the lock-down. These RPs do not contribute to the main RP
-                                    story.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Casual Channels</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Aside from role playing, you can engage in general converation with other members in
-                                    the guild, both in character or out of character.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Guild Events</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Our guild hosts regular events to keep the community engaged. For most events, you
-                                    may choose to be in character or out of character.
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-        <section id="section-lore">
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1 class="m-0 text-dark">Current Lore</h1>
-                            </div><!-- /.col -->
-                        </div><!-- /.row -->
-                    </div><!-- /.container-fluid -->
-                </div>
-                <!-- /.content-header -->
-
-                <!-- Main content -->
-                <div class="content">
-                    <div class="card elevation-2">
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="row p-2">
-                                <div class="col-sm-2">
-                                    <strong>Frisk</strong>
-                                </div>
-                                <div class="col-sm-10">
-                                    <p>Frisk went through with their normal pacifist route, all the way up until after
-                                        the Mettaton fight, where Alphys told them the truth about escaping the
-                                        Underground. Frisk, hearing that they had to kill the king of the underground,
-                                        was overwhelmed. They decided to retreat, to hide away, protecting themselves
-                                        from the possibility of being a murderer. Alphys took them to Sans and Papyrus'
-                                        house upon request of Frisk. Sans and Papyrus gladly took up this
-                                        responsibility, letting them crash on the couch.</p>
-                                    <p>Mettaton caught Frisk hiding in the cupboards of Sans and Papyrus' house one
-                                        time, thereby making Mettaton aware of where they were.</p>
-                                    <p>Being defeated by boredom, Frisk made the decision of leaving the safe house.
-                                        They made a disguise, and went on their way to Grillby's, in search of food.
-                                        Sadly, Undyne and Red saw right through the costume, and attacked.</p>
-                                    <p>Currently, the only monsters who know of Frisk's whereabouts are Papyrus, Sans,
-                                        Mettaton, and Alphys.</p>
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-2">
-                                    <strong>Alphys</strong>
-                                </div>
-                                <div class="col-sm-10">
-                                    <p>Alphys, being one of the main monsters to aid Frisk on their journey, now has a
-                                        big secret to keep. There is a human roaming the underground, hiding away. Since
-                                        Frisk avoided the king, they also missed out on the secret lab. Meaning, Alphys
-                                        is still stuck with this burden of a secret to herself. Frisk also being the one
-                                        to allow Undyne to deliver her love note to Alphys, is hidden, Undyne never
-                                        confesses.</p>
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-2">
-                                    <strong>Asgore</strong>
-                                </div>
-                                <div class="col-sm-10">
-                                    <p>Asgore was informed a human would arrive soon. Since Frisk turned away from
-                                        killing the king, Asgore never found a human to kill. He became confused and
-                                        started questioning the underground. Asgore, currently, is searching for the
-                                        human. Not much has changed with him.</p>
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-2">
-                                    <strong>Undyne</strong>
-                                </div>
-                                <div class="col-sm-10">
-                                    <p>Since Frisk left, Undyne has noticed Alphys keeping things from her. She's been
-                                        slightly more distant, avoiding her almost. Undyne knows something is up, but
-                                        doesn't assume the worst. She also ends up not being able to deliver her love
-                                        letter to Alphys, due to Frisk disappearing.</p>
-                                    <p>Due to the fact Frisk is being kept in hiding at the skeleton's house, Undyne
-                                        being at that house could cause conflict. Luckily before Papyrus or Sans had to
-                                        come up with reason to kick her out, she decided staying with Asgore until her
-                                        house was back to normal would be a good idea. Undyne saw that Asgore was
-                                        lonely, so she thought a bit of company would do him some good. Frisk is safe,
-                                        and Undyne is still in the unknown.</p>
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-2">
-                                    <strong>Sans</strong>
-                                </div>
-                                <div class="col-sm-10">
-                                    <p>Sans, is mostly unaffected by this. Keeping secrets has never really been a
-                                        problem for him, and no one was really interrogating him anyways. All he does is
-                                        help frisk around the house, and that's about it.</p>
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-2">
-                                    <strong>Papyrus</strong>
-                                </div>
-                                <div class="col-sm-10">
-                                    <p>Papyrus isn't very good at lying, but for the sake of the human, he tries his
-                                        best. While no one has really asked about the human so far, he still gets
-                                        nervous in normal conversations. He does most of the taking care part of Frisk.
-                                        He cooks, brings extra items home from shopping sprees, and makes sure he keeps
-                                        them entertained.</p>
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-2">
-                                    <strong>Toriel</strong>
-                                </div>
-                                <div class="col-sm-10">
-                                    <p>Since true pacifist was never completed, Toriel never came out of the ruins
-                                        looking for Frisk. Instead, she stayed waiting for another child to fall,
-                                        watching over the ruins.</p>
-                                    <p>Toriel has recently been killed, after finding a lonely human in the ruins. The
-                                        human was inhabited by chara, and thus ending up in her demise.</p>
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-2">
-                                    <strong>Flowey / Asriel</strong>
-                                </div>
-                                <div class="col-sm-10">
-                                    <p>Since frisk avoided Asgore, Flowey never ended up killing asgore, thus Flowey
-                                        Omega never arrived. This also made it so Asriel was never revealed. Flowey, is
-                                        still the soulless monster he was.</p>
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-2">
-                                    <strong>Chara</strong>
-                                </div>
-                                <div class="col-sm-10">
-                                    <p>Chara has arrived, and found a subject to force her thoughts into. She has found
-                                        an unsuspecting human and is currently filling their head with hate, making them
-                                        a cold blooded killer, with no intention to stop. It seems like the beginning of
-                                        something absolutely horrible for the underground as we know it.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="section-determination">
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1 class="m-0 text-dark">Determination (DT)</h1>
-                            </div><!-- /.col -->
-                        </div><!-- /.row -->
-                    </div><!-- /.container-fluid -->
-                </div>
-                <!-- /.content-header -->
-
-                <!-- Main content -->
-                <div class="content">
-                    <div class="row">
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="small-box bg-primary" title="Total DT of all claimed alive monsters">
-                                <div class="inner">
-                                    <h3 class="dt-total">???</h3>
-
-                                    <p>Total DT</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-hand-holding-heart"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="small-box bg-danger"
-                                title="Number of claimed alive characters with a DT less than 26">
-                                <div class="inner">
-                                    <h3 class="dt-low">???</h3>
-
-                                    <p>Chars w/ low DT</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-heart-broken"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="small-box bg-warning"
-                                title="Number of claimed alive characters with a DT between 26 and 75.">
-                                <div class="inner">
-                                    <h3 class="dt-normal">???</h3>
-
-                                    <p>Chars w/ normal DT</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-heart"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="small-box bg-success"
-                                title="Number of claimed alive characters with a DT greater than 75.">
-                                <div class="inner">
-                                    <h3 class="dt-high">???</h3>
-
-                                    <p>Chars w/ high DT</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-heartbeat"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card card-primary elevation-2">
-                        <div class="card-header">
-                            <h3 class="card-title">About Determination (DT)</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>What is Determination (DT)?</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Determination (DT) is a stat we use in the Undertale Enhanced role play. DT is
-                                    measured on a scale of 0 - 100. For humans, DT is how much will the human has at
-                                    completing the game in the way they want to (example: genocide means the will to
-                                    kill everyone, pacifist means the will not to harm anyone). For monsters, DT is the
-                                    will to live / push onward to remove the barrier and go back to the Surface. DT can
-                                    change over time throughout the role play depending on how the characters experience
-                                    events, such as tragedy.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>0 DT</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Living humans / monsters with 0 DT are actively trying to harm their own remaining
-                                    HP in an effort to "disappear". They must be saved quickly! Dead humans / monsters
-                                    also have 0 DT.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>1-5 DT</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Humans / monsters with 1-5 DT are thinking about "disappearing", but they are not
-                                    actively trying to do so.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>6-25 DT</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Humans / monsters with 6-25 DT are not thinking about "disappearing", but they have
-                                    little motivation / energy (likely depressed).
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>26-75 DT</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Humans / monsters with 26-75 DT are considered to be within the standard / middle
-                                    range.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>76-90 DT</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Humans / monsters with 76-90 DT are considered very determined.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>91-99 DT</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Humans and monsters with 91-99 DT are considered passionately determined. Monsters
-                                    cannot safely handle more than 90 DT; at this point, they risk their physical body
-                                    melting from too much determination and losing HP.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>100 DT</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Only humans with the power to alternate the timeline (SAVE or RESET) have 100 DT.
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-
-                    <div class="card card-warning elevation-2">
-                        <div class="card-header">
-                            <h3 class="card-title">How is Determination Used?</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <p>Determination is used as a tool for developing a character's backstory and to add an
-                                additional element to role play story telling. </p>
-                            <p>Determination is also used as a secondary method for taking down the barrier. We know the
-                                barrier can be taken down with human SOULs, but the monsters and humans might decide
-                                they do not want to kill anyone [else]. Thus, they must try to find a way to break down
-                                the barrier using the collective DT of all living characters. The barrier requires 2,000
-                                total DT to give way. However, DT alone cannot break the barrier; the characters must
-                                find a way to convert DT into a force to break down the barrier.</p>
-                            <p>DT can be used in other ways as well. For example, DT determines whether or not Undyne
-                                becomes Undying after death.</p>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-
-
-                </div>
-            </div>
-        </section>
-
-        <section id="section-members">
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1 class="m-0 text-dark">Meet the Members</h1>
-                            </div><!-- /.col -->
-                        </div><!-- /.row -->
-                    </div><!-- /.container-fluid -->
-                </div>
-                <!-- /.content-header -->
-
-                <!-- Main content -->
-                <div class="content">
-                    <div class="row" id="content-members">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="section-rules">
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1 class="m-0 text-dark">Guild Rules</h1>
-                            </div><!-- /.col -->
-                        </div><!-- /.row -->
-                    </div><!-- /.container-fluid -->
-                </div>
-                <!-- /.content-header -->
-
-                <!-- Main content -->
-                <div class="content">
-                    <div class="card elevation-2">
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>No Alternate Universe characters</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    We are a server that is trying its best to stay to the story and nature of
-                                    Undertale, such, we will not be allowing any AU characters.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Roleplay Locks</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    If a character is in one roleplay, they will be roleplay locked there until the
-                                    roleplay is over. A character cannot be doing two roleplays at once.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>OCs must make sense in Undertale</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    If an OC is created, please try to make them an Undertale oc. The characters of
-                                    undertale are all in the same underground, with similar situations, so non of them
-                                    have souls filled with hate or the desire to kill the entire underground.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Character Limits</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    You are allowed 2 main characters, 2 backround characters, and 1 oc.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>SFW Guild</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    This is a SFW server. Please keep this in mind.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Global Limit to Human OCs</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    We will only be accepting 3 human OC's in total. Please keep this in mind when
-                                    creating your OC.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>No Skeleton OCs</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    We will not be allowing any skeleton OCs.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>No Discrimination</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    We will NOT be tolerating discrimination of ANY kind. Please keep this in mind.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>No Slurs; Use Swearing Sparingly</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Swearing is allowed as long as it's not excessive. Slurs are not allowed in any way.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Respect Everyone</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Be a good monster, respect others, and be knowledgeable that you are the main
-                                    character of your story, but not theirs.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Battles Utilize Dice Rolls</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    All battles will be determined by a dice roll, unless all participants of the battle
-                                    disagree with this.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Dice Rolls are Discussed Prior</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Dice rolls will be different for every monster, depending on stats. More on this
-                                    will be covered in #dice-chat.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Humans Must use Undertale LVL Stats</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    If you have a human oc, their stats must correlate to the LVLs in undertale.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>No Custom Souls</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    There is a list of souls you msy choose from.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <strong>Have Fun</strong>
-                                </div>
-                                <div class="col-sm-8">
-                                    Please, have fun! Make friends, and enjoy yourself.
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="section-underbot">
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1 class="m-0 text-dark guild-name">Underbot About / Commands</h1>
-                            </div><!-- /.col -->
-                        </div><!-- /.row -->
-                    </div><!-- /.container-fluid -->
-                </div>
-                <!-- /.content-header -->
-
-                <div class="card card-primary elevation-2">
-                    <div class="card-header">
-                        <h3 class="card-title">What is Underbot?</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <p>Underbot is a custom bot we use to help manage registered characters and their stats (such as
-                            HP, DT, EXP, LOVE, G gold, items, etc). The bot also gives us anti-raid protection. Underbot
-                            also provides this website, which contains the database of registered characters.</p>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-
-                <div class="card card-warning elevation-2">
-                    <div class="card-header">
-                        <h3 class="card-title">What Happens when you Leave Undertale Enhanced?</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <p>If you leave the guild and do not return for 24 hours, the following will happen for each of
-                            your claimed characters:
-                        <ul>
-                            <li>For OG characters: The character will become unclaimed and someone else may re-claim the
-                                character. Once re-claimed, the character will continue where it left off in RP.</li>
-                            <li>For OC characters: The character will disintegrate into dust and leave the RP. If you
-                                instead want your character to be claimable by other members, especially should you
-                                leave, please specify so when you submit your character sheet.</li>
-                        </ul>
-                        </p>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-
-                <!-- Main content -->
-                <div class="content">
-                    <div class="card card-info elevation-2">
-                        <div class="card-header">
-                            <h3 class="card-title">Available Commands</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <p>Commands in <span class="badge badge-danger">red</span> may only be used by UE staff.
-                                Commands in <span class="badge badge-warning">yellow</span> may only be used by UE staff
-                                or the owner of the specified character. Commands in <span
-                                    class="badge badge-success">green</span> may be used by anyone.</p>
-                            <p>Parameters may be separated with " | " or with a double space.</p>
-                            <p>You can use <span class="badge badge-success">ub!help</span> for more information about
-                                available commands.</p>
-                            <h4>Characters</h4>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-danger">ub!cNew</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Begin the wizard for adding a new [approved] character into the bot. <strong>Have
-                                        the
-                                        character photo and sprite (pixelized black/white dialog image) ready before
-                                        adding
-                                        it.</strong>
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-danger">ub!cEdit | character name</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Edit something about a character already in the bot. The bot will prompt you what
-                                    you
-                                    want to edit.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-danger">ub!cStatsChannel</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Use this in the character stats channel to re-generate all character stats embeds.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-danger">ub!cOgChannel</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Use this in the channel you want OG characters and by whom they're claimed to be
-                                    listed.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-danger">ub!cOcChannel</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Use this in the channel you want OC characters and by whom they're claimed to be
-                                    listed.
-                                </div>
-                            </div>
-                            <h4>HP Tracking</h4>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-success">ub!hp | character name</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Get the current HP of the provided character.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-warning">ub!hpDamage | character name | HP</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Inflict the specified amount of HP damage (subtract) on the provided character.
-                                    <strong>Don't forget to set their DT to 0 if they die!</strong>
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-warning">ub!hpHeal | character name | HP</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Heal the specified amount of HP (add) on the provided character.
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-warning">ub!hpSet | character name | HP</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Set the provided character's HP level to the specific provided HP. <strong>Don't
-                                        forget
-                                        to set their DT to 0 if they die!</strong>
-                                </div>
-                            </div>
-                            <h4>DT (determination) Tracking</h4>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-warning">ub!dtSet | character name | DT</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Change the DT (determination) level of the provided character. See #determination
-                                    for
-                                    more info.
-                                </div>
-                            </div>
-                            <h4>Item Inventory</h4>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-warning">ub!iAdd | character name | item name | item
-                                        description</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Add an item to the character's inventory. Description should explain what the item
-                                    is
-                                    and what it does or how it relates in RP. Multiple items with the same name are
-                                    permitted. However, if they serve different functions, you should give them a
-                                    different
-                                    name (such as putting a different number on the end).
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-warning">ub!iRemove | character name | item name</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Remove item with the provided name from the provided character's inventory. If
-                                    multiple
-                                    items with that name exist, only one of them will be removed.
-                                </div>
-                            </div>
-                            <h4>Undertale-style Dialog Images</h4>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-success">ub!dialog | character name | message</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Generate an Undertale-style dialog image with the character's sprite. The message
-                                    has a
-                                    240-character limit.
-                                </div>
-                            </div>
-                            <h4>SAVE Points</h4>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-danger">ub!rpSave</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    When someone activates a SAVE point, a staff member should execute this command. The
-                                    bot
-                                    will generate a unique save ID number and post it in every channel (if we RESET to
-                                    this
-                                    SAVE point, everything sent after this bot message should be considered null and
-                                    void).
-                                    Also, the bot will generate and attach a character database TXT file. All characters
-                                    should be reset to this database by the Underbot developer if we reset to this SAVE
-                                    point.
-                                </div>
-                            </div>
-                            <h4>Reminders</h4>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-success">ub!rNew | date/time | reminder</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Set a reminder. The bot will mention you in the channel you set the reminder.
-                                    Date/time
-                                    can be any human-readable time, date, time and date, or duration from now format. A
-                                    uid
-                                    of the reminder will be returned. Recurring reminders are not (and will never be)
-                                    supported.
-                                    <ul>
-                                        <li>Dates with slashes are in US format (eg. month/day/year)</li>
-                                        <li>You should always specify a time zone (either abbreviation or GMT+-offset)
-                                            when
-                                            times are involved. Otherwise, it will default to UTC/GMT. Note that the bot
-                                            will confirm the correct date/time with you, but it will be displayed in
-                                            UTC/GMT.</li>
-                                        <li>You should use military time format (no colon, eg. 0900, or 2100) when
-                                            specifying time in 24-hour format.</li>
-                                        <li>You should always specify AM or PM when using times, unless you are using
-                                            military time (no colon) for 24-hour format.</li>
-                                        <li>A few bugs in parsing may be present. Let me know if you find one.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-warning">ub!rCancel | uid</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Cancel a reminder by its uid provided when you created it. You can only cancel your
-                                    own
-                                    reminders.
-                                </div>
-                            </div>
-                            <h4>Puns</h4>
-                            <div class="row p-2">
-                                <div class="col-sm-4">
-                                    <span class="badge badge-success">ub!fishPun</span>
-                                </div>
-                                <div class="col-sm-8">
-                                    Halibut you check out these fishy puns? They will dolphinately make you groan.
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="section-underbotpp">
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1 class="m-0 text-dark">Underbot Privacy Policy</h1>
-                            </div><!-- /.col -->
-                        </div><!-- /.row -->
-                    </div><!-- /.container-fluid -->
-                </div>
-                <!-- /.content-header -->
-
-                <div class="content">
-                    <p>This policy was last updated <strong>July 12, 2020.</strong></p>
-    
-                    <h2>What is Underbot?</h2>
-                    <p>Underbot is a custom bot developed by @Undyne (with a Spear) . Its two primary purposes include the
-                        following:
-                    <ul>
-                        <li>To provide character management / a character database for characters used in the Undertale
-                            Enhanced role play</li>
-                        <li>To provide anti-raid protection for the Undertale Enhanced server.</li>
-                    </ul>
-                    Underbot is not used in any other servers except a private testing server to test new features.</p>
-    
-                    <h2>What Personal Data is Collected and How it is Used</h2>
-    
-                    <h3>Database</h3>
-                    <p>The information outlined in this section is collected by the bot and stored on a MariaDB database
-                        server. This database cannot be directly accessed by anyone other than the bot developer and the
-                        company hosting the service, server4you.</p>
-    
-                    <h3>Role Play Characters</h3>
-                    <p>The bot stores information about registered characters used in the Undertale Enhanced role play. This
-                        information is stored and edited by means of the cNew and cEdit bot commands, which are used by the
-                        staff. This information is used to display a public character sheet of all characters in the role
-                        play for others to read, available at https://undertaleenhanced.club/ . The information is also used
-                        to track certain stats easily in role play.
-                        The following information is collected about characters:
-                    <ul>
-                        <li>The ID of this server, and the snowflake ID of the member who owns / has claimed the character.
-                        </li>
-                        <li>Whether or not the character: is an OC, can be claimed by others if the owner leaves the server.
-                        </li>
-                        <li>The character's name, nicknames, pronouns, age, height, appearance, SOUL type, personality, HP /
-                            max HP, EXP (experience), ATK (attack), DEF (defense), DT (determination), gold, items in
-                            inventory, weapons, armor, likes, dislikes, and extra info.</li>
-                        <li>Photos of the character and its sprite.</li>
-                        <li>The snowflake IDs of the messages posted by the bot of the character in #og-character-list ,
-                            #oc-list , and/or #character-stats , so the bot can update these when the character is modified.
-                        </li>
-                    </ul>
-                    <span class="text-danger">Role play characters are deleted from the database after 24 hours when its
-                        owner leaves the server (and the character cannot be re-claimed), or upon request.</span></p>
-    
-                    <h3>Guild Members</h3>
-                    <p>For the purpose of raid protection, the bot stores some information about members in this server,
-                        effective immediately upon joining the server. Information includes the following:
-                    <ul>
-                        <li>The member's snowflake ID</li>
-                        <li>A "spam score", which is generated from the messages the member sends in the guild and decays
-                            over time. Members who reach a threshold of spam score will be notified by the bot to stop for a
-                            few minutes. And if continued, the bot will add a muted role to the member.</li>
-                        <li>A timestamp indicating the last time the bot mentioned someone to stop sending messages for a
-                            few minutes; this is used to determine if the bot should mention someone versus muting someone.
-                        </li>
-                        <li>Whether or not the member is supposed to be muted (mute evasion detection should the member
-                            leave and re-join the server).</li>
-                    </ul>
-                    <span class="text-primary">Although not stored in the database, members in the server can be viewed on
-                        the website https://undertaleenhanced.club/members . Information includes username, nickname,
-                        avatar, roles, and date joined. You will disappear from the website immediately upon leaving the
-                        server.</span><br />
-                    <span class="text-danger">This information is not deleted when a member leaves the server. It is only
-                        removed upon requesting for its removal with the bot developer or the UE staff.</span></p>
-    
-                    <h3>Schedules</h3>
-                    <p>When a member sets a reminder, a schedule entry is added to the bot so the bot can re-initiate the
-                        cron job on reboot. The schedule entry includes when the reminder should be triggered, the user ID
-                        to mention, and the reminder text. This record is deleted once the bot sends out the reminder.</p>
-                    <p>When a member leaves the guild, any characters that cannot be re-claimed will be added to the
-                        schedules records with a 24-hour timer. These characters are deleted once the 24 hour timer is up,
-                        unless the member re-joins the guild before-hand (in which the schedules are deleted)</p>
-    
-                    <h2>Who do we Share Underbot Data With?</h2>
-                    <p>Characters added to the database are shared publicly via our website at
-                        https://undertaleenhanced.club/ . Members in the guild are listed at
-                        https://undertaleenhanced.club/members . Besides these mediums, we do not share Underbot data.</p>
-    
-                    <h2>How Long do we Retain your Data?</h2>
-    
-                    <h3>Guild Members</h3>
-                    <p>Member data stays in the database indefinitely unless requested for removal. The reason for this is
-                        we track whether or not a member should be muted upon re-entering the guild (mute evasion
-                        prevention). However, when requesting for the removal of your data, you will be asked to leave the
-                        guild, and a permanent ban will be placed on you (to prevent disciplinary evasion), otherwise the
-                        bot will generate a new record in the database.</p>
-    
-                    <h3>Role Play Characters</h3>
-                    <p>Characters in the database that cannot be claimed by others when the owner leaves the server will be
-                        deleted after 24 hours when the owner leaves the server. Otherwise, the characters remain in the
-                        database until manually removed.</p>
-    
-                    <h2>What Rights do you Have Over Your Data?</h2>
-                    <p>You have the right to request the removal of any/all of your characters or your member data. Please
-                        contact the bot developer @Undyne (with a Spear) to do so.</p>
-                    <p>You may also request to see the data currently in the bot database pertaining / tied to your
-                        snowflake ID.</p>
-    
-                    <h2>Where do we Send Your Data?</h2>
-                    <p>We do not generally send any of the bot data to anyone. However, should Discord or law enforcement
-                        request its data, we are under obligation to comply sending it over.</p>
-    
-                    <h2>How do we Protect Your Data?</h2>
-                    <p>The database for the bot cannot be directly accessed by anyone except the developer, through the use
-                        of a password and a computer on a specific IP address. The exception to this is the company
-                        server4you, who owns the server running the database.</p>
-    
-                    <h2>Data Breach Procedures</h2>
-                    <p>We do not have a data breach procedure in place for Underbot since the bot does not store any
-                        personal information deemed sensitive and private.</p>
-    
-                    <h2>What Third Parties use Data From Underbot?</h2>
-                    <p>There are no third parties with access to Underbot's data at this time.</p>
-    
-                    <h2>What automated decision making and/or profiling we do with user data?</h2>
-                    <p>The bot has a raid protection feature. New members are given a spam score for every message sent in
-                        the server. The cumulative score is stored on record (but not the message nor the individual scores
-                        themselves). The score decays over time. If a member reaches a certain threshold, the bot will ask
-                        them to stop sending messages for a few minutes. If they continue, the bot will add a muted role to
-                        them. If a member leaves the server having had the muted role, and then later re-joins, the bot will
-                        automatically re-add the muted role.</p>
-                </div>
-
-            </div>
-        </section>
-
-        <div id="sections-characters">
-            
+          </nav>
+          <!-- /.sidebar-menu -->
         </div>
+        <!-- /.sidebar -->
+      </aside>
 
+      <!-- Content Wrapper. Contains page content -->
+
+      <section id="section-home">
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0 text-dark guild-name">Undertale Enhanced</h1>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+
+          <!-- Main content -->
+          <div class="content">
+            <div class="card card-widget widget-user-2">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-danger">
+                <div class="row">
+                  <div class="col-12 col-md-8">
+                    <div class="widget-user-image">
+                      <img
+                        class="img-circle elevation-2 guild-logo"
+                        src="none.jpg"
+                        alt="Guild Avatar"
+                      />
+                    </div>
+                    <!-- /.widget-user-image -->
+                    <h3 class="widget-user-username guild-name">
+                      Undertale Enhanced
+                    </h3>
+                    <h5 class="widget-user-desc">
+                      A Discord Undertale RP Guild
+                    </h5>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <a
+                      type="button"
+                      href="https://discord.gg/FVj9yfv"
+                      class="btn btn-block bg-purple btn-lg"
+                      >Join Discord</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-6 col-12">
+                <div
+                  class="small-box bg-success"
+                  title="Number of members currently in our guild"
+                >
+                  <div class="inner">
+                    <h3 class="guild-nummembers">???</h3>
+
+                    <p>Guild Members</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-users"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- ./col -->
+
+              <div class="col-lg-3 col-md-6 col-12">
+                <div
+                  class="small-box bg-primary"
+                  title="Number of bots in our guild"
+                >
+                  <div class="inner">
+                    <h3 class="guild-numbots">???</h3>
+
+                    <p>Bots</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-robot"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- ./col -->
+
+              <div class="col-lg-3 col-md-6 col-12">
+                <div
+                  class="small-box bg-danger"
+                  title="Number of claimed characters currently in the role play"
+                >
+                  <div class="inner">
+                    <h3 class="guild-claimedcharacters">???</h3>
+
+                    <p>Claimed Characters</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-user"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-6 col-12">
+                <div
+                  class="small-box bg-warning"
+                  title="Number of unclaimed OG characters that may be claimed for use in the role play (This excludes original monsters, which can be made)."
+                >
+                  <div class="inner">
+                    <h3 class="guild-unclaimedcharacters">???</h3>
+
+                    <p>Unclaimed Characters</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-user-slash"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card card-primary elevation-2">
+              <div class="card-header">
+                <h3 class="card-title">Features</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Staying Close to the Canon</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Although we allow OC characters, we do not allow AU
+                    (alternate universe) versions of OG (canon) characters. Our
+                    guild stays as close to the canon as possible (while
+                    allowing for some variety).
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Text Channels for Every Space</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Our guild is structured in such a way each spot of Undertale
+                    is its own text channel. That way, conversations and actions
+                    taking place in one part of Undertale do not interfere with
+                    conversations/actions taking place in another.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Undernet Simulation</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    We simulate the Undernet in our Role Play environment. Make
+                    undernet "posts" for everyone, or only specific characters,
+                    to see. Or, place phone calls or send text messages to
+                    specific characters.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Open Mechanics</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Apart from a few basic rules, the mechanics of each RP
+                    session (such as dice rolling and turns) can be agreed on by
+                    the players involved. There is no set-in-stone global
+                    mechanic that everyone is required to follow.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Role Play Lock-Downs</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    When a character is involved in a role play session, they
+                    are locked out of all other sessions. This prevents story
+                    and lore conflicts.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Side Role-Plays</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Despite the lock-downs, we do have a few channels for side
+                    role plays to take place which are not affected by the
+                    lock-down. These RPs do not contribute to the main RP story.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Casual Channels</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Aside from role playing, you can engage in general
+                    converation with other members in the guild, both in
+                    character or out of character.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Guild Events</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Our guild hosts regular events to keep the community
+                    engaged. For most events, you may choose to be in character
+                    or out of character.
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="section-lore">
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0 text-dark">Current Lore</h1>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+
+          <!-- Main content -->
+          <div class="content">
+            <div class="card elevation-2">
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="row p-2">
+                  <div class="col-sm-2">
+                    <strong>Frisk</strong>
+                  </div>
+                  <div class="col-sm-10">
+                    <p>
+                      Frisk went through with their normal pacifist route, all
+                      the way up until after the Mettaton fight, where Alphys
+                      told them the truth about escaping the Underground. Frisk,
+                      hearing that they had to kill the king of the underground,
+                      was overwhelmed. They decided to retreat, to hide away,
+                      protecting themselves from the possibility of being a
+                      murderer. Alphys took them to Sans and Papyrus' house upon
+                      request of Frisk. Sans and Papyrus gladly took up this
+                      responsibility, letting them crash on the couch.
+                    </p>
+                    <p>
+                      Mettaton caught Frisk hiding in the cupboards of Sans and
+                      Papyrus' house one time, thereby making Mettaton aware of
+                      where they were.
+                    </p>
+                    <p>
+                      Being defeated by boredom, Frisk made the decision of
+                      leaving the safe house. They made a disguise, and went on
+                      their way to Grillby's, in search of food. Sadly, Undyne
+                      and Red saw right through the costume, and attacked.
+                    </p>
+                    <p>
+                      Currently, the only monsters who know of Frisk's
+                      whereabouts are Papyrus, Sans, Mettaton, and Alphys.
+                    </p>
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-2">
+                    <strong>Alphys</strong>
+                  </div>
+                  <div class="col-sm-10">
+                    <p>
+                      Alphys, being one of the main monsters to aid Frisk on
+                      their journey, now has a big secret to keep. There is a
+                      human roaming the underground, hiding away. Since Frisk
+                      avoided the king, they also missed out on the secret lab.
+                      Meaning, Alphys is still stuck with this burden of a
+                      secret to herself. Frisk also being the one to allow
+                      Undyne to deliver her love note to Alphys, is hidden,
+                      Undyne never confesses.
+                    </p>
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-2">
+                    <strong>Asgore</strong>
+                  </div>
+                  <div class="col-sm-10">
+                    <p>
+                      Asgore was informed a human would arrive soon. Since Frisk
+                      turned away from killing the king, Asgore never found a
+                      human to kill. He became confused and started questioning
+                      the underground. Asgore, currently, is searching for the
+                      human. Not much has changed with him.
+                    </p>
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-2">
+                    <strong>Undyne</strong>
+                  </div>
+                  <div class="col-sm-10">
+                    <p>
+                      Since Frisk left, Undyne has noticed Alphys keeping things
+                      from her. She's been slightly more distant, avoiding her
+                      almost. Undyne knows something is up, but doesn't assume
+                      the worst. She also ends up not being able to deliver her
+                      love letter to Alphys, due to Frisk disappearing.
+                    </p>
+                    <p>
+                      Due to the fact Frisk is being kept in hiding at the
+                      skeleton's house, Undyne being at that house could cause
+                      conflict. Luckily before Papyrus or Sans had to come up
+                      with reason to kick her out, she decided staying with
+                      Asgore until her house was back to normal would be a good
+                      idea. Undyne saw that Asgore was lonely, so she thought a
+                      bit of company would do him some good. Frisk is safe, and
+                      Undyne is still in the unknown.
+                    </p>
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-2">
+                    <strong>Sans</strong>
+                  </div>
+                  <div class="col-sm-10">
+                    <p>
+                      Sans, is mostly unaffected by this. Keeping secrets has
+                      never really been a problem for him, and no one was really
+                      interrogating him anyways. All he does is help frisk
+                      around the house, and that's about it.
+                    </p>
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-2">
+                    <strong>Papyrus</strong>
+                  </div>
+                  <div class="col-sm-10">
+                    <p>
+                      Papyrus isn't very good at lying, but for the sake of the
+                      human, he tries his best. While no one has really asked
+                      about the human so far, he still gets nervous in normal
+                      conversations. He does most of the taking care part of
+                      Frisk. He cooks, brings extra items home from shopping
+                      sprees, and makes sure he keeps them entertained.
+                    </p>
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-2">
+                    <strong>Toriel</strong>
+                  </div>
+                  <div class="col-sm-10">
+                    <p>
+                      Since true pacifist was never completed, Toriel never came
+                      out of the ruins looking for Frisk. Instead, she stayed
+                      waiting for another child to fall, watching over the
+                      ruins.
+                    </p>
+                    <p>
+                      Toriel has recently been killed, after finding a lonely
+                      human in the ruins. The human was inhabited by chara, and
+                      thus ending up in her demise.
+                    </p>
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-2">
+                    <strong>Flowey / Asriel</strong>
+                  </div>
+                  <div class="col-sm-10">
+                    <p>
+                      Since frisk avoided Asgore, Flowey never ended up killing
+                      asgore, thus Flowey Omega never arrived. This also made it
+                      so Asriel was never revealed. Flowey, is still the
+                      soulless monster he was.
+                    </p>
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-2">
+                    <strong>Chara</strong>
+                  </div>
+                  <div class="col-sm-10">
+                    <p>
+                      Chara has arrived, and found a subject to force her
+                      thoughts into. She has found an unsuspecting human and is
+                      currently filling their head with hate, making them a cold
+                      blooded killer, with no intention to stop. It seems like
+                      the beginning of something absolutely horrible for the
+                      underground as we know it.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="section-determination">
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0 text-dark">Determination (DT)</h1>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+
+          <!-- Main content -->
+          <div class="content">
+            <div class="row">
+              <div class="col-lg-3 col-md-6 col-12">
+                <div
+                  class="small-box bg-primary"
+                  title="Total DT of all claimed alive monsters"
+                >
+                  <div class="inner">
+                    <h3 class="dt-total">???</h3>
+
+                    <p>Total DT</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- ./col -->
+
+              <div class="col-lg-3 col-md-6 col-12">
+                <div
+                  class="small-box bg-danger"
+                  title="Number of claimed alive characters with a DT less than 26"
+                >
+                  <div class="inner">
+                    <h3 class="dt-low">???</h3>
+
+                    <p>Chars w/ low DT</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-heart-broken"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- ./col -->
+
+              <div class="col-lg-3 col-md-6 col-12">
+                <div
+                  class="small-box bg-warning"
+                  title="Number of claimed alive characters with a DT between 26 and 75."
+                >
+                  <div class="inner">
+                    <h3 class="dt-normal">???</h3>
+
+                    <p>Chars w/ normal DT</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-heart"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-6 col-12">
+                <div
+                  class="small-box bg-success"
+                  title="Number of claimed alive characters with a DT greater than 75."
+                >
+                  <div class="inner">
+                    <h3 class="dt-high">???</h3>
+
+                    <p>Chars w/ high DT</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-heartbeat"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card card-primary elevation-2">
+              <div class="card-header">
+                <h3 class="card-title">About Determination (DT)</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>What is Determination (DT)?</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Determination (DT) is a stat we use in the Undertale
+                    Enhanced role play. DT is measured on a scale of 0 - 100.
+                    For humans, DT is how much will the human has at completing
+                    the game in the way they want to (example: genocide means
+                    the will to kill everyone, pacifist means the will not to
+                    harm anyone). For monsters, DT is the will to live / push
+                    onward to remove the barrier and go back to the Surface. DT
+                    can change over time throughout the role play depending on
+                    how the characters experience events, such as tragedy.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>0 DT</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Living humans / monsters with 0 DT are actively trying to
+                    harm their own remaining HP in an effort to "disappear".
+                    They must be saved quickly! Dead humans / monsters also have
+                    0 DT.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>1-5 DT</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Humans / monsters with 1-5 DT are thinking about
+                    "disappearing", but they are not actively trying to do so.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>6-25 DT</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Humans / monsters with 6-25 DT are not thinking about
+                    "disappearing", but they have little motivation / energy
+                    (likely depressed).
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>26-75 DT</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Humans / monsters with 26-75 DT are considered to be within
+                    the standard / middle range.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>76-90 DT</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Humans / monsters with 76-90 DT are considered very
+                    determined.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>91-99 DT</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Humans and monsters with 91-99 DT are considered
+                    passionately determined. Monsters cannot safely handle more
+                    than 90 DT; at this point, they risk their physical body
+                    melting from too much determination and losing HP.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>100 DT</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Only humans with the power to alternate the timeline (SAVE
+                    or RESET) have 100 DT.
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+
+            <div class="card card-warning elevation-2">
+              <div class="card-header">
+                <h3 class="card-title">How is Determination Used?</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <p>
+                  Determination is used as a tool for developing a character's
+                  backstory and to add an additional element to role play story
+                  telling.
+                </p>
+                <p>
+                  Determination is also used as a secondary method for taking
+                  down the barrier. We know the barrier can be taken down with
+                  human SOULs, but the monsters and humans might decide they do
+                  not want to kill anyone [else]. Thus, they must try to find a
+                  way to break down the barrier using the collective DT of all
+                  living characters. The barrier requires 2,000 total DT to give
+                  way. However, DT alone cannot break the barrier; the
+                  characters must find a way to convert DT into a force to break
+                  down the barrier.
+                </p>
+                <p>
+                  DT can be used in other ways as well. For example, DT
+                  determines whether or not Undyne becomes Undying after death.
+                </p>
+              </div>
+              <!-- /.card-body -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="section-members">
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0 text-dark">Meet the Members</h1>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+
+          <!-- Main content -->
+          <div class="content">
+            <div class="row" id="content-members"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="section-rules">
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0 text-dark">Guild Rules</h1>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+
+          <!-- Main content -->
+          <div class="content">
+            <div class="card elevation-2">
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>No Alternate Universe characters</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    We are a server that is trying its best to stay to the story
+                    and nature of Undertale, such, we will not be allowing any
+                    AU characters.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Roleplay Locks</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    If a character is in one roleplay, they will be roleplay
+                    locked there until the roleplay is over. A character cannot
+                    be doing two roleplays at once.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>OCs must make sense in Undertale</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    If an OC is created, please try to make them an Undertale
+                    oc. The characters of undertale are all in the same
+                    underground, with similar situations, so non of them have
+                    souls filled with hate or the desire to kill the entire
+                    underground.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Character Limits</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    You are allowed 2 main characters, 2 backround characters,
+                    and 1 oc.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>SFW Guild</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    This is a SFW server. Please keep this in mind.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Global Limit to Human OCs</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    We will only be accepting 3 human OC's in total. Please keep
+                    this in mind when creating your OC.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>No Skeleton OCs</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    We will not be allowing any skeleton OCs.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>No Discrimination</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    We will NOT be tolerating discrimination of ANY kind. Please
+                    keep this in mind.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>No Slurs; Use Swearing Sparingly</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Swearing is allowed as long as it's not excessive. Slurs are
+                    not allowed in any way.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Respect Everyone</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Be a good monster, respect others, and be knowledgeable that
+                    you are the main character of your story, but not theirs.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Battles Utilize Dice Rolls</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    All battles will be determined by a dice roll, unless all
+                    participants of the battle disagree with this.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Dice Rolls are Discussed Prior</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Dice rolls will be different for every monster, depending on
+                    stats. More on this will be covered in #dice-chat.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Humans Must use Undertale LVL Stats</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    If you have a human oc, their stats must correlate to the
+                    LVLs in undertale.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>No Custom Souls</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    There is a list of souls you msy choose from.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <strong>Have Fun</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    Please, have fun! Make friends, and enjoy yourself.
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="section-underbot">
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0 text-dark guild-name">
+                    Underbot About / Commands
+                  </h1>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+
+          <div class="card card-primary elevation-2">
+            <div class="card-header">
+              <h3 class="card-title">What is Underbot?</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <p>
+                Underbot is a custom bot we use to help manage registered
+                characters and their stats (such as HP, DT, EXP, LOVE, G gold,
+                items, etc). The bot also gives us anti-raid protection.
+                Underbot also provides this website, which contains the database
+                of registered characters.
+              </p>
+            </div>
+            <!-- /.card-body -->
+          </div>
+
+          <div class="card card-warning elevation-2">
+            <div class="card-header">
+              <h3 class="card-title">
+                What Happens when you Leave Undertale Enhanced?
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <p>
+                If you leave the guild and do not return for 24 hours, the
+                following will happen for each of your claimed characters:
+              </p>
+              <ul>
+                <li>
+                  For OG characters: The character will become unclaimed and
+                  someone else may re-claim the character. Once re-claimed, the
+                  character will continue where it left off in RP.
+                </li>
+                <li>
+                  For OC characters: The character will disintegrate into dust
+                  and leave the RP. If you instead want your character to be
+                  claimable by other members, especially should you leave,
+                  please specify so when you submit your character sheet.
+                </li>
+              </ul>
+            </div>
+            <!-- /.card-body -->
+          </div>
+
+          <!-- Main content -->
+          <div class="content">
+            <div class="card card-info elevation-2">
+              <div class="card-header">
+                <h3 class="card-title">Available Commands</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <p>
+                  Commands in <span class="badge badge-danger">red</span> may
+                  only be used by UE staff. Commands in
+                  <span class="badge badge-warning">yellow</span> may only be
+                  used by UE staff or the owner of the specified character.
+                  Commands in <span class="badge badge-success">green</span> may
+                  be used by anyone.
+                </p>
+                <p>
+                  Parameters may be separated with " | " or with a double space.
+                </p>
+                <p>
+                  You can use
+                  <span class="badge badge-success">ub!help</span> for more
+                  information about available commands.
+                </p>
+                <h4>Characters</h4>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-danger">ub!cNew</span>
+                  </div>
+                  <div class="col-sm-8">
+                    Begin the wizard for adding a new [approved] character into
+                    the bot.
+                    <strong
+                      >Have the character photo and sprite (pixelized
+                      black/white dialog image) ready before adding it.</strong
+                    >
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-danger"
+                      >ub!cEdit | character name</span
+                    >
+                  </div>
+                  <div class="col-sm-8">
+                    Edit something about a character already in the bot. The bot
+                    will prompt you what you want to edit.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-danger">ub!cStatsChannel</span>
+                  </div>
+                  <div class="col-sm-8">
+                    Use this in the character stats channel to re-generate all
+                    character stats embeds.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-danger">ub!cOgChannel</span>
+                  </div>
+                  <div class="col-sm-8">
+                    Use this in the channel you want OG characters and by whom
+                    they're claimed to be listed.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-danger">ub!cOcChannel</span>
+                  </div>
+                  <div class="col-sm-8">
+                    Use this in the channel you want OC characters and by whom
+                    they're claimed to be listed.
+                  </div>
+                </div>
+                <h4>HP Tracking</h4>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-success"
+                      >ub!hp | character name</span
+                    >
+                  </div>
+                  <div class="col-sm-8">
+                    Get the current HP of the provided character.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-warning"
+                      >ub!hpDamage | character name | HP</span
+                    >
+                  </div>
+                  <div class="col-sm-8">
+                    Inflict the specified amount of HP damage (subtract) on the
+                    provided character.
+                    <strong
+                      >Don't forget to set their DT to 0 if they die!</strong
+                    >
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-warning"
+                      >ub!hpHeal | character name | HP</span
+                    >
+                  </div>
+                  <div class="col-sm-8">
+                    Heal the specified amount of HP (add) on the provided
+                    character.
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-warning"
+                      >ub!hpSet | character name | HP</span
+                    >
+                  </div>
+                  <div class="col-sm-8">
+                    Set the provided character's HP level to the specific
+                    provided HP.
+                    <strong
+                      >Don't forget to set their DT to 0 if they die!</strong
+                    >
+                  </div>
+                </div>
+                <h4>DT (determination) Tracking</h4>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-warning"
+                      >ub!dtSet | character name | DT</span
+                    >
+                  </div>
+                  <div class="col-sm-8">
+                    Change the DT (determination) level of the provided
+                    character. See #determination for more info.
+                  </div>
+                </div>
+                <h4>Item Inventory</h4>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-warning"
+                      >ub!iAdd | character name | item name | item
+                      description</span
+                    >
+                  </div>
+                  <div class="col-sm-8">
+                    Add an item to the character's inventory. Description should
+                    explain what the item is and what it does or how it relates
+                    in RP. Multiple items with the same name are permitted.
+                    However, if they serve different functions, you should give
+                    them a different name (such as putting a different number on
+                    the end).
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-warning"
+                      >ub!iRemove | character name | item name</span
+                    >
+                  </div>
+                  <div class="col-sm-8">
+                    Remove item with the provided name from the provided
+                    character's inventory. If multiple items with that name
+                    exist, only one of them will be removed.
+                  </div>
+                </div>
+                <h4>Undertale-style Dialog Images</h4>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-success"
+                      >ub!dialog | character name | message</span
+                    >
+                  </div>
+                  <div class="col-sm-8">
+                    Generate an Undertale-style dialog image with the
+                    character's sprite. The message has a 240-character limit.
+                  </div>
+                </div>
+                <h4>SAVE Points</h4>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-danger">ub!rpSave</span>
+                  </div>
+                  <div class="col-sm-8">
+                    When someone activates a SAVE point, a staff member should
+                    execute this command. The bot will generate a unique save ID
+                    number and post it in every channel (if we RESET to this
+                    SAVE point, everything sent after this bot message should be
+                    considered null and void). Also, the bot will generate and
+                    attach a character database TXT file. All characters should
+                    be reset to this database by the Underbot developer if we
+                    reset to this SAVE point.
+                  </div>
+                </div>
+                <h4>Reminders</h4>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-success"
+                      >ub!rNew | date/time | reminder</span
+                    >
+                  </div>
+                  <div class="col-sm-8">
+                    Set a reminder. The bot will mention you in the channel you
+                    set the reminder. Date/time can be any human-readable time,
+                    date, time and date, or duration from now format. A uid of
+                    the reminder will be returned. Recurring reminders are not
+                    (and will never be) supported.
+                    <ul>
+                      <li>
+                        Dates with slashes are in US format (eg. month/day/year)
+                      </li>
+                      <li>
+                        You should always specify a time zone (either
+                        abbreviation or GMT+-offset) when times are involved.
+                        Otherwise, it will default to UTC/GMT. Note that the bot
+                        will confirm the correct date/time with you, but it will
+                        be displayed in UTC/GMT.
+                      </li>
+                      <li>
+                        You should use military time format (no colon, eg. 0900,
+                        or 2100) when specifying time in 24-hour format.
+                      </li>
+                      <li>
+                        You should always specify AM or PM when using times,
+                        unless you are using military time (no colon) for
+                        24-hour format.
+                      </li>
+                      <li>
+                        A few bugs in parsing may be present. Let me know if you
+                        find one.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-warning">ub!rCancel | uid</span>
+                  </div>
+                  <div class="col-sm-8">
+                    Cancel a reminder by its uid provided when you created it.
+                    You can only cancel your own reminders.
+                  </div>
+                </div>
+                <h4>Puns</h4>
+                <div class="row p-2">
+                  <div class="col-sm-4">
+                    <span class="badge badge-success">ub!fishPun</span>
+                  </div>
+                  <div class="col-sm-8">
+                    Halibut you check out these fishy puns? They will
+                    dolphinately make you groan.
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="section-underbotpp">
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0 text-dark">Underbot Privacy Policy</h1>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+
+          <div class="content">
+            <p>This policy was last updated <strong>July 29, 2020.</strong></p>
+
+            <h2>What is Underbot?</h2>
+            <p>
+              Underbot is a custom bot developed by @Undyne (with a Spear) . Its
+              two primary purposes include the following:
+            </p>
+            <ul>
+              <li>
+                To provide character management / a character database for
+                characters used in the Undertale Enhanced role play
+              </li>
+              <li>
+                To provide anti-raid protection for the Undertale Enhanced
+                server.
+              </li>
+            </ul>
+            <p>
+              Underbot is not used in any other servers except a private testing
+              server to test new features.
+            </p>
+
+            <h2>What Personal Data is Collected and How it is Used</h2>
+
+            <h3>Database</h3>
+            <p>
+              The information outlined in this section is collected by the bot
+              and stored on a MariaDB database server. This database cannot be
+              directly accessed by anyone other than the bot developer and the
+              company hosting the service, server4you.
+            </p>
+
+            <h3>Role Play Characters</h3>
+            <p>
+              The bot stores information about registered characters used in the
+              Undertale Enhanced role play. This information is stored and
+              edited by means of the cNew and cEdit bot commands, which are used
+              by the staff. This information is used to display a public
+              character sheet of all characters in the role play for others to
+              read, available at https://undertaleenhanced.club/ . The
+              information is also used to track certain stats easily in role
+              play. The following information is collected about characters:
+            </p>
+            <ul>
+              <li>
+                The ID of this server, and the snowflake ID of the member who
+                owns / has claimed the character.
+              </li>
+              <li>
+                Whether or not the character: is an OC, can be claimed by others
+                if the owner leaves the server.
+              </li>
+              <li>
+                The character's name, nicknames, pronouns, age, height,
+                appearance, SOUL type, personality, HP / max HP, EXP
+                (experience), ATK (attack), DEF (defense), DT (determination),
+                gold, items in inventory, weapons, armor, likes, dislikes, and
+                extra info.
+              </li>
+              <li>Photos of the character and its sprite.</li>
+              <li>
+                The snowflake IDs of the messages posted by the bot of the
+                character in #og-character-list , #oc-list , and/or
+                #character-stats , so the bot can update these when the
+                character is modified.
+              </li>
+            </ul>
+            <p>
+              <span class="text-danger"
+                >Role play characters are deleted from the database after 24
+                hours when its owner leaves the server (and the character cannot
+                be re-claimed), or upon request.</span
+              >
+            </p>
+
+            <h3>Guild Members</h3>
+            <p>
+              For the purpose of raid protection, the bot stores some
+              information about members in this server, effective immediately
+              upon joining the server. Information includes the following:
+            </p>
+            <ul>
+              <li>The member's snowflake ID</li>
+              <li>
+                A "spam score", which is generated from the messages the member
+                sends in the guild and decays over time. Members who reach a
+                threshold of spam score will be notified by the bot to stop for
+                a few minutes. And if continued, the bot will add a muted role
+                to the member.
+              </li>
+              <li>
+                A timestamp indicating the last time the bot mentioned someone
+                to stop sending messages for a few minutes; this is used to
+                determine if the bot should mention someone versus muting
+                someone.
+              </li>
+              <li>
+                Whether or not the member is supposed to be muted (mute evasion
+                detection should the member leave and re-join the server).
+              </li>
+            </ul>
+            <p>
+              The bot also tracks the number of messages sent in any of the main
+              RP or Undernet channels that meet the following criteria:
+            </p>
+            <ul>
+              <li>Is posted in a main RP or Undernet channel</li>
+              <li>
+                Does not begin with a / or ( , which are considered OOC
+                delimiters
+              </li>
+              <li>Are at least 128 characters in length</li>
+            </ul>
+            <p>
+              This number is displayed as a form of "leaderboard" on the Members
+              page at https://undertaleenhanced.club/members.
+            </p>
+            <p>
+              <span class="text-primary"
+                >Although not stored in the database, members in the server can
+                be viewed on the website https://undertaleenhanced.club/members
+                . Information includes username, nickname, avatar, roles, and
+                date joined. You will disappear from the website immediately
+                upon leaving the server.</span
+              ><br />
+              <span class="text-danger"
+                >This information is not deleted when a member leaves the
+                server. It is only removed upon requesting for its removal with
+                the bot developer or the UE staff.</span
+              >
+            </p>
+
+            <h3>Schedules</h3>
+            <p>
+              When a member sets a reminder, a schedule entry is added to the
+              bot so the bot can re-initiate the cron job on reboot. The
+              schedule entry includes when the reminder should be triggered, the
+              user ID to mention, and the reminder text. This record is deleted
+              once the bot sends out the reminder.
+            </p>
+            <p>
+              When a member leaves the guild, any characters that cannot be
+              re-claimed will be added to the schedules records with a 24-hour
+              timer. These characters are deleted once the 24 hour timer is up,
+              unless the member re-joins the guild before-hand (in which the
+              schedules are deleted)
+            </p>
+
+            <h2>Who do we Share Underbot Data With?</h2>
+            <p>
+              Characters added to the database are shared publicly via our
+              website at https://undertaleenhanced.club/ . Members in the guild
+              are listed at https://undertaleenhanced.club/members . Besides
+              these mediums, we do not share Underbot data.
+            </p>
+
+            <h2>How Long do we Retain your Data?</h2>
+
+            <h3>Guild Members</h3>
+            <p>
+              Member data stays in the database indefinitely unless requested
+              for removal. The reason for this is we track whether or not a
+              member should be muted upon re-entering the guild (mute evasion
+              prevention). However, when requesting for the removal of your
+              data, you will be asked to leave the guild, and a permanent ban
+              will be placed on you (to prevent disciplinary evasion), otherwise
+              the bot will generate a new record in the database.
+            </p>
+
+            <h3>Role Play Characters</h3>
+            <p>
+              Characters in the database that cannot be claimed by others when
+              the owner leaves the server will be deleted after 24 hours when
+              the owner leaves the server. Otherwise, the characters remain in
+              the database until manually removed.
+            </p>
+
+            <h2>What Rights do you Have Over Your Data?</h2>
+            <p>
+              You have the right to request the removal of any/all of your
+              characters or your member data. Please contact the bot developer
+              @Undyne (with a Spear) to do so.
+            </p>
+            <p>
+              You may also request to see the data currently in the bot database
+              pertaining / tied to your snowflake ID.
+            </p>
+
+            <h2>Where do we Send Your Data?</h2>
+            <p>
+              We do not generally send any of the bot data to anyone. However,
+              should Discord or law enforcement request its data, we are under
+              obligation to comply sending it over.
+            </p>
+
+            <h2>How do we Protect Your Data?</h2>
+            <p>
+              The database for the bot cannot be directly accessed by anyone
+              except the developer, through the use of a password and a computer
+              on a specific IP address. The exception to this is the company
+              server4you, who owns the server running the database.
+            </p>
+
+            <h2>Data Breach Procedures</h2>
+            <p>
+              We do not have a data breach procedure in place for Underbot since
+              the bot does not store any personal information deemed sensitive
+              and private.
+            </p>
+
+            <h2>What Third Parties use Data From Underbot?</h2>
+            <p>
+              There are no third parties with access to Underbot's data at this
+              time.
+            </p>
+
+            <h2>
+              What automated decision making and/or profiling we do with user
+              data?
+            </h2>
+            <p>
+              The bot has a raid protection feature. New members are given a
+              spam score for every message sent in the server. The cumulative
+              score is stored on record (but not the message nor the individual
+              scores themselves). The score decays over time. If a member
+              reaches a certain threshold, the bot will ask them to stop sending
+              messages for a few minutes. If they continue, the bot will add a
+              muted role to them. If a member leaves the server having had the
+              muted role, and then later re-joins, the bot will automatically
+              re-add the muted role.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div id="sections-characters"></div>
     </div>
 
     <%- body %>
-</body>
-
+  </body>
 </html>
