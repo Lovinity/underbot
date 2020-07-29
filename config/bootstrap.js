@@ -89,6 +89,24 @@ module.exports.bootstrap = async function () {
     return CoolGuildMember;
   });
 
+  Discord.Structures.extend('User', User => {
+    class CoolUser extends User {
+      constructor(client, data) {
+        super(client, data);
+      }
+
+      guildSettings (guildID) {
+        return Caches.get('members').find([ this.id, guildID ]);
+      }
+
+      guildCharacters (guildID) {
+        return Caches.get('characters').collection.filter((record) => record.userID === this.id && record.guildID === guildID);
+      }
+    }
+
+    return CoolUser;
+  });
+
   // Messages
   Discord.Structures.extend("Message", (Message) => {
     class CoolMessage extends Message {

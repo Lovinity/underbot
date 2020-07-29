@@ -146,10 +146,9 @@ module.exports = {
           !inputs.message.cleanContent.startsWith("/") &&
           inputs.message.cleanContent.length >= 128
         ) {
-          var settings = await inputs.message.member.settings();
-          await sails.models.members.update(
-            { id: settings.id },
-            { rpPosts: settings.rpPosts + 1 }
+          Caches.get("members").set(
+            [inputs.message.member.id, inputs.message.guild.id],
+            { rpPosts: inputs.message.member.settings.rpPosts + 1 }
           );
         }
       }

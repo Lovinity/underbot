@@ -120,7 +120,9 @@ module.exports = {
       await mg.edit(
         `:hourglass: Please wait; this could take a while... (Fetching messages from channel ${
           index + 1
-        }/${channels.length} [${channels[index].parent ? `${channels[index].parent} => ` : ``}${channels[index].name}])`
+        }/${channels.length} [${
+          channels[index].parent ? `${channels[index].parent} => ` : ``
+        }${channels[index].name}])`
       );
 
       currentSnowflake = afterSnowflake;
@@ -149,12 +151,14 @@ module.exports = {
               );
             } else {
               if (tuppers[message.author.id]) {
-                var settings = await tuppers[message.author.id].guildSettings(
-                  inputs.message.guild.id
-                );
-                await sails.models.members.update(
-                  { id: settings.id },
-                  { rpPosts: settings.rpPosts + 1 }
+                Caches.get("members").set(
+                  [tuppers[message.author.id].id, inputs.message.guild.id],
+                  {
+                    rpPosts:
+                      tuppers[message.author.id].guildSettings(
+                        inputs.message.guild.id
+                      ).rpPosts + 1,
+                  }
                 );
               } else {
                 var promptMsg = await prompt(
@@ -166,10 +170,9 @@ module.exports = {
                 );
                 if (member) {
                   tuppers[message.author.id] = member.user;
-                  var settings = await member.settings();
-                  await sails.models.members.update(
-                    { id: settings.id },
-                    { rpPosts: settings.rpPosts + 1 }
+                  Caches.get("members").set(
+                    [member.id, inputs.message.guild.id],
+                    { rpPosts: member.settings.rpPosts + 1 }
                   );
                 } else {
                   var user = await DiscordClient.users.fetch(
@@ -177,12 +180,13 @@ module.exports = {
                   );
                   if (user) {
                     tuppers[message.author.id] = user;
-                    var settings = await user.guildSettings(
-                      inputs.message.guild.id
-                    );
-                    await sails.models.members.update(
-                      { id: settings.id },
-                      { rpPosts: settings.rpPosts + 1 }
+                    Caches.get("members").set(
+                      [user.id, inputs.message.guild.id],
+                      {
+                        rpPosts:
+                          user.guildSettings(inputs.message.guild.id).rpPosts +
+                          1,
+                      }
                     );
                   } else {
                     inputs.message.channel.send(`:x: failed`);
@@ -213,9 +217,11 @@ module.exports = {
             sails.log.debug(`nextMessageBatch: no more messages`);
             index++;
             await mg.edit(
-              `:hourglass: Please wait; this could take a while... (Processing ${messages.length} messages from channel ${
-                index + 1
-              }/${channels.length} [${channels[index].parent ? `${channels[index].parent} => ` : ``}${channels[index].name}])`
+              `:hourglass: Please wait; this could take a while... (Processing ${
+                messages.length
+              } messages from channel ${index + 1}/${channels.length} [${
+                channels[index].parent ? `${channels[index].parent} => ` : ``
+              }${channels[index].name}])`
             );
             messages = messages.sort(compare);
             await splitMessages();
