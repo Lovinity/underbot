@@ -154,12 +154,12 @@ module.exports = {
                 }
               );
             } else {
-              if (tuppers[message.author.id]) {
+              if (tuppers[message.author.tag]) {
                 Caches.get("members").set(
-                  [tuppers[message.author.id].id, inputs.message.guild.id],
+                  [tuppers[message.author.tag].id, inputs.message.guild.id],
                   {
                     rpPosts:
-                      tuppers[message.author.id].guildSettings(
+                      tuppers[message.author.tag].guildSettings(
                         inputs.message.guild.id
                       ).rpPosts + 1,
                   }
@@ -173,7 +173,7 @@ module.exports = {
                   promptMsg.cleanContent
                 );
                 if (member) {
-                  tuppers[message.author.id] = member.user;
+                  tuppers[message.author.tag] = member.user;
                   Caches.get("members").set(
                     [member.id, inputs.message.guild.id],
                     { rpPosts: member.settings.rpPosts + 1 }
@@ -183,7 +183,7 @@ module.exports = {
                     promptMsg.cleanContent
                   );
                   if (user) {
-                    tuppers[message.author.id] = user;
+                    tuppers[message.author.tag] = user;
                     Caches.get("members").set(
                       [user.id, inputs.message.guild.id],
                       {
