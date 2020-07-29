@@ -70,6 +70,7 @@ module.exports = {
               hexColor: role.hexColor,
             };
           }),
+          rpPosts: member.settings.rpPosts,
           introduction: member.settings.introduction,
         };
       }),
