@@ -128,45 +128,6 @@ module.exports = {
       await nextMessageBatch();
     };
 
-    var nextMessageBatch = () => {
-      return new Promise(async (resolve, reject) => {
-        setTimeout(async () => {
-          sails.log.debug(
-            `nextMessageBatch after snowflake ${currentSnowflake}`
-          );
-          var msg = await channels[index].messages.fetch(
-            { after: currentSnowflake },
-            false
-          );
-          if (!msg || msg.size === 0) {
-            sails.log.debug(`nextMessageBatch: no more messages`);
-            index++;
-            await mg.edit(
-              `:hourglass: Please wait; this could take a while... (Processing ${messages.length} messages from channel ${
-                index + 1
-              }/${channels.length} [${channels[index].parent ? `${channels[index].parent} => ` : ``}${channels[index].name}])`
-            );
-            messages = messages.sort(compare);
-            await splitMessages();
-            await nextChannel();
-            return resolve();
-          } else {
-            sails.log.debug(`nextMessageBatch: got ${msg.size} messages.`);
-            msg = msg.array();
-            msg = msg.sort(compareReverse);
-            messages = messages.concat(msg);
-            currentSnowflake = msg[0].id;
-            await nextMessageBatch();
-            return resolve();
-          }
-        }, 3000);
-      });
-    };
-
-    await nextChannel();
-
-    sails.log.debug(`nextChannel DONE`);
-
     var splitMessages = () => {
       return new Promise(async (resolve, reject) => {
         setTimeout(async () => {
@@ -237,6 +198,43 @@ module.exports = {
         }, 3000);
       });
     };
+
+    var nextMessageBatch = () => {
+      return new Promise(async (resolve, reject) => {
+        setTimeout(async () => {
+          sails.log.debug(
+            `nextMessageBatch after snowflake ${currentSnowflake}`
+          );
+          var msg = await channels[index].messages.fetch(
+            { after: currentSnowflake },
+            false
+          );
+          if (!msg || msg.size === 0) {
+            sails.log.debug(`nextMessageBatch: no more messages`);
+            index++;
+            await mg.edit(
+              `:hourglass: Please wait; this could take a while... (Processing ${messages.length} messages from channel ${
+                index + 1
+              }/${channels.length} [${channels[index].parent ? `${channels[index].parent} => ` : ``}${channels[index].name}])`
+            );
+            messages = messages.sort(compare);
+            await splitMessages();
+            await nextChannel();
+            return resolve();
+          } else {
+            sails.log.debug(`nextMessageBatch: got ${msg.size} messages.`);
+            msg = msg.array();
+            msg = msg.sort(compareReverse);
+            messages = messages.concat(msg);
+            currentSnowflake = msg[0].id;
+            await nextMessageBatch();
+            return resolve();
+          }
+        }, 3000);
+      });
+    };
+
+    await nextChannel();
 
     await mg.edit(`DONE!`);
   },
