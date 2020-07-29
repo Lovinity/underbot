@@ -144,10 +144,9 @@ module.exports = {
           );
           for (let message of maps) {
             if (!message.author.bot) {
-              var settings = await message.member.settings();
-              await sails.models.members.update(
-                { id: settings.id },
-                { rpPosts: settings.rpPosts + 1 }
+              Caches.get("members").set(
+                [message.member.id, inputs.message.guild.id],
+                { rpPosts: message.member.settings.rpPosts + 1 }
               );
             } else {
               if (tuppers[message.author.id]) {
