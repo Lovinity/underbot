@@ -120,7 +120,7 @@ module.exports = {
       await mg.edit(
         `:hourglass: Please wait; this could take a while... (Fetching messages from channel ${
           index + 1
-        }/${channels.length})`
+        }/${channels.length} [${channels[index].parent ? `${channels[index].parent} => ` : ``}${channels[index].name}])`
       );
 
       currentSnowflake = afterSnowflake;
@@ -141,6 +141,13 @@ module.exports = {
           if (!msg || msg.size === 0) {
             sails.log.debug(`nextMessageBatch: no more messages`);
             index++;
+            await mg.edit(
+              `:hourglass: Please wait; this could take a while... (Processing ${messages.length} messages from channel ${
+                index + 1
+              }/${channels.length} [${channels[index].parent ? `${channels[index].parent} => ` : ``}${channels[index].name}])`
+            );
+            messages = messages.sort(compare);
+            await splitMessages();
             await nextChannel();
             return resolve();
           } else {
@@ -160,20 +167,10 @@ module.exports = {
 
     sails.log.debug(`nextChannel DONE`);
 
-    await mg.edit(
-      `:hourglass: Please wait; this could take a while... (Sorting messages)`
-    );
-
-    messages = messages.sort(compare);
-
-    await mg.edit(
-      `:hourglass: Please wait; this could take a while... (Generating text attachments)`
-    );
-
     var splitMessages = () => {
       return new Promise(async (resolve, reject) => {
         setTimeout(async () => {
-          var msgs = messages.splice(0, 500);
+          var msgs = messages.splice(0, 100);
 
           var maps = msgs.filter(
             (message) =>
@@ -240,8 +237,6 @@ module.exports = {
         }, 3000);
       });
     };
-
-    await splitMessages();
 
     await mg.edit(`DONE!`);
   },
