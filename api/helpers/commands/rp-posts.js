@@ -143,10 +143,15 @@ module.exports = {
               message.cleanContent.length >= 128
           );
           for (let message of maps) {
+            if (!message.author) continue;
             if (!message.author.bot) {
               Caches.get("members").set(
-                [message.member.id, inputs.message.guild.id],
-                { rpPosts: message.member.settings.rpPosts + 1 }
+                [message.author.id, inputs.message.guild.id],
+                {
+                  rpPosts:
+                    message.author.guildSettings(inputs.message.guild.id)
+                      .rpPosts + 1,
+                }
               );
             } else {
               if (tuppers[message.author.id]) {
