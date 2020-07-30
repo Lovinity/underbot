@@ -149,12 +149,77 @@ module.exports = {
         ) {
           Caches.get("members").set(
             [inputs.message.author.id, inputs.message.guild.id],
-            { rpPosts: inputs.message.author.guildSettings(inputs.message.guild.id).rpPosts + 1 }
+            {
+              rpPosts:
+                inputs.message.author.guildSettings(inputs.message.guild.id)
+                  .rpPosts + 1,
+            }
           );
         }
       }
 
       // Message easter eggs
+
+      // Death counter
+      if (
+        inputs.message.cleanContent &&
+        inputs.message.author &&
+        inputs.message.guild &&
+        (inputs.message.cleanContent.toLowerCase().includes("*dies*") ||
+          inputs.message.cleanContent.toLowerCase().includes("dies*") ||
+          inputs.message.cleanContent.toLowerCase().includes("*dies") ||
+          inputs.message.cleanContent.toLowerCase().includes("_dies") ||
+          inputs.message.cleanContent.toLowerCase().includes("dies_") ||
+          inputs.message.cleanContent.toLowerCase().includes("*died") ||
+          inputs.message.cleanContent.toLowerCase().includes("_died") ||
+          inputs.message.cleanContent
+            .toLowerCase()
+            .includes("asterisk dies asterisk") ||
+          inputs.message.cleanContent
+            .toLowerCase()
+            .includes("**asterisk dies asterisk**") ||
+          inputs.message.cleanContent.toLowerCase().includes("kills me") ||
+          inputs.message.cleanContent.toLowerCase().includes("killing me") ||
+          inputs.message.cleanContent.toLowerCase().includes("*perishes") ||
+          inputs.message.cleanContent.toLowerCase().includes("perishes*") ||
+          inputs.message.cleanContent.toLowerCase().includes("_perishes") ||
+          inputs.message.cleanContent.toLowerCase().includes("perishes_") ||
+          inputs.message.cleanContent.toLowerCase().includes("*has bad time") ||
+          inputs.message.cleanContent.toLowerCase().includes("has bad time*") ||
+          inputs.message.cleanContent.toLowerCase().includes("_has bad time") ||
+          inputs.message.cleanContent.toLowerCase().includes("has bad time_") ||
+          inputs.message.cleanContent
+            .toLowerCase()
+            .includes("*has a bad time") ||
+          inputs.message.cleanContent
+            .toLowerCase()
+            .includes("has a bad time*") ||
+          inputs.message.cleanContent
+            .toLowerCase()
+            .includes("_has a bad time") ||
+          inputs.message.cleanContent
+            .toLowerCase()
+            .includes("has a bad time_") ||
+          inputs.message.cleanContent.toLowerCase().includes("*disappears") ||
+          inputs.message.cleanContent.toLowerCase().includes("_disappears"))
+      ) {
+        Caches.get("members").set(
+          [inputs.message.author.id, inputs.message.guild.id],
+          {
+            deathCount:
+              inputs.message.author.guildSettings(inputs.message.guild.id)
+                .deathCount + 1,
+          }
+        );
+        inputs.message.channel.send(
+          `**Uh oh!** <@${
+            inputs.message.author.id
+          }> died again! Death counter: **${
+            inputs.message.author.guildSettings(inputs.message.guild.id)
+              .deathCount
+          }**`
+        );
+      }
 
       // Bone reaction
       if (

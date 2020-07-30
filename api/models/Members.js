@@ -49,6 +49,12 @@ module.exports = {
       type: 'number',
       defaultsTo: 0,
       description: "The total number of official RP posts this member has made."
+    },
+
+    deathCount: {
+      type: 'number',
+      defaultsTo: 0,
+      description: "The number of times a member typed *dies* in the guild."
     }
   },
 
