@@ -188,6 +188,10 @@ module.exports = {
           inputs.message.cleanContent.toLowerCase().includes("has bad time*") ||
           inputs.message.cleanContent.toLowerCase().includes("_has bad time") ||
           inputs.message.cleanContent.toLowerCase().includes("has bad time_") ||
+          inputs.message.cleanContent.toLowerCase().includes("*stops living") ||
+          inputs.message.cleanContent.toLowerCase().includes("stops living*") ||
+          inputs.message.cleanContent.toLowerCase().includes("_stops living") ||
+          inputs.message.cleanContent.toLowerCase().includes("stops living_") ||
           inputs.message.cleanContent
             .toLowerCase()
             .includes("*has a bad time") ||
