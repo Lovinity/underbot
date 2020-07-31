@@ -255,25 +255,21 @@ module.exports = {
         ctx.font = `16px determination`;
         ctx.fillStyle = "#FFFFFF";
         ctx.save();
-        var lines = wrapText(ctx, `<@${
-          inputs.message.author.id
-        }> Hmm. That expression... that's the expression of someone who's died **${
+        var lines = wrapText(ctx, `Hmm. That expression... that's the expression of someone who's died ${
           inputs.message.author.guildSettings(inputs.message.guild.id)
             .deathCount
-        }** times in a row.`, 296);
+        } times in a row.`, 296);
         if (typeof lines.split === "function" && lines.split("\n").length > 4) {
           ctx.font = `12px determination`;
           ctx.save();
-          lines = wrapText(ctx, `<@${
-            inputs.message.author.id
-          }> Hmm. That expression... that's the expression of someone who's died **${
+          lines = wrapText(ctx, `Hmm. That expression... that's the expression of someone who's died ${
             inputs.message.author.guildSettings(inputs.message.guild.id)
               .deathCount
-          }** times in a row.`, 296);
+          } times in a row.`, 296);
         }
         ctx.fillText(lines, 96, 20);
 
-        inputs.message.channel.send(``, {
+        inputs.message.channel.send(`<@${inputs.message.author.id}>`, {
           files: [{ attachment: canvas.toBuffer(), name: "UndertaleDeath.png" }],
         });
       }
