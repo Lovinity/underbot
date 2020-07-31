@@ -1,5 +1,7 @@
+const { registerFont, createCanvas, loadImage } = require("canvas");
 const fs = require("fs");
 const path = require("path");
+const sanitize = require("sanitize-filename");
 
 module.exports = {
   friendlyName: "events.message",
@@ -215,14 +217,65 @@ module.exports = {
                 .deathCount + 1,
           }
         );
-        inputs.message.channel.send(
-          `**Uh oh!** <@${
+
+        registerFont(`./assets/fonts/determination.ttf`, {
+          family: "determination",
+        });
+
+        // Create a new canvas
+        var canvas = createCanvas(400, 128);
+        var ctx = canvas.getContext("2d");
+
+        // Load the dialog background image
+        var imageBg = await loadImage(`./uploads/Characters/base/dialog.png`);
+        ctx.drawImage(imageBg, 0, 0, 400, 128);
+
+        // Load the character sprite
+        var imageSprite = await loadImage(
+          `./uploads/death/sans.jpg`
+        );
+        var width = imageSprite.width;
+        var height = imageSprite.height;
+        if (width > height) {
+          height = height * (75 / width);
+          width = 75;
+        } else {
+          width = width * (75 / height);
+          height = 75;
+        }
+        ctx.drawImage(
+          imageSprite,
+          12 + (width - 75 < 0 ? 0 : width - 75),
+          26 + (height - 75 < 0 ? 0 : height - 75),
+          width,
+          height
+        );
+
+        // Add text
+        ctx.font = `16px determination`;
+        ctx.fillStyle = "#FFFFFF";
+        ctx.save();
+        var lines = wrapText(ctx, `<@${
+          inputs.message.author.id
+        }> Hmm. That expression... that's the expression of someone who's died **${
+          inputs.message.author.guildSettings(inputs.message.guild.id)
+            .deathCount
+        }** times in a row.`, 296);
+        if (typeof lines.split === "function" && lines.split("\n").length > 4) {
+          ctx.font = `12px determination`;
+          ctx.save();
+          lines = wrapText(ctx, `<@${
             inputs.message.author.id
-          }> died again! Death counter: **${
+          }> Hmm. That expression... that's the expression of someone who's died **${
             inputs.message.author.guildSettings(inputs.message.guild.id)
               .deathCount
-          }**`
-        );
+          }** times in a row.`, 296);
+        }
+        ctx.fillText(lines, 96, 20);
+
+        inputs.message.channel.send(``, {
+          files: [{ attachment: canvas.toBuffer(), name: "UndertaleDeath.png" }],
+        });
       }
 
       // Bone reaction
@@ -270,3 +323,42 @@ module.exports = {
     }
   },
 };
+
+function wrapText(ctx, text, maxWidth) {
+  const words = text.split(" ");
+  let lines = [];
+  let line = "";
+
+  if (ctx.measureText(text).width < maxWidth) {
+    return [text];
+  }
+
+  while (words.length > 0) {
+    let split = false;
+
+    while (ctx.measureText(words[0]).width >= maxWidth) {
+      const tmp = words[0];
+      words[0] = tmp.slice(0, -1);
+
+      if (!split) {
+        split = true;
+        words.splice(1, 0, tmp.slice(-1));
+      } else {
+        words[1] = tmp.slice(-1) + words[1];
+      }
+    }
+
+    if (ctx.measureText(line + words[0]).width < maxWidth) {
+      line += `${words.shift()} `;
+    } else {
+      lines.push(line);
+      line = "";
+    }
+
+    if (words.length === 0) {
+      lines.push(line);
+    }
+  }
+
+  return lines.join("\n");
+}
