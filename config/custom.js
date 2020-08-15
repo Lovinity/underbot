@@ -23,7 +23,8 @@ module.exports.custom = {
           "GUILD_MESSAGES",
           "GUILD_MEMBERS",
           "GUILD_PRESENCES",
-          "GUILD_MESSAGE_REACTIONS"
+          "GUILD_MESSAGE_REACTIONS",
+          "DIRECT_MESSAGES"
         ], // TODO: October 7, 2020, these are required to be defined
       },
     },
