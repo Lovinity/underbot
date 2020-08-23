@@ -70,17 +70,19 @@ module.exports = {
                 : 0,
               "minutes"
             )
-            .format("m [minutes]")}, you are REALLY not going to like what happens next.`;
+            .format(
+              "m [minutes]"
+            )}, you are REALLY not going to like what happens next.`;
           inputs.message.send(response);
         }
       }
       modifier.spamScoreStamp = moment().toISOString(true);
 
-      // Allow a 10-second grace period after warning so the member can read it. After 10 seconds, if they continue, take action.
+      // Allow a 5-second grace period after warning so the member can read it. After 5 seconds, if they continue, take action.
     } else if (
       currentScore >= 100 &&
       moment()
-        .subtract(10, "seconds")
+        .subtract(5, "seconds")
         .isAfter(moment(inputs.member.settings.spamScoreStamp))
     ) {
       // Reset the member's spam score
