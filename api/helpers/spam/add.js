@@ -63,14 +63,14 @@ module.exports = {
         if (inputs.message) {
           var response = `:warning: <@${
             inputs.message.author.id
-          }> **Hey kid, stop the spamming.** Rest from sending messages for the next ${moment
+          }> , **DO YOU WANNA HAVE A BAD TIME?** ...'cause if you send another message in the next ${moment
             .duration(
               inputs.member.guild.settings.antispamCooldown > 0
                 ? newScore / inputs.member.guild.settings.antispamCooldown + 1
                 : 0,
               "minutes"
             )
-            .format("m [Minutes]")}. Otherwise, you're gonna have a bad time. `;
+            .format("m [minutes]")}, you are REALLY not going to like what happens next.`;
           inputs.message.send(response);
         }
       }
@@ -99,7 +99,7 @@ module.exports = {
 
       // Send a message
       if (inputs.message) {
-        var response = `:mute: <@${inputs.message.author.id}> It's a beautiful day outside. Birds are singing, flowers are blooming... on days like these, kids like you... **SHOULD BE BURNING IN HELL**. (You have been muted until staff address / investigate your spamming)`;
+        var response = `:mute: <@${inputs.message.author.id}> It's a beautiful day outside. Birds are singing, flowers are blooming... on days like these, kids like you... __SHOULD BE BURNING IN HELL__. (**You have been muted** until staff address / investigate your spamming)`;
         inputs.message.send(response);
       }
     }
