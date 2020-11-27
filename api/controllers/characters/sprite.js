@@ -1,6 +1,5 @@
 var path = require("path");
 var fs = require("fs");
-const { setMaxListeners } = require("process");
 
 // This action must be a classic action due to the need for res.writeHead
 module.exports = async function welcomeUser(req, res) {
@@ -13,7 +12,7 @@ module.exports = async function welcomeUser(req, res) {
   }
 
   // Find character
-  var character = await setMaxListeners.models.characters.findOne({ uid: uid });
+  var character = await sails.models.characters.findOne({ uid: uid });
   if (!character) {
     return res.badRequest(
       new Error("A character with the provided uid was not found!")
