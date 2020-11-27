@@ -12,7 +12,7 @@ module.exports = {
     // Decay spam scores every minute
     members
       .filter(member => member.spamScore > 0) // Do not do anything for members with no spam score
-      .each(async member => {
+      .forEach(async member => {
         var guild = guilds.find(guild => member.guildID === guild.guildID);
         var newScore = member.spamScore - (guild.antispamCooldown || 0);
         if (newScore < 0) newScore = 0;
@@ -27,7 +27,6 @@ module.exports = {
     // Also, scan for active deletion schedules where the owner is back in the guild
     if (moment().minute() === 0) {
       var characters = await sails.models.characters.find();
-
       var schedules = await sails.models.schedules.find({
         task: "removeCharacter"
       });
