@@ -687,6 +687,27 @@ function getGuildInformation () {
                             ${member.joinedAt}
                           </p>
                           <hr>
+
+                          <strong>Claimed Characters</strong>
+                          <div class="row">
+                          <div class="col-sm-6 border-right">
+                            <div class="description-block">
+                              <h5 class="description-header">${member.characters.og}</h5>
+                              <span class="description-text">Canon (OG)</span>
+                            </div>
+                            <!-- /.description-block -->
+                          </div>
+                          <!-- /.col -->
+                          <div class="col-sm-6">
+                            <div class="description-block">
+                              <h5 class="description-header">${member.characters.oc}</h5>
+                              <span class="description-text">Original (OC)</span>
+                            </div>
+                            <!-- /.description-block -->
+                          </div>
+                          <!-- /.col -->
+                        </div>
+                          <hr>
                           
                           <strong>RP Posts</strong>
                           <p class="text-muted h1 text-center">

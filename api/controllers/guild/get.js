@@ -68,6 +68,10 @@ module.exports = {
         }),
         rpPosts: settings.rpPosts,
         introduction: settings.introduction,
+        characters: {
+          og: guildCharacters.filter((char) => char.userID === member.id && !char.OC).length,
+          oc: guildCharacters.filter((char) => char.userID === member.id && char.OC).length
+        }
       };
     });
     members = await Promise.all(members);
