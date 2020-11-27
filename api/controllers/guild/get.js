@@ -81,10 +81,10 @@ module.exports = {
       members: members,
       claimedCharacters: guildCharacters.filter(
         (character) => character.userID !== null
-      ).size,
+      ).length,
       unclaimedCharacters: guildCharacters.filter(
         (character) => character.userID === null
-      ).size,
+      ).length,
       characters: guildCharacters2,
       DT: {
         total: guildCharacters
@@ -93,18 +93,18 @@ module.exports = {
         low: guildCharacters.filter(
           (character) =>
             character.userID !== null && character.HP > 0 && character.DT < 26
-        ).size,
+        ).length,
         normal: guildCharacters.filter(
           (character) =>
             character.userID !== null &&
             character.HP > 0 &&
             character.DT >= 26 &&
             character.DT < 76
-        ).size,
+        ).length,
         high: guildCharacters.filter(
           (character) =>
             character.userID !== null && character.HP > 0 && character.DT >= 76
-        ).size,
+        ).length,
       },
     };
   },
