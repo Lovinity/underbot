@@ -85,7 +85,6 @@ module.exports = {
   afterCreate: function (newlyCreatedRecord, proceed) {
     var data = { insert: newlyCreatedRecord };
     sails.sockets.broadcast("guilds", "guilds", data);
-    Caches.set("guilds", newlyCreatedRecord);
 
     return proceed();
   },
@@ -93,7 +92,6 @@ module.exports = {
   afterUpdate: function (updatedRecord, proceed) {
     var data = { update: updatedRecord };
     sails.sockets.broadcast("guilds", "guilds", data);
-    Caches.set("guilds", updatedRecord);
 
     return proceed();
   },
@@ -101,7 +99,6 @@ module.exports = {
   afterDestroy: function (destroyedRecord, proceed) {
     var data = { remove: destroyedRecord.id };
     sails.sockets.broadcast("guilds", "guilds", data);
-    Caches.del("guilds", destroyedRecord);
 
     return proceed();
   },

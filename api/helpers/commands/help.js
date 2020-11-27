@@ -19,8 +19,10 @@ module.exports = {
   exits: {},
 
   fn: async function (inputs) {
+    let guildSettings = await inputs.message.guild.settings();
+
     var prefix =
-      inputs.message.guild.settings.prefix ||
+      guildSettings.prefix ||
       sails.config.custom.discord.defaultPrefix;
 
     // Get info about a specific command

@@ -36,7 +36,7 @@ module.exports = {
       `+++ ROLE PLAY SAVE POINT, ID ${uid}, created ${moment().format(
         "LLLL"
       )}` + "\n";
-    data += JSON.stringify(inputs.message.guild.characters);
+    data += JSON.stringify(await inputs.message.guild.characters());
     var buffer = Buffer.from(data, "utf-8");
 
     // Send the characters data

@@ -32,7 +32,9 @@ module.exports = {
 
   fn: async function (inputs) {
     // Check if provided character exists. Error if it does not.
-    var character = inputs.message.guild.characters.find(
+    let guildCharacters = await inputs.message.guild.characters();
+
+    var character = guildCharacters.find(
       (character) =>
         character.name.toLowerCase() === inputs.character.toLowerCase()
     );

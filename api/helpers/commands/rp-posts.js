@@ -9,13 +9,13 @@ module.exports = {
     message: {
       type: "ref",
       required: true,
-      description: "The message that triggered the command",
-    },
+      description: "The message that triggered the command"
+    }
   },
 
   exits: {},
 
-  fn: async function (inputs) {
+  fn: async function(inputs) {
     // Delete original command message
     inputs.message.delete();
 
@@ -36,7 +36,7 @@ module.exports = {
       prompt,
       time,
       remove = true,
-      filter = (message) => message.author.id === inputs.message.author.id
+      filter = message => message.author.id === inputs.message.author.id
     ) => {
       // Prompt message
       var msg = await inputs.message.send(prompt);
@@ -46,7 +46,7 @@ module.exports = {
         var response = await inputs.message.channel.awaitMessages(filter, {
           max: 1,
           time: time,
-          errors: ["time"],
+          errors: ["time"]
         });
       } catch (e) {
         throw new Error(`newcharacter command timed out.`);
@@ -75,7 +75,7 @@ module.exports = {
       "710413617073487914", // Hotlands
       "710413931885363253", // Core
       "710413972385431633", // New home
-      "711099427770728449", // Undernet
+      "711099427770728449" // Undernet
     ];
 
     var tuppers = {};
@@ -83,7 +83,7 @@ module.exports = {
     var channels = inputs.message.guild.channels.cache
       .array()
       .filter(
-        (channel) =>
+        channel =>
           channel.parentID &&
           categories.indexOf(channel.parentID) !== -1 &&
           channel.type === "text"
@@ -118,9 +118,8 @@ module.exports = {
       sails.log.debug(`nextChannel channel name ${channels[index].name}`);
 
       await mg.edit(
-        `:hourglass: Please wait; this could take a while... (Fetching messages from channel ${
-          index + 1
-        }/${channels.length} [${
+        `:hourglass: Please wait; this could take a while... (Fetching messages from channel ${index +
+          1}/${channels.length} [${
           channels[index].parent ? `${channels[index].parent} => ` : ``
         }${channels[index].name}])`
       );
@@ -136,7 +135,7 @@ module.exports = {
           var msgs = messages.splice(0, 100);
 
           var maps = msgs.filter(
-            (message) =>
+            message =>
               message.cleanContent &&
               !message.cleanContent.startsWith("(") &&
               !message.cleanContent.startsWith("/") &&
@@ -145,24 +144,24 @@ module.exports = {
           for (let message of maps) {
             if (!message.author) continue;
             if (!message.author.bot) {
-              Caches.get("members").set(
-                [message.author.id, inputs.message.guild.id],
-                {
-                  rpPosts:
-                    message.author.guildSettings(inputs.message.guild.id)
-                      .rpPosts + 1,
-                }
+              let guildSettings = await message.author.guildSettings(
+                inputs.message.guild.id
+              );
+              await sails.models.members.updateOne(
+                { userID: message.author.id, guildID: message.guild.id },
+                { rpPosts: guildSettings.rpPosts + 1 }
               );
             } else {
               if (tuppers[message.author.tag]) {
-                Caches.get("members").set(
-                  [tuppers[message.author.tag].id, inputs.message.guild.id],
+                let guildSettings = await tuppers[
+                  message.author.tag
+                ].guildSettings(inputs.message.guild.id);
+                await sails.models.members.updateOne(
                   {
-                    rpPosts:
-                      tuppers[message.author.tag].guildSettings(
-                        inputs.message.guild.id
-                      ).rpPosts + 1,
-                  }
+                    userID: tuppers[message.author.tag].id,
+                    guildID: tuppers[message.author.tag].guild.id
+                  },
+                  { rpPosts: guildSettings.rpPosts + 1 }
                 );
               } else {
                 var promptMsg = await prompt(
@@ -174,9 +173,10 @@ module.exports = {
                 );
                 if (member) {
                   tuppers[message.author.tag] = member.user;
-                  Caches.get("members").set(
-                    [member.id, inputs.message.guild.id],
-                    { rpPosts: member.settings.rpPosts + 1 }
+                  let guildSettings = await member.settings();
+                  await sails.models.members.updateOne(
+                    { userID: member.id, guildID: message.guild.id },
+                    { rpPosts: guildSettings.rpPosts + 1 }
                   );
                 } else {
                   var user = await DiscordClient.users.fetch(
@@ -184,13 +184,12 @@ module.exports = {
                   );
                   if (user) {
                     tuppers[message.author.tag] = user;
-                    Caches.get("members").set(
-                      [user.id, inputs.message.guild.id],
-                      {
-                        rpPosts:
-                          user.guildSettings(inputs.message.guild.id).rpPosts +
-                          1,
-                      }
+                    let guildSettings = await user.guildSettings(
+                      inputs.message.guild.id
+                    );
+                    await sails.models.members.updateOne(
+                      { userID: user.id, guildID: message.guild.id },
+                      { rpPosts: guildSettings.rpPosts + 1 }
                     );
                   } else {
                     inputs.message.channel.send(`:x: failed`);
@@ -247,5 +246,5 @@ module.exports = {
     await nextChannel();
 
     await mg.edit(`DONE!`);
-  },
+  }
 };

@@ -24,7 +24,8 @@ module.exports = {
     if (!guild) throw "notFound";
 
     // Some properties of guild characters are async, so fetch them now with a promise.
-    var maps = guild.characters.map(async (character) => {
+    let guildCharacters = await guild.characters();
+    var maps = await guildCharacters.map(async (character) => {
       character.maxHP = await sails.helpers.characters.calculateMaxHp(
         character
       );
@@ -44,7 +45,32 @@ module.exports = {
       }
       return character;
     });
-    var guildCharacters = await Promise.all(maps);
+    var guildCharacters2 = await Promise.all(maps);
+
+    var members = guild.members.cache.map(async (member) => {
+      var staff = member.permissions.has("VIEW_AUDIT_LOG");
+      var settings = await member.settings();
+      return {
+        id: member.id,
+        tag: member.user.tag,
+        nickname: member.nickname,
+        avatar: member.user.displayAvatarURL(),
+        joinedTimestamp: member.joinedTimestamp,
+        joinedAt: moment(member.joinedAt).format("LLLL"),
+        staff: staff,
+        bot: member.user.bot,
+        roles: member.roles.cache.map((role) => {
+          return {
+            id: role.id,
+            name: role.name,
+            hexColor: role.hexColor,
+          };
+        }),
+        rpPosts: settings.rpPosts,
+        introduction: settings.introduction,
+      };
+    });
+    await Promise.all(members);
 
     return {
       id: guild.id,
@@ -52,51 +78,30 @@ module.exports = {
       icon: guild.iconURL(),
       numMembers: guild.members.cache.filter((member) => !member.user.bot).size,
       numBots: guild.members.cache.filter((member) => member.user.bot).size,
-      members: guild.members.cache.map((member) => {
-        var staff = member.permissions.has("VIEW_AUDIT_LOG");
-        return {
-          id: member.id,
-          tag: member.user.tag,
-          nickname: member.nickname,
-          avatar: member.user.displayAvatarURL(),
-          joinedTimestamp: member.joinedTimestamp,
-          joinedAt: moment(member.joinedAt).format("LLLL"),
-          staff: staff,
-          bot: member.user.bot,
-          roles: member.roles.cache.map((role) => {
-            return {
-              id: role.id,
-              name: role.name,
-              hexColor: role.hexColor,
-            };
-          }),
-          rpPosts: member.settings.rpPosts,
-          introduction: member.settings.introduction,
-        };
-      }),
-      claimedCharacters: guild.characters.filter(
+      members: members,
+      claimedCharacters: guildCharacters.filter(
         (character) => character.userID !== null
       ).size,
-      unclaimedCharacters: guild.characters.filter(
+      unclaimedCharacters: guildCharacters.filter(
         (character) => character.userID === null
       ).size,
-      characters: guildCharacters,
+      characters: guildCharacters2,
       DT: {
-        total: guild.characters
+        total: guildCharacters
           .filter((character) => character.userID !== null && character.HP > 0)
           .reduce((acc, character) => acc + character.DT, 0),
-        low: guild.characters.filter(
+        low: guildCharacters.filter(
           (character) =>
             character.userID !== null && character.HP > 0 && character.DT < 26
         ).size,
-        normal: guild.characters.filter(
+        normal: guildCharacters.filter(
           (character) =>
             character.userID !== null &&
             character.HP > 0 &&
             character.DT >= 26 &&
             character.DT < 76
         ).size,
-        high: guild.characters.filter(
+        high: guildCharacters.filter(
           (character) =>
             character.userID !== null && character.HP > 0 && character.DT >= 76
         ).size,

@@ -7,22 +7,22 @@ module.exports = {
     message: {
       type: "ref",
       required: true,
-      description: "Starts a wizard to add a new character into the database.",
+      description: "Starts a wizard to add a new character into the database."
     },
     character: {
       type: "string",
       required: true,
-      description: "The name of the character to remove.",
-    },
+      description: "The name of the character to remove."
+    }
   },
 
   exits: {
     success: {
-      description: "All done.",
-    },
+      description: "All done."
+    }
   },
 
-  fn: async function (inputs) {
+  fn: async function(inputs) {
     // Delete original command message
     inputs.message.delete();
 
@@ -34,9 +34,11 @@ module.exports = {
       throw new Error(`You are not allowed to use this command.`);
     }
 
+    let guildCharacters = await inputs.message.guild.characters();
+
     // Get the character
-    var character = inputs.message.guild.characters.find(
-      (char) => char.name.toLowerCase() === inputs.character.toLowerCase()
+    var character = guildCharacters.find(
+      char => char.name.toLowerCase() === inputs.character.toLowerCase()
     );
 
     // Check if the character exists
@@ -45,7 +47,7 @@ module.exports = {
     }
 
     // Delete the character
-    Caches.get("characters").delete(character.id);
+    await sails.models.characters.destroyOne({ id: character.id });
 
     var dying = () => {
       var nm1 = [
@@ -68,7 +70,7 @@ module.exports = {
         "So this is my end? What a joke. lying on the floor in a puddle of filth and my own blood. Pathetic. Fine, whatever. Let it be over with then, let this be the end",
         "It hurts! It hurts so much! I can't take this anymore! Somebody make it stop! I can't. I can't move, it's too heavy. My arms are too heavy. Somebody, please make it stop",
         "My body is shattered, I can see it clearly. A body shouldn't be able to lay in this position, but I am. So, this'll be my end then. Warped and twisted, with nobody to help me",
-        "Where am I? Oh. I'm still here. Alone. Forgotten. Blood is still flowing out of my body, I wish it would stop. I wish it would just end already, please make it end",
+        "Where am I? Oh. I'm still here. Alone. Forgotten. Blood is still flowing out of my body, I wish it would stop. I wish it would just end already, please make it end"
       ];
       var nm2 = [
         "But I'm standing, I'm still standing. My legs beg me to give in, to let go and drop to the soft grass below, but I'm still standing.",
@@ -90,7 +92,7 @@ module.exports = {
         "The floor is getting colder and stickier. My blood is drying. How long have I been here? It doesn't matter, it won't be much longer.",
         "My body feels heavier and heavier. I can't move my legs, I can't move my arms, I can't even move my head. Surely this'll be over any second now.",
         "I wish I could just move my body, even if just a little. If I'm going to die I at least want to die comfortably. Ah, it's pointless anyway. Soon I'll be dead.",
-        "I'm on the floor, dying and in pain and to make matters worse something is poking me in the back. It seems I can't even die comfortably.",
+        "I'm on the floor, dying and in pain and to make matters worse something is poking me in the back. It seems I can't even die comfortably."
       ];
       var nm3 = [
         "No! No, I cannot die, not today. Not ever. I must survive, surely there must be a way. How did this happen to me, what have I done wrong? I can't.. Somebody please help me. There must be somebody nearby, please help whoever you are, wherever you are",
@@ -112,7 +114,7 @@ module.exports = {
         "Somebody please find me. I don't want to die, I don't want to die. There's still so much I want to do, so much I still need to do. Somebody, please save me. I can't do this on my own. I need to live",
         "Help me. Somebody, please. I need to live, I have to live. There's still so much I need to do, there are still many people who need me and I need them. I must live. I need to live",
         "Hopeless, this is absolutely hopeless. I'm going to die, I know it. But I don't want to, I don't want to die I want to live. Please, I want to live. Is there nobody out there? Please, save me",
-        "There's no way out. I'm going to die, oh god I'm going to die. No, please, I want to live. I can't die, I musn't die. Somebody, anybody, please help me. I don't want to die. I don't want to die",
+        "There's no way out. I'm going to die, oh god I'm going to die. No, please, I want to live. I can't die, I musn't die. Somebody, anybody, please help me. I don't want to die. I don't want to die"
       ];
       var nm4 = [
         "I'm tired, so tired. But I cannot give in, I cannot sleep. To sleep means to die, I must stay strong. But my body can't take it anymore, perhaps I should just lie down for a while, save my strength until help arrives. Yes, yes that would be best. Save my strength. Help will be here soon",
@@ -134,7 +136,7 @@ module.exports = {
         "It's very quiet out here, or maybe my mind is just failing me. It's peaceful though, I guess. But I still need to get out of here, but how? I'm too tired and too broken to do anything, I'll need help. Oh please let help be on the way, I don't want to die out here. All alone, lost and forgotten",
         "It's actually quite peaceful here, I could stay here for hours. Not that I have a choice right now. No, I do have a choice. Give up or fight and I choose to fight. I will get away from here, as far away as possible until I've found help. Help, I need help to get out of here. I can't do it on my own, it's no use",
         "I feel so lonely. All this wouldn't be half as bad if I just had somebody with me, somebody to talk to, somebody to hold me. Why hasn't anybody found me yet? Are they even looking? Maybe they gave up. No, they'd never give up. They'll continue to look for me until they've found me, dead or alive",
-        "I hope I'm not forgotten, or worse, abandoned. People are still looking for me, right? It hasn't been very long I don't think, surely there are still people looking for me. Yes, they must be. Somebody will find me soon, I just need to hang in there for just a while longer. I haven't been forgotten",
+        "I hope I'm not forgotten, or worse, abandoned. People are still looking for me, right? It hasn't been very long I don't think, surely there are still people looking for me. Yes, they must be. Somebody will find me soon, I just need to hang in there for just a while longer. I haven't been forgotten"
       ];
       var nm5 = [
         "This is it, isn't it? I'm going to die, I know it now. Oh god, I'm going to die right here, all alone. I don't want to die, I don't want to die. There's too much.. There's too many people.. I don't want to die",
@@ -156,7 +158,7 @@ module.exports = {
         "I never thought I'd die like this, but I am. I know there's nothing that can be done for me now, I'm too far gone. Whatever. Just let it be over already, I'm tired of all of this. Just let me die in peace",
         "Why must it end like this? This is not how I wanted it to end, this is not how I want to die. But it's not like I have a choice now, there's nothing I can do. I just wish it was over already, just let me die",
         "I'm going to die. Shame it's not like in the movies, I have yet to see flashes of my life as I slowly pass away. Maybe they're yet to come. It should be soon though, I know I have little time left. Best get ready for the show",
-        "It'll be over soon, I can feel it. My end is coming and there's nothing I can do. Fine. I'm too exhausted anyway. I just wish I could've done things differently. But none of that matters now, it'll be over soon. At last",
+        "It'll be over soon, I can feel it. My end is coming and there's nothing I can do. Fine. I'm too exhausted anyway. I just wish I could've done things differently. But none of that matters now, it'll be over soon. At last"
       ];
       var nm6 = [
         "I'm so sleepy. I guess I'll rest my eyes for a little while, just a little while. I may never open them again, but we'll find out soon enough. First I must rest",
@@ -178,7 +180,7 @@ module.exports = {
         "My entire body is numb, I can't feel any pain, no discomfort, nothing at all. It's kind of nice. It's like my body is sleeping, but I'm not. Maybe I should be sleeping",
         "I can't feel my legs or my arms, in fact I can't feel anything anymore. Nothing at all. It's somewhat comforting, at least I feel no pain. I feel nothing at all",
         "Everything is numb. My body, my mind, everything. I can't feel pain or think straight, in a way it's a relief. Soon everything will be over and I can rest forever",
-        "I can't feel.. anything. How wonderful, how comforting. No pain, no discomfort, no anything. Just sweet nothingness. Soon it'll all be over. Soon I'll feel nothing forever",
+        "I can't feel.. anything. How wonderful, how comforting. No pain, no discomfort, no anything. Just sweet nothingness. Soon it'll all be over. Soon I'll feel nothing forever"
       ];
       var nm7 = [
         "Goodbye world",
@@ -190,7 +192,7 @@ module.exports = {
         "I'll miss you",
         "Bye",
         "Remember me",
-        "Love you",
+        "Love you"
       ];
 
       var rnd1 = Math.floor(Math.random() * nm1.length);
@@ -249,5 +251,5 @@ module.exports = {
     } has died and disintegrated into dust, leaving the role play forever**`;
 
     return inputs.message.send(death);
-  },
+  }
 };

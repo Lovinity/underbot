@@ -8,13 +8,13 @@ module.exports = {
     message: {
       type: "ref",
       required: true,
-      description: "The message that triggered the command",
-    },
+      description: "The message that triggered the command"
+    }
   },
 
   exits: {},
 
-  fn: async function (inputs) {
+  fn: async function(inputs) {
     // Delete original command message
     inputs.message.delete();
 
@@ -26,13 +26,16 @@ module.exports = {
       throw new Error(`You are not allowed to use this command.`);
     }
 
+    let guildSettings = await inputs.message.guild.settings();
+    let guildCharacters = await inputs.message.guild.characters();
+
     // Delete all prior messages first
-    if (inputs.message.guild.settings.characterStatsChannel) {
+    if (guildSettings.characterStatsChannel) {
       var channel = await inputs.message.guild.channels.resolve(
-        inputs.message.guild.settings.characterStatsChannel
+        guildSettings.characterStatsChannel
       );
       if (channel) {
-        var maps = inputs.message.guild.characters.map(async (character) => {
+        var maps = guildCharacters.map(async character => {
           if (character.tallyMessage) {
             try {
               var message = await channel.messages.fetch(
@@ -51,18 +54,20 @@ module.exports = {
     }
 
     // Set new characterStatsChannel
-    Caches.get("guilds").set([inputs.message.guild.id], {
-      characterStatsChannel: inputs.message.channel.id,
-    });
+    await sails.helpers.guilds.updateOne(
+      { guildID: inputs.message.guild.id },
+      { characterStatsChannel: inputs.message.channel.id }
+    );
 
     // Loop through each character in the database and create a stats message
-    var maps2 = inputs.message.guild.characters.map(async (character) => {
+    var maps2 = guildCharacters.map(async character => {
       var embed = await sails.helpers.characters.generateStatsEmbed(character);
       var message = await inputs.message.channel.send({ embed: embed });
-      Caches.get("characters").set([character.uid], {
-        tallyMessage: message.id,
-      });
+      await sails.models.characters.updateOne(
+        { uid: character.uid },
+        { tallyMessage: message.id }
+      );
     });
     await Promise.all(maps2);
-  },
+  }
 };

@@ -28,8 +28,10 @@ module.exports = {
     // Delete original command message
     inputs.message.delete();
 
+    let guildCharacters = await inputs.message.guild.characters();
+
     // Get the character
-    var character = inputs.message.guild.characters.find(
+    var character = guildCharacters.find(
       (char) => char.name.toLowerCase() === inputs.character.toLowerCase()
     );
 
@@ -68,7 +70,7 @@ module.exports = {
     }
 
     // Set the new HP
-    Caches.get("characters").set([character.uid], { HP: newHP });
+    await sails.models.characters.updateOne({uid: character.uid}, { HP: newHP });
 
     // Send a message
 

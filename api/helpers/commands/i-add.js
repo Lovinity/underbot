@@ -7,35 +7,37 @@ module.exports = {
     message: {
       type: "ref",
       required: true,
-      description: "Starts a wizard to add a new character into the database.",
+      description: "Starts a wizard to add a new character into the database."
     },
     character: {
       type: "string",
       required: true,
-      description: "The name of the character in the database to add an item.",
+      description: "The name of the character in the database to add an item."
     },
     name: {
       type: "string",
       required: true,
       description:
-        "Name of the item. You can add multiple items with the same name (say, if the character has more than one of the same item)",
+        "Name of the item. You can add multiple items with the same name (say, if the character has more than one of the same item)"
     },
     description: {
       type: "string",
       required: true,
-      description: "Description of the item, such as how it affects game play",
-    },
+      description: "Description of the item, such as how it affects game play"
+    }
   },
 
   exits: {},
 
-  fn: async function (inputs) {
+  fn: async function(inputs) {
     // Delete original command message
     inputs.message.delete();
 
+    let guildCharacters = await inputs.message.guild.characters();
+
     // Get the character
-    var character = inputs.message.guild.characters.find(
-      (char) => char.name.toLowerCase() === inputs.character.toLowerCase()
+    var character = guildCharacters.find(
+      char => char.name.toLowerCase() === inputs.character.toLowerCase()
     );
 
     // Check if the character exists
@@ -57,11 +59,14 @@ module.exports = {
     // Add the item to the repository
     character.items.push({
       name: inputs.name.toLowerCase(),
-      description: inputs.description,
+      description: inputs.description
     });
 
     // Save to the database and cache
-    Caches.get("characters").set([character.uid], { items: character.items });
+    await sails.models.characters.updateOne(
+      { uid: character.uid },
+      { items: character.items }
+    );
 
     // Return message
     return inputs.message.send(
@@ -69,5 +74,5 @@ module.exports = {
         inputs.description
       }`
     );
-  },
+  }
 };

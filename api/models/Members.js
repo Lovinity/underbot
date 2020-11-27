@@ -66,7 +66,6 @@ module.exports = {
       "members",
       data
     );
-    Caches.set("members", newlyCreatedRecord);
 
     return proceed();
   },
@@ -78,7 +77,6 @@ module.exports = {
       "members",
       data
     );
-    Caches.set("members", updatedRecord);
 
     return proceed();
   },
@@ -90,7 +88,6 @@ module.exports = {
       "members",
       data
     );
-    Caches.del("members", destroyedRecord);
 
     return proceed();
   },

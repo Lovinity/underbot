@@ -7,31 +7,33 @@ module.exports = {
     message: {
       type: "ref",
       required: true,
-      description: "The message that triggered the command",
+      description: "The message that triggered the command"
     },
     character: {
       type: "string",
       required: true,
       description:
-        "The name of the character in the database to inflict damage upon.",
+        "The name of the character in the database to inflict damage upon."
     },
     HP: {
       type: "number",
       required: true,
       min: 0,
-      description: "Amount of HP damage to deal on the character.",
-    },
+      description: "Amount of HP damage to deal on the character."
+    }
   },
 
   exits: {},
 
-  fn: async function (inputs) {
+  fn: async function(inputs) {
     // Delete original command message
     inputs.message.delete();
 
+    let guildCharacters = await inputs.message.guild.characters();
+
     // Get the character
-    var character = inputs.message.guild.characters.find(
-      (char) => char.name.toLowerCase() === inputs.character.toLowerCase()
+    var character = guildCharacters.find(
+      char => char.name.toLowerCase() === inputs.character.toLowerCase()
     );
 
     // Check if the character exists
@@ -69,14 +71,16 @@ module.exports = {
     }
 
     // Set the new HP
-    Caches.get("characters").set([character.uid], { HP: newHP });
+    await sails.models.characters.updateOne(
+      { uid: character.uid },
+      { HP: newHP }
+    );
 
     // Send a message
-
     return inputs.message.send(`**Damage inflicted on ${character.name}**
     
 Amount: ${inputs.HP} HP
 Current HP: ${newHP} / ${maxHP} HP ${newHP <= 0 ? `**DEAD**` : ``}
 ${hpBar}`);
-  },
+  }
 };

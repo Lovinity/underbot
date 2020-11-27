@@ -7,31 +7,33 @@ module.exports = {
     message: {
       type: "ref",
       required: true,
-      description: "Starts a wizard to add a new character into the database.",
+      description: "Starts a wizard to add a new character into the database."
     },
     character: {
       type: "string",
       required: true,
       description:
-        "The name of the character in the database to remove an item from.",
+        "The name of the character in the database to remove an item from."
     },
     name: {
       type: "string",
       required: true,
       description:
-        "Name of the item to remove. If multiple items exist with the same name, only one of them will be removed.",
-    },
+        "Name of the item to remove. If multiple items exist with the same name, only one of them will be removed."
+    }
   },
 
   exits: {},
 
-  fn: async function (inputs) {
+  fn: async function(inputs) {
     // Delete original command message
     inputs.message.delete();
 
+    let guildCharacters = await inputs.message.guild.characters();
+
     // Get the character
-    var character = inputs.message.guild.characters.find(
-      (char) => char.name.toLowerCase() === inputs.character.toLowerCase()
+    var character = guildCharacters.find(
+      char => char.name.toLowerCase() === inputs.character.toLowerCase()
     );
 
     // Check if the character exists
@@ -52,7 +54,7 @@ module.exports = {
 
     // Find one instance of the item
     var item = character.items.find(
-      (i) => i.name.toLowerCase() === inputs.name.toLowerCase()
+      i => i.name.toLowerCase() === inputs.name.toLowerCase()
     );
 
     // Exit if the item does not exist
@@ -64,7 +66,7 @@ module.exports = {
 
     // Remove only one of the items
     var deleted = false;
-    character.items = character.items.filter((i) => {
+    character.items = character.items.filter(i => {
       if (i.name.toLowerCase() === inputs.name.toLowerCase() && !deleted) {
         deleted = true;
         item = i;
@@ -74,11 +76,14 @@ module.exports = {
     });
 
     // Save to cache / database
-    Caches.get("characters").set([character.uid], { items: character.items });
+    await sails.models.characters.updateOne(
+      { uid: character.uid },
+      { items: character.items }
+    );
 
     // Return message
     return inputs.message.send(
       `**${character.name} has consumed / lost / removed an item!**: ${item.name}: ${item.description}`
     );
-  },
+  }
 };

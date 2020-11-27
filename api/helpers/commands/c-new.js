@@ -12,13 +12,13 @@ module.exports = {
     message: {
       type: "ref",
       required: true,
-      description: "Starts a wizard to add a new character into the database.",
-    },
+      description: "Starts a wizard to add a new character into the database."
+    }
   },
 
   exits: {},
 
-  fn: async function (inputs) {
+  fn: async function(inputs) {
     // Delete original command message
     inputs.message.delete();
 
@@ -38,7 +38,7 @@ module.exports = {
       prompt,
       time,
       remove = true,
-      filter = (message) => message.author.id === inputs.message.author.id
+      filter = message => message.author.id === inputs.message.author.id
     ) => {
       // Prompt message
       var msg = await inputs.message.send(prompt);
@@ -48,7 +48,7 @@ module.exports = {
         var response = await inputs.message.channel.awaitMessages(filter, {
           max: 1,
           time: time,
-          errors: ["time"],
+          errors: ["time"]
         });
       } catch (e) {
         throw new Error(`newcharacter command timed out.`);
@@ -77,9 +77,11 @@ module.exports = {
     );
     name = name.cleanContent;
 
+    let guildCharacters = await inputs.message.guild.characters();
+
     // Check if the name already exists
-    var prevCharacter = inputs.message.guild.characters.find(
-      (char) => char.name.toLowerCase() === name.toLowerCase()
+    var prevCharacter = guildCharacters.find(
+      char => char.name.toLowerCase() === name.toLowerCase()
     );
     if (prevCharacter) {
       uid = prevCharacter.uid;
@@ -134,7 +136,7 @@ module.exports = {
       `Awesome! Next, if there is a good photo of this character, please send a message with that photo attached or a URL to the photo. Or, send "none" to not specify a photo. (timeout: 3 minutes)`,
       180000,
       false,
-      (message) =>
+      message =>
         message.author.id === inputs.message.author.id &&
         (message.attachments.size > 0 ||
           /(https?:\/\/[^\s]+)/g.test(
@@ -156,7 +158,7 @@ module.exports = {
         await download.image({
           url: photourl,
           dest: `./uploads/Characters/photos/${uid}${path.extname(photourl)}`,
-          extractFilename: false,
+          extractFilename: false
         });
         await photo.delete();
         photo = `${uid}${path.extname(photourl)}`;
@@ -171,7 +173,7 @@ module.exports = {
       `Ooh, what a good looking character! Now, provide a sprite image as an attachment or a URL to be used with the dialog command. The sprite should look 8-bit / pixelized, ideally back-and-white, look good against a black background, and have a transparent background (unless it's black), or it might not look good on the dialog. (timeout: 3 minutes)`,
       180000,
       false,
-      (message) =>
+      message =>
         message.author.id === inputs.message.author.id &&
         (message.attachments.size > 0 ||
           /(https?:\/\/[^\s]+)/g.test(
@@ -193,7 +195,7 @@ module.exports = {
         await download.image({
           url: spriteurl,
           dest: `./uploads/Characters/sprites/${uid}${path.extname(spriteurl)}`,
-          extractFilename: false,
+          extractFilename: false
         });
         await sprite.delete();
         sprite = `${uid}${path.extname(spriteurl)}`;
@@ -358,7 +360,7 @@ module.exports = {
       armor: armor,
       likes: likes,
       dislikes: dislikes,
-      extraInfo: extraInfo,
+      extraInfo: extraInfo
     };
 
     var maxHP = await sails.helpers.characters.calculateMaxHp(obj);
@@ -366,11 +368,11 @@ module.exports = {
     obj.maxHP = maxHP;
 
     // Create or update the database record
-    Caches.get("characters").set([uid], obj);
+    await sails.models.characters.updateOne({ uid: uid }, obj);
 
     // Return a message
     return inputs.message.send(
       `:white_check_mark: Splendid! The character was added! Note, custom dialog fonts must be manually installed by the bot owner. Otherwise, the bot will use the default font of determination.`
     );
-  },
+  }
 };

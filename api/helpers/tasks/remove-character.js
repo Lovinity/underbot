@@ -7,13 +7,13 @@ module.exports = {
     uid: {
       type: "string",
       required: true,
-      description: "The UID of the character to remove.",
-    },
+      description: "The UID of the character to remove."
+    }
   },
 
   exits: {},
 
-  fn: async function (inputs) {
+  fn: async function(inputs) {
     // Get the character from the database
     var character = await sails.models.characters.findOne({ uid: inputs.uid });
 
@@ -41,7 +41,10 @@ module.exports = {
             guild,
             `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. **This character may now be claimed by someone else**.`
           );
-        Caches.get("characters").set([inputs.uid], { userID: null });
+        await sails.models.characters.updateOne(
+          { uid: inputs.uid },
+          { userID: null }
+        );
       } else {
         if (guild)
           await sails.helpers.guild.send(
@@ -49,8 +52,8 @@ module.exports = {
             guild,
             `The previous owner of the character **${character.name}** has been gone from the guild for over 24 hours. This character cannot be claimed by others, therefore, it has disintegrated into dust and left the role play.`
           );
-        Caches.get("characters").delete(character.id);
+        await sails.models.characters.destroyOne({ id: character.id });
       }
     }
-  },
+  }
 };

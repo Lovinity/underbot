@@ -12,83 +12,83 @@ module.exports = {
     uid: {
       type: "string",
       unique: true,
-      required: true,
+      required: true
     },
 
     guildID: {
       type: "string",
-      required: true,
+      required: true
     },
 
     userID: {
       type: "string",
       allowNull: true,
       description:
-        "User who owns this character. Null if the character is not claimed yet.",
+        "User who owns this character. Null if the character is not claimed yet."
     },
 
     OC: {
       type: "boolean",
       defaultsTo: false,
-      description: "Is this character an OC? If false, it is an OG.",
+      description: "Is this character an OC? If false, it is an OG."
     },
 
     claimable: {
       type: "boolean",
       defaultsTo: false,
       description:
-        "Can this character be claimed? If true, should the claimer leave the guild, someone else can claim the character. If false, this character disintegrates / gets deleted.",
+        "Can this character be claimed? If true, should the claimer leave the guild, someone else can claim the character. If false, this character disintegrates / gets deleted."
     },
 
     name: {
       type: "string",
       description:
         "Name of the character (use all lowercase in the database). Thjis is used in character commands.",
-      required: true,
+      required: true
     },
 
     photo: {
       type: "string",
       description: "Name of the character photo file.",
-      defaultsTo: "default.png",
+      defaultsTo: "default.png"
     },
 
     sprite: {
       type: "string",
       description:
         "image name of the character sprite. Image should look good against a black background and be pixelized (dialog command).",
-      defaultsTo: "default.png",
+      defaultsTo: "default.png"
     },
 
     font: {
       type: "string",
       defaultsTo: "determination",
-      description: "Name of the font to use for the character dialog command.",
+      description: "Name of the font to use for the character dialog command."
     },
 
     nicknames: {
       type: "string",
       defaultsTo: "",
       description:
-        "Provide nicknames / alternate names this character is called.",
+        "Provide nicknames / alternate names this character is called."
     },
 
     pronouns: {
       type: "string",
       defaultsTo: "",
-      description: "Character pronouns",
+      description: "Character pronouns"
     },
 
     age: {
       type: "string",
       defaultsTo: "Unknown",
-      description: "Character age",
+      description: "Character age"
     },
 
     height: {
       type: "string",
       defaultsTo: "",
-      description: "The height of the character",
+      description: "The height of the character"
     },
 
     appearance: {
@@ -96,7 +96,7 @@ module.exports = {
       defaultsTo: "",
       description: "A description of the character appearance.",
       maxLength: 2000,
-      columnType: "varchar(2000)",
+      columnType: "varchar(2000)"
     },
 
     personality: {
@@ -105,44 +105,44 @@ module.exports = {
       description:
         "A description of the character personality and how they behave.",
       maxLength: 2000,
-      columnType: "varchar(2000)",
+      columnType: "varchar(2000)"
     },
 
     soulType: {
       type: "string",
       defaultsTo: "None",
-      description: "The type of soul this character has",
+      description: "The type of soul this character has"
     },
 
     HP: {
       type: "number",
       defaultsTo: 20,
-      description: "Character current HP",
+      description: "Character current HP"
     },
 
     maxHP: {
       type: "number",
       defaultsTo: 20,
       description:
-        "Maximum HP of the character (negates leveling), or 0 to use the level system max HP.",
+        "Maximum HP of the character (negates leveling), or 0 to use the level system max HP."
     },
 
     EXP: {
       type: "number",
       defaultsTo: 0,
-      description: "Character EXP.",
+      description: "Character EXP."
     },
 
     ATK: {
       type: "string",
       defaultsTo: "0 [0]",
-      description: "The character attack strength.",
+      description: "The character attack strength."
     },
 
     DEF: {
       type: "string",
       defaultsTo: "0 [0]",
-      description: "The character defense.",
+      description: "The character defense."
     },
 
     DT: {
@@ -150,19 +150,19 @@ module.exports = {
       defaultsTo: 50,
       min: 0,
       max: 100,
-      description: "The character determination.",
+      description: "The character determination."
     },
 
     gold: {
       type: "number",
       defaultsTo: 0,
-      description: "How much G (gold) the character currently has",
+      description: "How much G (gold) the character currently has"
     },
 
     items: {
       type: "json",
       defaultsTo: [],
-      description: "An array of items the character has. {name, description}",
+      description: "An array of items the character has. {name, description}"
     },
 
     weapons: {
@@ -171,7 +171,7 @@ module.exports = {
       description:
         "A description of the weapon(s) the character uses and how it affects gameplay.",
       maxLength: 2000,
-      columnType: "varchar(2000)",
+      columnType: "varchar(2000)"
     },
 
     armor: {
@@ -180,7 +180,7 @@ module.exports = {
       description:
         "A description of the armor the character uses and how it affects gameplay.",
       maxLength: 2000,
-      columnType: "varchar(2000)",
+      columnType: "varchar(2000)"
     },
 
     likes: {
@@ -188,7 +188,7 @@ module.exports = {
       defaultsTo: "",
       description: "A list of what the character enjoys",
       maxLength: 2000,
-      columnType: "varchar(2000)",
+      columnType: "varchar(2000)"
     },
 
     dislikes: {
@@ -196,7 +196,7 @@ module.exports = {
       defaultsTo: "",
       description: "A list of what the character does not enjoy",
       maxLength: 2000,
-      columnType: "varchar(2000)",
+      columnType: "varchar(2000)"
     },
 
     extraInfo: {
@@ -204,65 +204,66 @@ module.exports = {
       defaultsTo: "",
       description: "Any additional information about this character.",
       maxLength: 2000,
-      columnType: "varchar(2000)",
+      columnType: "varchar(2000)"
     },
 
     tallyMessage: {
       type: "string",
       allowNull: true,
       description:
-        "The message ID containing the character stats, which is updated by commands, and is posted in the guild characterStatsChannel.",
+        "The message ID containing the character stats, which is updated by commands, and is posted in the guild characterStatsChannel."
     },
 
     ogMessage: {
       type: "string",
       allowNull: true,
       description:
-        "The message ID posted in the OG channel if this is an OG character.",
+        "The message ID posted in the OG channel if this is an OG character."
     },
 
     ocMessage: {
       type: "string",
       allowNull: true,
       description:
-        "The message ID posted in the OC channel if this is an OC character.",
-    },
+        "The message ID posted in the OC channel if this is an OC character."
+    }
   },
 
   // Websockets and cache standards
-  afterCreate: function (newlyCreatedRecord, proceed) {
+  afterCreate: function(newlyCreatedRecord, proceed) {
     var data = { insert: newlyCreatedRecord };
     sails.sockets.broadcast(
       `characters-${newlyCreatedRecord.guildID}`,
       "characters",
       data
     );
-    Caches.set("characters", newlyCreatedRecord);
 
-    var temp = (async (character) => {
+    var temp = (async character => {
       var guild = await DiscordClient.guilds.resolve(character.guildID);
 
       if (guild) {
+        let guildSettings = await guild.settings();
         // New stats message if characterStatsChannel exists
-        if (guild.settings.characterStatsChannel) {
+        if (guildSettings.characterStatsChannel) {
           var channel = await DiscordClient.channels.resolve(
-            guild.settings.characterStatsChannel
+            guildSettings.characterStatsChannel
           );
           if (channel) {
             var embed = await sails.helpers.characters.generateStatsEmbed(
               character
             );
             var message = await channel.send({ embed: embed });
-            Caches.get("characters").set([character.uid], {
-              tallyMessage: message.id,
-            });
+            await sails.models.characters.updateOne(
+              { uid: character.uid },
+              { tallyMessage: message.id }
+            );
           }
         }
 
         // New character list message
         if (character.OC) {
           var channel = await DiscordClient.channels.resolve(
-            guild.settings.ocChannel
+            guildSettings.ocChannel
           );
           if (channel) {
             var message = await channel.send(
@@ -276,13 +277,14 @@ module.exports = {
                     }`
               } (${sails.config.custom.baseURL}/character/${character.uid})`
             );
-            Caches.get("characters").set([character.uid], {
-              ocMessage: message.id,
-            });
+            await sails.models.characters.updateOne(
+              { uid: character.uid },
+              { ocMessage: message.id }
+            );
           }
         } else {
           var channel = await DiscordClient.channels.resolve(
-            guild.settings.ogChannel
+            guildSettings.ogChannel
           );
           if (channel) {
             var message = await channel.send(
@@ -296,9 +298,10 @@ module.exports = {
                     }`
               } (${sails.config.custom.baseURL}/character/${character.uid})`
             );
-            Caches.get("characters").set([character.uid], {
-              ogMessage: message.id,
-            });
+            await sails.models.characters.updateOne(
+              { uid: character.uid },
+              { ogMessage: message.id }
+            );
           }
         }
       }
@@ -307,22 +310,23 @@ module.exports = {
     return proceed();
   },
 
-  afterUpdate: function (updatedRecord, proceed) {
+  afterUpdate: function(updatedRecord, proceed) {
     var data = { update: updatedRecord };
     sails.sockets.broadcast(
       `characters-${updatedRecord.guildID}`,
       "characters",
       data
     );
-    Caches.set("characters", updatedRecord);
 
-    var temp = (async (character) => {
+    var temp = (async character => {
       var guild = await DiscordClient.guilds.resolve(character.guildID);
       if (guild) {
+        let guildSettings = await guild.settings();
+
         // Update stats message if it exists
-        if (guild.settings.characterStatsChannel) {
+        if (guildSettings.characterStatsChannel) {
           var channel = await DiscordClient.channels.resolve(
-            guild.settings.characterStatsChannel
+            guildSettings.characterStatsChannel
           );
           if (channel && character.tallyMessage) {
             try {
@@ -344,7 +348,7 @@ module.exports = {
         // Update list message if it exists
         if (character.ocMessage && !character.OC) {
           var channel = await DiscordClient.channels.resolve(
-            guild.settings.ocChannel
+            guildSettings.ocChannel
           );
           if (channel) {
             try {
@@ -356,9 +360,12 @@ module.exports = {
               sails.log.error(e);
             }
           }
-          Caches.get("characters").set([character.uid], { ocMessage: null });
+          await sails.models.characters.updateOne(
+            { uid: character.uid },
+            { ocMessage: null }
+          );
           var channel = await DiscordClient.channels.resolve(
-            guild.settings.ogChannel
+            guildSettings.ogChannel
           );
           if (channel) {
             var message = await channel.send(
@@ -372,13 +379,14 @@ module.exports = {
                     }`
               } (${sails.config.custom.baseURL}/character/${character.uid})`
             );
-            Caches.get("characters").set([character.uid], {
-              ogMessage: message.id,
-            });
+            await sails.models.characters.updateOne(
+              { uid: character.uid },
+              { ogMessage: message.id }
+            );
           }
         } else if (character.ogMessage && character.OC) {
           var channel = await DiscordClient.channels.resolve(
-            guild.settings.ogChannel
+            guildSettings.ogChannel
           );
           if (channel) {
             try {
@@ -390,9 +398,12 @@ module.exports = {
               sails.log.error(e);
             }
           }
-          Caches.get("characters").set([character.uid], { ogMessage: null });
+          await sails.models.characters.updateOne(
+            { uid: character.uid },
+            { ogMessage: null }
+          );
           var channel = await DiscordClient.channels.resolve(
-            guild.settings.ocChannel
+            guildSettings.ocChannel
           );
           if (channel) {
             var message = await channel.send(
@@ -406,14 +417,15 @@ module.exports = {
                     }`
               } (${sails.config.custom.baseURL}/character/${character.uid})`
             );
-            Caches.get("characters").set([character.uid], {
-              ocMessage: message.id,
-            });
+            await sails.models.characters.updateOne(
+              { uid: character.uid },
+              { ocMessage: message.id }
+            );
           }
         } else {
           if (character.ogMessage) {
             var channel = await DiscordClient.channels.resolve(
-              guild.settings.ogChannel
+              guildSettings.ogChannel
             );
             if (channel) {
               try {
@@ -439,7 +451,7 @@ module.exports = {
             }
           } else if (character.ocMessage) {
             var channel = await DiscordClient.channels.resolve(
-              guild.settings.ocChannel
+              guildSettings.ocChannel
             );
             if (channel) {
               try {
@@ -471,22 +483,23 @@ module.exports = {
     return proceed();
   },
 
-  afterDestroy: function (destroyedRecord, proceed) {
+  afterDestroy: function(destroyedRecord, proceed) {
     var data = { remove: destroyedRecord.id };
     sails.sockets.broadcast(
       `characters-${destroyedRecord.guildID}`,
       "characters",
       data
     );
-    Caches.del("characters", destroyedRecord);
 
-    var temp = (async (character) => {
+    var temp = (async character => {
       var guild = await DiscordClient.guilds.resolve(character.guildID);
       if (guild) {
+        let guildSettings = await guild.settings();
+
         // delete stats message if it exists
-        if (guild.settings.characterStatsChannel) {
+        if (guildSettings.characterStatsChannel) {
           var channel = await DiscordClient.channels.resolve(
-            guild.settings.characterStatsChannel
+            guildSettings.characterStatsChannel
           );
           if (channel && character.tallyMessage) {
             try {
@@ -505,7 +518,7 @@ module.exports = {
         // Delete character messages if they exist
         if (character.ocMessage) {
           var channel = await DiscordClient.channels.resolve(
-            guild.settings.ocChannel
+            guildSettings.ocChannel
           );
           if (channel) {
             try {
@@ -517,11 +530,10 @@ module.exports = {
               sails.log.error(e);
             }
           }
-          Caches.get("characters").set([character.uid], { ocMessage: null });
         }
         if (character.ogMessage) {
           var channel = await DiscordClient.channels.resolve(
-            guild.settings.ogChannel
+            guildSettings.ogChannel
           );
           if (channel) {
             try {
@@ -533,11 +545,10 @@ module.exports = {
               sails.log.error(e);
             }
           }
-          Caches.get("characters").set([character.uid], { ogMessage: null });
         }
       }
     })(destroyedRecord);
 
     return proceed();
-  },
+  }
 };

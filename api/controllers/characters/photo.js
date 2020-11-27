@@ -12,7 +12,7 @@ module.exports = async function welcomeUser(req, res) {
   }
 
   // Find character
-  var character = Caches.get("characters").find([uid], false);
+  var character = await sails.models.characters.findOne({ uid: uid });
   if (!character) {
     return res.badRequest(
       new Error("A character with the provided uid was not found!")
@@ -26,7 +26,7 @@ module.exports = async function welcomeUser(req, res) {
 
   // Respond with the photo
   res.writeHead(200, {
-    "Content-type": `image/${path.extname(character.photo).replace(".", "")}`,
+    "Content-type": `image/${path.extname(character.photo).replace(".", "")}`
   });
   return res.end(photo);
 };

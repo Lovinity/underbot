@@ -40,7 +40,8 @@ module.exports = {
     }
 
     // Get the character
-    var character = inputs.message.guild.characters.find(
+    let guildCharacters = await inputs.message.guild.characters();
+    var character = guildCharacters.find(
       (char) => char.name.toLowerCase() === inputs.character.toLowerCase()
     );
 
@@ -104,7 +105,7 @@ module.exports = {
 
         // Check if the name already exists
         if (
-          inputs.message.guild.characters.find(
+          guildCharacters.find(
             (char) => char.name.toLowerCase() === toUpdate.name.toLowerCase()
           )
         ) {
@@ -398,7 +399,7 @@ module.exports = {
     }
 
     // Update database
-    Caches.get("characters").set([character.uid], toUpdate);
+    await sails.models.characters.updateOne({uid: character.uid}, toUpdate);
 
     return inputs.message.send(":white_check_mark: It has been edited!");
   },

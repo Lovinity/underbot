@@ -7,29 +7,31 @@ module.exports = {
     member: {
       type: "ref",
       required: true,
-      description: "The member to add spam score to",
+      description: "The member to add spam score to"
     },
     amount: {
       type: "number",
       min: 0,
       required: true,
-      description: "Amount of score to add",
+      description: "Amount of score to add"
     },
     message: {
       type: "ref",
       description:
-        "If inputs.member spam score was added from a message, provide the message.",
-    },
+        "If inputs.member spam score was added from a message, provide the message."
+    }
   },
 
-  fn: async function (inputs) {
-    // Ignore if score = 0 or if the member does not have the unverified role and has at least one other roles.
+  fn: async function(inputs) {
+    let guildSettings = await inputs.member.guild.settings();
+    let memberSettings = await inputs.member.settings();
 
+    // Ignore if score = 0 or if the member does not have the unverified role and has at least one other roles.
     if (
       inputs.amount === 0 ||
       (inputs.member.roles.cache.size > 1 &&
         !inputs.member.roles.cache.has(
-          inputs.member.guild.settings.unverifiedRole
+          guildSettings.unverifiedRole
         ))
     )
       return null;
@@ -42,31 +44,31 @@ module.exports = {
       return null;
 
     var isMuted =
-      inputs.member.guild.settings.muteRole &&
-      inputs.member.roles.cache.get(inputs.member.guild.settings.muteRole);
-    var currentScore = inputs.member.settings.spamScore;
+    guildSettings.muteRole &&
+      inputs.member.roles.cache.get(guildSettings.muteRole);
+    var currentScore = memberSettings.spamScore;
     var newScore = currentScore + inputs.amount;
 
     var modifier = {
-      spamScore: inputs.member.settings.spamScore + inputs.amount,
+      spamScore: memberSettings.spamScore + inputs.amount
     };
 
     // Check if the score has been breached
     if (currentScore < 100 && newScore >= 100) {
       // has it been more than 1 minute since the last warning? Give a warning.
       if (
-        inputs.member.settings.spamScoreStamp === null ||
+        memberSettings.spamScoreStamp === null ||
         moment()
           .subtract(1, "minutes")
-          .isAfter(moment(inputs.member.settings.spamScoreStamp))
+          .isAfter(moment(memberSettings.spamScoreStamp))
       ) {
         if (inputs.message) {
           var response = `:warning: <@${
             inputs.message.author.id
           }> , **DO YOU WANNA HAVE A BAD TIME?** ...'cause if you send another message in the next ${moment
             .duration(
-              inputs.member.guild.settings.antispamCooldown > 0
-                ? newScore / inputs.member.guild.settings.antispamCooldown + 1
+              guildSettings.antispamCooldown > 0
+                ? newScore / guildSettings.antispamCooldown + 1
                 : 0,
               "minutes"
             )
@@ -83,14 +85,14 @@ module.exports = {
       currentScore >= 100 &&
       moment()
         .subtract(5, "seconds")
-        .isAfter(moment(inputs.member.settings.spamScoreStamp))
+        .isAfter(moment(memberSettings.spamScoreStamp))
     ) {
       // Reset the member's spam score
       modifier.spamScore = 0;
 
       // Add the mute role
       inputs.member.roles.add(
-        inputs.member.guild.settings.muteRole,
+        guildSettings.muteRole,
         `Triggered the bot anti-spam`
       );
 
@@ -107,9 +109,9 @@ module.exports = {
     }
 
     // Update the score
-    Caches.get("members").set(
-      [inputs.member.id, inputs.member.guild.id],
+    await sails.models.members.updateOne(
+      { userID: inputs.member.id, guildID: inputs.member.guild.id },
       modifier
     );
-  },
+  }
 };

@@ -12,11 +12,11 @@ module.exports = {
     message: {
       type: "ref",
       required: true,
-      description: "The message object",
-    },
+      description: "The message object"
+    }
   },
 
-  fn: async function (inputs) {
+  fn: async function(inputs) {
     // Ignore own message
     if (
       inputs.message.author &&
@@ -32,16 +32,17 @@ module.exports = {
       return;
     }
 
+    let memberSettings = await inputs.message.member.settings();
+    let guildSettings = await inputs.message.guild.settings();
+
     // If member is supposed to be muted, mute them and delete the message
-    if (inputs.message.member && inputs.message.member.settings.muted) {
+    if (inputs.message.member && memberSettings.muted) {
       if (
-        inputs.message.guild.settings.muteRole &&
-        !inputs.message.member.roles.cache.has(
-          inputs.message.guild.settings.muteRole
-        )
+        guildSettings.muteRole &&
+        !inputs.message.member.roles.cache.has(guildSettings.muteRole)
       )
         inputs.message.member.roles.add(
-          inputs.message.member.guild.settings.muteRole,
+          guildSettings.muteRole,
           `User was supposed to be muted`
         );
       inputs.message.delete();
@@ -58,8 +59,7 @@ module.exports = {
 
     // Check for a command and execute it if found
     var prefix =
-      inputs.message.guild.settings.prefix ||
-      sails.config.custom.discord.defaultPrefix;
+      guildSettings.prefix || sails.config.custom.discord.defaultPrefix;
     var command;
     var commandParts;
 
@@ -101,7 +101,7 @@ module.exports = {
               );
             inputs.message.channel
               .send(errorMessage)
-              .then((a) => a.delete({ timeout: 30000 }));
+              .then(a => a.delete({ timeout: 30000 }));
           }
         } else {
           // Invalid command
@@ -121,7 +121,7 @@ module.exports = {
             );
           inputs.message.channel
             .send(errorMessage)
-            .then((a) => a.delete({ timeout: 15000 }));
+            .then(a => a.delete({ timeout: 15000 }));
         }
       }
     } else {
@@ -135,7 +135,7 @@ module.exports = {
         "710413617073487914", // Hotlands
         "710413931885363253", // Core
         "710413972385431633", // New home
-        "711099427770728449", // Undernet
+        "711099427770728449" // Undernet
       ];
 
       if (
@@ -149,13 +149,15 @@ module.exports = {
           !inputs.message.cleanContent.startsWith("/") &&
           inputs.message.cleanContent.length >= 128
         ) {
-          Caches.get("members").set(
-            [inputs.message.author.id, inputs.message.guild.id],
+          let guildSettings = await inputs.message.author.guildSettings(
+            inputs.message.guild.id
+          );
+          await sails.models.members.updateOne(
             {
-              rpPosts:
-                inputs.message.author.guildSettings(inputs.message.guild.id)
-                  .rpPosts + 1,
-            }
+              userID: inputs.message.author.id,
+              guildID: inputs.message.guild.id
+            },
+            { rpPosts: guildSettings.rpPosts + 1 }
           );
         }
       }
@@ -209,17 +211,19 @@ module.exports = {
           inputs.message.cleanContent.toLowerCase().includes("*disappears") ||
           inputs.message.cleanContent.toLowerCase().includes("_disappears"))
       ) {
-        Caches.get("members").set(
-          [inputs.message.author.id, inputs.message.guild.id],
+        let guildSettings = await inputs.message.author.guildSettings(
+          inputs.message.guild.id
+        );
+        await sails.models.members.updateOne(
           {
-            deathCount:
-              inputs.message.author.guildSettings(inputs.message.guild.id)
-                .deathCount + 1,
-          }
+            userID: inputs.message.author.id,
+            guildID: inputs.message.guild.id
+          },
+          { deathCount: guildSettings.deathCount + 1 }
         );
 
         registerFont(`./assets/fonts/determination.ttf`, {
-          family: "determination",
+          family: "determination"
         });
 
         // Create a new canvas
@@ -231,9 +235,7 @@ module.exports = {
         ctx.drawImage(imageBg, 0, 0, 400, 128);
 
         // Load the character sprite
-        var imageSprite = await loadImage(
-          `./uploads/death/sans.jpg`
-        );
+        var imageSprite = await loadImage(`./uploads/death/sans.jpg`);
         var width = imageSprite.width;
         var height = imageSprite.height;
         if (width > height) {
@@ -255,22 +257,26 @@ module.exports = {
         ctx.font = `16px determination`;
         ctx.fillStyle = "#FFFFFF";
         ctx.save();
-        var lines = wrapText(ctx, `Hmm. That expression... that's the expression of someone who's died ${
-          inputs.message.author.guildSettings(inputs.message.guild.id)
-            .deathCount
-        } times in a row.`, 296);
+        var lines = wrapText(
+          ctx,
+          `Hmm. That expression... that's the expression of someone who's died ${guildSettings.deathCount +
+            1} times in a row.`,
+          296
+        );
         if (typeof lines.split === "function" && lines.split("\n").length > 4) {
           ctx.font = `12px determination`;
           ctx.save();
-          lines = wrapText(ctx, `Hmm. That expression... that's the expression of someone who's died ${
-            inputs.message.author.guildSettings(inputs.message.guild.id)
-              .deathCount
-          } times in a row.`, 296);
+          lines = wrapText(
+            ctx,
+            `Hmm. That expression... that's the expression of someone who's died ${guildSettings.deathCount +
+              1} times in a row.`,
+            296
+          );
         }
         ctx.fillText(lines, 96, 20);
 
         inputs.message.channel.send(`<@${inputs.message.author.id}>`, {
-          files: [{ attachment: canvas.toBuffer(), name: "UndertaleDeath.png" }],
+          files: [{ attachment: canvas.toBuffer(), name: "UndertaleDeath.png" }]
         });
       }
 
@@ -312,12 +318,12 @@ module.exports = {
                 __dirname,
                 "../../../assets/images/sans_first_attack.gif"
               )
-            ),
-          ],
+            )
+          ]
         });
       }
     }
-  },
+  }
 };
 
 function wrapText(ctx, text, maxWidth) {

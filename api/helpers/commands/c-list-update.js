@@ -25,12 +25,15 @@ module.exports = {
       throw new Error(`You are not allowed to use this command.`);
     }
 
-    if (inputs.message.guild.settings.ocChannel) {
+    let guildSettings = await inputs.message.guild.settings();
+    let guildCharacters = await inputs.message.guild.characters();
+
+    if (guildSettings.ocChannel) {
       var channel = await DiscordClient.channels.resolve(
-        inputs.message.guild.settings.ocChannel
+        guildSettings.ocChannel
       );
       if (channel) {
-        var maps2 = inputs.message.guild.characters
+        var maps2 = guildCharacters
           .filter((character) => character.ocMessage)
           .map(async (character) => {
             try {
@@ -52,12 +55,12 @@ module.exports = {
       }
     }
 
-    if (inputs.message.guild.settings.ogChannel) {
+    if (guildSettings.ogChannel) {
       var channel = await DiscordClient.channels.resolve(
-        inputs.message.guild.settings.ogChannel
+        guildSettings.ogChannel
       );
       if (channel) {
-        var maps2 = inputs.message.guild.characters
+        var maps2 = guildCharacters
           .filter((character) => character.ogMessage)
           .map(async (character) => {
             try {

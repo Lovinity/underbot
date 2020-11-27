@@ -12,10 +12,6 @@
 // Load discord
 global["Discord"] = require("discord.js");
 
-// Load cache manager class
-var CacheManager = require("../util/Cache");
-global["Caches"] = new CacheManager();
-
 // Schedules cache
 global["Schedules"] = {};
 
@@ -26,7 +22,7 @@ require("moment-duration-format");
 // Used in raid detection for detecting how similar two strings are.
 const stringSimilarity = require("string-similarity");
 
-module.exports.bootstrap = async function () {
+module.exports.bootstrap = async function() {
   // Set default timezone to UTC
   moment.tz.setDefault("UTC");
 
@@ -35,27 +31,25 @@ module.exports.bootstrap = async function () {
   */
 
   // Guilds
-  await Caches.new("guilds", ["guildID"]);
-  await Caches.new("characters", ["uid"]);
-  Discord.Structures.extend("Guild", (Guild) => {
+  Discord.Structures.extend("Guild", Guild => {
     class CoolGuild extends Guild {
       constructor(client, data) {
         super(client, data);
 
-        // Initialize the guild in the cache
-        Caches.get("guilds").find([this.id]);
+        // Initialize the guild
+        sails.models.guilds
+          .findOrCreate({ guildID: this.id }, { guildID: this.id })
+          .exec((err, record, wasCreated) => {});
       }
 
       // per-guild settings
-      get settings() {
-        return Caches.get("guilds").find([this.id]);
+      async settings() {
+        return sails.models.guilds.findOne({ guildID: this.id });
       }
 
       // per-guild characters
-      get characters() {
-        return Caches.get("characters").collection.filter(
-          (record) => record.guildID === this.id
-        );
+      async characters() {
+        return sails.models.characters.find({ guildID: this.id });
       }
     }
 
@@ -63,44 +57,58 @@ module.exports.bootstrap = async function () {
   });
 
   // GuildMember
-  await Caches.new("members", ["userID", "guildID"]);
-  Discord.Structures.extend("GuildMember", (GuildMember) => {
+  Discord.Structures.extend("GuildMember", GuildMember => {
     class CoolGuildMember extends GuildMember {
       constructor(client, data, guild) {
         super(client, data, guild);
 
         // Initialize the guild member in the cache
-        Caches.get("members").find([this.id, this.guild.id]);
+        sails.models.members
+          .findOrCreate(
+            { userID: this.id, guildID: this.guild.id },
+            { userID: this.id, guildID: this.guild.id }
+          )
+          .exec((err, record, wasCreated) => {});
       }
 
       // Per-member settings
-      get settings() {
-        return Caches.get("members").find([this.id, this.guild.id]);
+      async settings() {
+        return sails.models.members.findOne({
+          userID: this.id,
+          guildID: this.guild.id
+        });
       }
 
       // Per-member characters they own
-      get characters() {
-        return Caches.get("characters").collection.filter(
-          (record) => record.userID === this.id
-        );
+      async characters() {
+        return sails.models.characters.find({
+          userID: this.id,
+          guildID: this.guild.id
+        });
       }
     }
 
     return CoolGuildMember;
   });
 
-  Discord.Structures.extend('User', User => {
+  Discord.Structures.extend("User", User => {
     class CoolUser extends User {
       constructor(client, data) {
         super(client, data);
       }
 
-      guildSettings (guildID) {
-        return Caches.get('members').find([ this.id, guildID ]);
+      async guildSettings(guildID) {
+        return sails.models.members.findOne({
+          userID: this.id,
+          guildID: guildID
+        });
       }
 
-      guildCharacters (guildID) {
-        return Caches.get('characters').collection.filter((record) => record.userID === this.id && record.guildID === guildID);
+      async guildCharacters(guildID) {
+        return sails.models.characters.find({
+          userID: this.id,
+          guildID: guildID
+        });
       }
     }
 
@@ -108,7 +116,7 @@ module.exports.bootstrap = async function () {
   });
 
   // Messages
-  Discord.Structures.extend("Message", (Message) => {
+  Discord.Structures.extend("Message", Message => {
     class CoolMessage extends Message {
       constructor(client, data, channel) {
         super(client, data, channel);
@@ -119,7 +127,7 @@ module.exports.bootstrap = async function () {
 
       // Taken from Klasa.js
       get responses() {
-        return this._responses.filter((msg) => !msg.deleted);
+        return this._responses.filter(msg => !msg.deleted);
       }
 
       // Taken from Klasa.js
@@ -138,7 +146,7 @@ module.exports.bootstrap = async function () {
         )
           .resolveData()
           .split()
-          .map((mes) => {
+          .map(mes => {
             // Command editing should always remove embeds and content if none is provided
             mes.data.embed = mes.data.embed || null;
             mes.data.content = mes.data.content || null;
@@ -199,7 +207,7 @@ module.exports.bootstrap = async function () {
           (this.cleanContent ? this.cleanContent.length : 0) / 14;
 
         // Iterate through messages of this channel from the last 3 minutes by the same author
-        var collection = this.channel.messages.cache.filter((message) => {
+        var collection = this.channel.messages.cache.filter(message => {
           if (message.partial || message === null || !message) return false;
           return (
             message.id !== this.id &&
@@ -211,7 +219,7 @@ module.exports.bootstrap = async function () {
           );
         });
 
-        collection.each((message) => {
+        collection.each(message => {
           // If the current message was sent at a time that causes the typing speed to be more than 14 characters per second,
           // add score for flooding / copypasting. The faster / more characters typed, the more score added.
           var timediff = moment(this.createdAt).diff(
@@ -349,7 +357,7 @@ module.exports.bootstrap = async function () {
           }
 
           // Add 3 points for every profane word used; excessive profanity spam
-          sails.config.custom.discord.profanity.map((word) => {
+          sails.config.custom.discord.profanity.map(word => {
             var numbers = getIndicesOf(word, this.cleanContent, false);
             if (numbers.length > 0) {
               score += numbers.length * 3;
@@ -393,7 +401,7 @@ module.exports.bootstrap = async function () {
     for (var event in sails.helpers.events) {
       if (Object.prototype.hasOwnProperty.call(sails.helpers.events, event)) {
         // Needs to be in a self-calling function to provide the proper value of event
-        let temp = (async (event2) => {
+        let temp = (async event2 => {
           // ready should only ever fire once whereas other events should be allowed to fire multiple times.
           if (["ready"].indexOf(event2) !== -1) {
             DiscordClient.once(event2, async (...args) => {
@@ -418,7 +426,7 @@ module.exports.bootstrap = async function () {
 
   // Initialize cron schedules
   var records = await sails.models.schedules.find();
-  records.forEach(async (record) => {
+  records.forEach(async record => {
     await sails.helpers.schedules.add(record);
   });
   await sails.models.schedules.findOrCreate(

@@ -7,13 +7,13 @@ module.exports = {
     message: {
       type: "ref",
       required: true,
-      description: "Starts a wizard to add a new character into the database.",
-    },
+      description: "Starts a wizard to add a new character into the database."
+    }
   },
 
   exits: {},
 
-  fn: async function (inputs) {
+  fn: async function(inputs) {
     // Delete original command message
     inputs.message.delete();
 
@@ -25,13 +25,16 @@ module.exports = {
       throw new Error(`You are not allowed to use this command.`);
     }
 
+    let guildSettings = await inputs.message.guild.settings();
+    let guildCharacters = await inputs.message.guild.characters();
+
     // Delete all prior messages first
-    if (inputs.message.guild.settings.ogChannel) {
+    if (guildSettings.ogChannel) {
       var channel = await inputs.message.guild.channels.resolve(
-        inputs.message.guild.settings.ogChannel
+        guildSettings.ogChannel
       );
       if (channel) {
-        var maps = inputs.message.guild.characters.map(async (character) => {
+        var maps = guildCharacters.map(async character => {
           if (character.ogMessage) {
             try {
               var message = await channel.messages.fetch(character.ogMessage);
@@ -48,14 +51,15 @@ module.exports = {
     }
 
     // Set new ogChannel
-    Caches.get("guilds").set([inputs.message.guild.id], {
-      ogChannel: inputs.message.channel.id,
-    });
+    await sails.models.guilds.updateOne(
+      { guildID: inputs.message.guild.id },
+      { ogChannel: inputs.message.channel.id }
+    );
 
     // Loop through each character in the database and create a stats message
-    var maps2 = inputs.message.guild.characters
-      .filter((character) => !character.OC)
-      .map(async (character) => {
+    var maps2 = guildCharacters
+      .filter(character => !character.OC)
+      .map(async character => {
         var message = await inputs.message.channel.send(
           `**${character.name}** - ${
             character.userID
@@ -67,10 +71,11 @@ module.exports = {
                 }`
           } (${sails.config.custom.baseURL}/character/${character.uid})`
         );
-        Caches.get("characters").set([character.uid], {
-          ogMessage: message.id,
-        });
+        await sails.models.characters.updateOne(
+          { uid: character.uid },
+          { ogMessage: message.id }
+        );
       });
     await Promise.all(maps2);
-  },
+  }
 };
