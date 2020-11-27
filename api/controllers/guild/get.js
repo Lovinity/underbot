@@ -47,7 +47,7 @@ module.exports = {
     });
     var guildCharacters2 = await Promise.all(maps);
 
-    var members = guild.members.cache.map(async (member) => {
+    let members = guild.members.cache.map(async (member) => {
       var staff = member.permissions.has("VIEW_AUDIT_LOG");
       var settings = await member.settings();
       return {
@@ -70,7 +70,7 @@ module.exports = {
         introduction: settings.introduction,
       };
     });
-    await Promise.all(members);
+    members = await Promise.all(members);
 
     return {
       id: guild.id,
