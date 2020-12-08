@@ -7,28 +7,28 @@ module.exports = {
     message: {
       type: "ref",
       required: true,
-      description: "Starts a wizard to add a new character into the database.",
+      description: "Starts a wizard to add a new character into the database."
     },
     time: {
       type: "string",
       required: true,
       description:
-        "A string describing a duration of time from now, or a specific date/time, to be reminded.",
+        "A string describing a duration of time from now, or a specific date/time, to be reminded."
     },
     reminder: {
       type: "string",
       required: true,
-      description: "The reminder message.",
-    },
+      description: "The reminder message."
+    }
   },
 
   exits: {
     success: {
-      description: "All done.",
-    },
+      description: "All done."
+    }
   },
 
-  fn: async function (inputs) {
+  fn: async function(inputs) {
     // Resolve time
     var datetime = await sails.helpers.resolvers.chronotime(inputs.time);
 
@@ -37,7 +37,7 @@ module.exports = {
       prompt,
       time,
       remove = true,
-      filter = (message) => message.author.id === inputs.message.author.id
+      filter = message => message.author.id === inputs.message.author.id
     ) => {
       // Prompt message
       var msg = await inputs.message.send(prompt);
@@ -47,10 +47,10 @@ module.exports = {
         var response = await inputs.message.channel.awaitMessages(filter, {
           max: 1,
           time: time,
-          errors: ["time"],
+          errors: ["time"]
         });
       } catch (e) {
-        throw new Error(`newcharacter command timed out.`);
+        throw new Error(`Command timed out.`);
       }
 
       // Delete sent message if remove is true
@@ -71,6 +71,8 @@ module.exports = {
 
     // Prompt confirmation
     confirmSchedule = async () => {
+      if (!moment(datetime).isValid())
+        throw new Error("The provided date/time is invalid.");
       var confirm = await prompt(
         `You are about to set a reminder for ${moment(datetime).format(
           "dddd, MMMM Do YYYY, h:mm:ss a Z"
@@ -106,14 +108,14 @@ module.exports = {
         data: {
           user: inputs.message.author.id,
           channel: inputs.message.channel.id,
-          reminder: inputs.reminder,
+          reminder: inputs.reminder
         },
-        nextRun: moment(datetime).format(),
+        nextRun: moment(datetime).format()
       })
       .fetch();
 
     return inputs.message.send(
       `:white_check_mark: Your reminder has been set! Its uid is ${uid}`
     );
-  },
+  }
 };
