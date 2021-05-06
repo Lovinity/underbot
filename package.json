@@ -9,7 +9,7 @@
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^5.2.0",
     "canvas": "^2.6.1",
-    "chrono-node": "^1.4.6",
+    "chrono-node": "^2.2.4",
     "cron": "^1.8.2",
     "crypto-random-string": "^3.2.0",
     "discord.js": "^12.2.0",
